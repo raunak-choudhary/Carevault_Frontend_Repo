@@ -1,0 +1,113 @@
+.documentsPage {
+    padding: var(--spacing-md);
+  }
+  
+  .pageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .pageHeader h1 {
+    margin: 0;
+  }
+  
+  .uploadButton {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background-color: var(--primary);
+    color: white;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+  
+  .uploadButton:hover {
+    background-color: var(--primary-dark);
+    color: white;
+  }
+  
+  .errorMessage {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-xl) 0;
+  }
+  
+  .documentsList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--spacing-xl) 0;
+    background-color: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-secondary);
+  }
+  
+  .emptyState svg {
+    color: var(--primary);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .emptyState h2 {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .emptyState p {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .uploadButtonLarge {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background-color: var(--primary);
+    color: white;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-lg);
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+  
+  .uploadButtonLarge:hover {
+    background-color: var(--primary-dark);
+    color: white;
+  }
+  
+  .clearButton {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+  
+  .clearButton:hover {
+    background-color: var(--border-color);
+  }
