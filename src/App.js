@@ -30,7 +30,9 @@ import ChatPage from './pages/chat/ChatPage';
 import AppointmentsListPage from './pages/appointments/AppointmentsListPage';
 import AppointmentCreatePage from './pages/appointments/AppointmentCreatePage';
 import AppointmentViewPage from './pages/appointments/AppointmentViewPage';
+import AppointmentEditPage from './pages/appointments/AppointmentEditPage'; // Added for issue 1
 import ProviderSearchPage from './pages/appointments/ProviderSearchPage';
+import ProviderDetailPage from './pages/appointments/ProviderDetailPage'; // Added for issue 3
 
 // Import layout components
 import BaseLayout from './components/layout/BaseLayout';
@@ -159,10 +161,26 @@ const AppRoutes = () => {
         </ProtectedRoute>
       } />
       
+      <Route path="/appointments/edit/:id" element={
+        <ProtectedRoute>
+          <BaseLayout>
+            <AppointmentEditPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
       <Route path="/appointments/providers" element={
         <ProtectedRoute>
           <BaseLayout>
             <ProviderSearchPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/appointments/providers/:id" element={
+        <ProtectedRoute>
+          <BaseLayout>
+            <ProviderDetailPage />
           </BaseLayout>
         </ProtectedRoute>
       } />

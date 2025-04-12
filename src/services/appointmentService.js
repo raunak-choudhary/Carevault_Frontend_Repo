@@ -10,6 +10,7 @@ const generateId = () => {
 };
 
 // Get all appointments
+// Get all appointments
 const getAppointments = async (status = 'all') => {
   // Simulate API call
   await delay(800);
@@ -41,6 +42,9 @@ const getAppointments = async (status = 'all') => {
       appointments = appointments.filter(appt => 
         new Date(appt.startTime) < now || appt.status === 'completed'
       );
+    } else if (status === 'cancelled') {
+      // Filter for cancelled appointments
+      appointments = appointments.filter(appt => appt.status === 'cancelled');
     }
   }
   
@@ -49,8 +53,8 @@ const getAppointments = async (status = 'all') => {
     const dateA = new Date(a.startTime);
     const dateB = new Date(b.startTime);
     
-    if (status === 'completed') {
-      return dateB - dateA; // Most recent first for completed
+    if (status === 'completed' || status === 'cancelled') {
+      return dateB - dateA; // Most recent first for completed/cancelled
     }
     
     return dateA - dateB; // Soonest first for upcoming

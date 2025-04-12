@@ -1,73 +1,144 @@
-.calendar {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+.calendarContainer {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
 }
 
 .calendarHeader {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  margin-bottom: var(--spacing-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
 }
 
-.dayName {
+.monthTitle {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--primary);
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.navButton:hover {
+  background-color: var(--primary);
+  color: white;
+  transform: scale(1.05);
+}
+
+.weekdaysHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: var(--spacing-md);
   text-align: center;
-  font-weight: 500;
-  padding: var(--spacing-xs);
-  color: var(--text-secondary);
 }
 
-.calendarBody {
+.weekday {
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: var(--spacing-sm) 0;
+  font-size: 0.9rem;
+}
+
+.daysGrid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: var(--spacing-xs);
+  gap: var(--spacing-sm);
 }
 
-.calendarDay, .emptyDay {
-  aspect-ratio: 1 / 1;
+.day, .emptyDay {
+  aspect-ratio: 1/1;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-sm);
-  padding: var(--spacing-xs);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: all var(--transition-fast);
+  transition: all 0.2s ease;
 }
 
-.calendarDay:hover {
+.day:hover {
   border-color: var(--primary);
-  background-color: var(--bg-secondary);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
 }
 
 .emptyDay {
   background-color: var(--bg-tertiary);
-  opacity: 0.5;
+  opacity: 0.3;
+}
+
+.dayHeader {
+  padding: var(--spacing-xs);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
 }
 
 .dayNumber {
-  font-weight: 500;
-  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.appointmentDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--primary);
 }
 
 .dayContent {
-  flex-grow: 1;
+  flex: 1;
+  padding: var(--spacing-xs);
   overflow: hidden;
+}
+
+.appointmentsLink {
   text-decoration: none;
   color: inherit;
+  display: block;
+  height: 100%;
 }
 
 .today {
-  background-color: rgba(76, 175, 80, 0.05);
-  border-color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.today .dayHeader {
+  background-color: var(--primary);
+  color: white;
 }
 
 .hasAppointments {
-  border-left: 3px solid var(--primary);
+  background-color: rgba(76, 175, 80, 0.05);
 }
 
 .appointmentsContainer {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  font-size: 0.8rem;
 }
 
 .appointmentIndicator {
@@ -75,7 +146,7 @@
   color: white;
   padding: 2px 4px;
   border-radius: var(--border-radius-sm);
-  font-size: 10px;
+  font-size: 0.7rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -87,31 +158,41 @@
 }
 
 .moreAppointments {
-  font-size: 10px;
+  font-size: 0.7rem;
   color: var(--text-secondary);
   text-align: center;
+  font-style: italic;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .calendarBody {
-    gap: 2px;
+  .daysGrid {
+    gap: 4px;
   }
   
-  .calendarDay, .emptyDay {
-    padding: 2px;
+  .day, .emptyDay {
+    border-radius: var(--border-radius-sm);
+  }
+  
+  .dayHeader {
+    padding: 2px 4px;
   }
   
   .dayNumber {
-    font-size: 12px;
+    font-size: 0.8rem;
   }
   
   .appointmentIndicator {
-    font-size: 8px;
+    font-size: 0.6rem;
     padding: 1px 2px;
   }
   
-  .moreAppointments {
-    font-size: 8px;
+  .navButton {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .monthTitle {
+    font-size: 1.2rem;
   }
 }

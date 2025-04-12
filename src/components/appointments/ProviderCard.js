@@ -109,9 +109,9 @@ const ProviderCard = ({ provider, detailed = false, selected = false, onSelect, 
           Schedule Appointment
         </Link>
       ) : (
-        <div className={styles.providerAction}>
+        <Link to={`/appointments/providers/${provider.id}`} className={styles.providerAction} onClick={(e) => e.stopPropagation()}>
           <FiChevronRight className={styles.actionIcon} />
-        </div>
+        </Link>
       )}
     </div>
   );

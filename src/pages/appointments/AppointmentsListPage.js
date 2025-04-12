@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiPlus, FiCalendar, FiFilter, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiPlus, FiCalendar, FiFilter } from 'react-icons/fi';
 import AppointmentCard from '../../components/appointments/AppointmentCard';
 import Calendar from '../../components/appointments/Calendar';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
@@ -39,27 +39,9 @@ const AppointmentsListPage = () => {
     setFilterStatus(status);
   };
   
-  // Navigate to next month
-  const goToNextMonth = () => {
-    setCurrentMonth(prev => {
-      const nextMonth = new Date(prev);
-      nextMonth.setMonth(nextMonth.getMonth() + 1);
-      return nextMonth;
-    });
-  };
-  
-  // Navigate to previous month
-  const goToPreviousMonth = () => {
-    setCurrentMonth(prev => {
-      const prevMonth = new Date(prev);
-      prevMonth.setMonth(prevMonth.getMonth() - 1);
-      return prevMonth;
-    });
-  };
-  
-  // Format month for display
-  const formatMonth = (date) => {
-    return date.toLocaleDateString('default', { month: 'long', year: 'numeric' });
+  // Handle month change from Calendar component
+  const handleMonthChange = (newMonth) => {
+    setCurrentMonth(newMonth);
   };
   
   return (
@@ -96,6 +78,7 @@ const AppointmentsListPage = () => {
           >
             <option value="upcoming">Upcoming</option>
             <option value="completed">Past</option>
+            <option value="cancelled">Cancelled</option>
             <option value="all">All</option>
           </select>
         </div>
@@ -131,7 +114,9 @@ const AppointmentsListPage = () => {
                       ? "You don't have any upcoming appointments." 
                       : filterStatus === 'completed'
                         ? "You don't have any past appointments."
-                        : "You don't have any appointments."}
+                        : filterStatus === 'cancelled'
+                          ? "You don't have any cancelled appointments."
+                          : "You don't have any appointments."}
                   </p>
                   <Link to="/appointments/create" className={styles.emptyStateButton}>
                     Schedule an Appointment
@@ -141,25 +126,10 @@ const AppointmentsListPage = () => {
             </div>
           ) : (
             <div className={styles.calendarView}>
-              <div className={styles.calendarHeader}>
-                <button 
-                  className={styles.calendarNavButton}
-                  onClick={goToPreviousMonth}
-                >
-                  <FiChevronLeft />
-                </button>
-                <h2 className={styles.currentMonth}>{formatMonth(currentMonth)}</h2>
-                <button 
-                  className={styles.calendarNavButton}
-                  onClick={goToNextMonth}
-                >
-                  <FiChevronRight />
-                </button>
-              </div>
-              
               <Calendar 
                 appointments={appointments} 
                 currentMonth={currentMonth}
+                onMonthChange={handleMonthChange}
               />
             </div>
           )}
