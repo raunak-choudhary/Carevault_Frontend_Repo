@@ -1,0 +1,116 @@
+.appointmentCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-md);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+.appointmentCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.appointmentCardContent {
+  flex-grow: 1;
+}
+
+.appointmentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+}
+
+.appointmentType {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.appointmentStatus {
+  font-size: var(--font-size-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-full);
+  font-weight: 500;
+}
+
+.statusUpcoming {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: var(--primary);
+}
+
+.statusToday {
+  background-color: rgba(255, 152, 0, 0.1);
+  color: #ff9800;
+}
+
+.statusCompleted {
+  background-color: rgba(158, 158, 158, 0.1);
+  color: var(--text-secondary);
+}
+
+.statusCancelled {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+}
+
+.appointmentTitle {
+  font-size: var(--font-size-lg);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.appointmentDetails {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm) var(--spacing-lg);
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.detailIcon {
+  margin-right: var(--spacing-xs);
+  flex-shrink: 0;
+}
+
+.appointmentAction {
+  margin-left: var(--spacing-md);
+}
+
+.actionIcon {
+  color: var(--text-secondary);
+  font-size: var(--font-size-lg);
+  transition: color var(--transition-fast);
+}
+
+.appointmentCard:hover .actionIcon {
+  color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .appointmentDetails {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .appointmentHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+  
+  .appointmentStatus {
+    align-self: flex-start;
+  }
+}

@@ -1,0 +1,388 @@
+.formContainer {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+}
+
+.formSteps {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.formStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stepNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+  font-weight: 500;
+}
+
+.stepLabel {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.stepDivider {
+  flex-grow: 1;
+  height: 2px;
+  background-color: var(--border-color);
+  margin: 0 var(--spacing-md);
+}
+
+.activeStep .stepNumber {
+  background-color: var(--primary);
+  color: white;
+}
+
+.activeStep .stepLabel {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.completedStep .stepNumber {
+  background-color: var(--primary);
+  color: white;
+}
+
+.formSection {
+  margin-bottom: var(--spacing-lg);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.formRow {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.formGroup {
+  flex: 1;
+  margin-bottom: var(--spacing-md);
+}
+
+.inputLabel {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.formInput, .formTextarea {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 36px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.formInput:focus, .formTextarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.formTextarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+}
+
+.inputIconTextarea {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  color: var(--text-secondary);
+}
+
+.errorText {
+  color: #f44336;
+  font-size: var(--font-size-xs);
+  margin-top: 4px;
+}
+
+.formActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--spacing-lg);
+}
+
+.backButton, .nextButton, .submitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-xl);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.backButton {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: none;
+}
+
+.backButton:hover {
+  background-color: var(--border-color);
+}
+
+.nextButton, .submitButton {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+}
+
+.nextButton:hover, .submitButton:hover {
+  background-color: var(--primary-dark);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Provider selection styles */
+.searchContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  gap: var(--spacing-md);
+}
+
+.searchWrapper {
+  position: relative;
+  flex-grow: 1;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 36px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.findProvidersButton {
+  white-space: nowrap;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.findProvidersButton:hover {
+  background-color: var(--border-color);
+  color: var(--primary);
+}
+
+.providersContainer {
+  margin-bottom: var(--spacing-md);
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+}
+
+.providersList {
+  display: flex;
+  flex-direction: column;
+}
+
+.providerCard {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  position: relative;
+}
+
+.providerCard:last-child {
+  border-bottom: none;
+}
+
+.providerCard:hover {
+  background-color: var(--bg-secondary);
+}
+
+.selectedProvider {
+  background-color: rgba(76, 175, 80, 0.05);
+  border-left: 3px solid var(--primary);
+}
+
+.providerAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: var(--spacing-md);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.providerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.providerInitial {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary);
+  color: white;
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}
+
+.providerInfo {
+  flex-grow: 1;
+}
+
+.providerName {
+  font-size: var(--font-size-md);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.providerSpecialty {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.providerLocation {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.providerSelectedIcon {
+  color: var(--primary);
+  margin-left: var(--spacing-md);
+}
+
+.loadingProviders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+}
+
+.loadingProviders p {
+  margin-top: var(--spacing-md);
+  color: var(--text-secondary);
+}
+
+.noProvidersMessage {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  color: var(--text-secondary);
+}
+
+/* Appointment summary */
+.appointmentSummary, .selectedProviderSummary {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius-md);
+}
+
+.appointmentSummary h3, .selectedProviderSummary h3 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-md);
+}
+
+.summaryDetail, .providerDetail {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-secondary);
+}
+
+.detailIcon {
+  margin-right: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .formRow {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .searchContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .findProvidersButton {
+    width: 100%;
+    text-align: center;
+    margin-top: var(--spacing-xs);
+  }
+  
+  .formActions {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .backButton, .nextButton, .submitButton {
+    width: 100%;
+  }
+}

@@ -1,0 +1,197 @@
+.appointmentsPage {
+  padding: var(--spacing-md);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.pageHeader h1 {
+  margin: 0;
+}
+
+.createButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background-color: var(--primary);
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.createButton:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.viewControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.viewToggle {
+  display: flex;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+}
+
+.viewButton {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.activeView {
+  background-color: var(--primary);
+  color: white;
+}
+
+.filterControls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.filterIcon {
+  color: var(--text-secondary);
+}
+
+.filterSelect {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.errorMessage {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xl);
+}
+
+.appointmentList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-xl);
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.emptyState svg {
+  color: var(--primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.emptyState h2 {
+  margin-bottom: var(--spacing-sm);
+}
+
+.emptyState p {
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-secondary);
+}
+
+.emptyStateButton {
+  background-color: var(--primary);
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.emptyStateButton:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.calendarView {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-md);
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.currentMonth {
+  margin: 0;
+  font-size: var(--font-size-xl);
+}
+
+.calendarNavButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.calendarNavButton:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .viewControls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+
+  .pageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .createButton {
+    align-self: flex-start;
+  }
+}

@@ -2,6 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
+import { DocumentProvider } from './context/DocumentContext';
+import { ChatProvider } from './context/ChatContext';
+import { AppointmentProvider } from './context/AppointmentContext'; // Added for appointments
 import { useAuth } from './hooks/useAuth';
 
 // Import pages
@@ -19,6 +22,15 @@ import NotFoundPage from './pages/not-found/NotFoundPage';
 import DocumentsListPage from './pages/documents/DocumentsListPage';
 import DocumentViewPage from './pages/documents/DocumentViewPage';
 import DocumentUploadPage from './pages/documents/DocumentUploadPage';
+
+// Import chat pages - Phase 4
+import ChatPage from './pages/chat/ChatPage';
+
+// Import appointment pages - Phase 5
+import AppointmentsListPage from './pages/appointments/AppointmentsListPage';
+import AppointmentCreatePage from './pages/appointments/AppointmentCreatePage';
+import AppointmentViewPage from './pages/appointments/AppointmentViewPage';
+import ProviderSearchPage from './pages/appointments/ProviderSearchPage';
 
 // Import layout components
 import BaseLayout from './components/layout/BaseLayout';
@@ -113,19 +125,44 @@ const AppRoutes = () => {
         </ProtectedRoute>
       } />
       
-      {/* Placeholder routes for other protected areas */}
+      {/* Chat routes - Phase 4 */}
       <Route path="/chat" element={
         <ProtectedRoute>
           <BaseLayout>
-            <div>Chat Page (Coming Soon)</div>
+            <ChatPage />
           </BaseLayout>
         </ProtectedRoute>
       } />
       
+      {/* Appointment routes - Phase 5 */}
       <Route path="/appointments" element={
         <ProtectedRoute>
           <BaseLayout>
-            <div>Appointments Page (Coming Soon)</div>
+            <AppointmentsListPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/appointments/create" element={
+        <ProtectedRoute>
+          <BaseLayout>
+            <AppointmentCreatePage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/appointments/view/:id" element={
+        <ProtectedRoute>
+          <BaseLayout>
+            <AppointmentViewPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/appointments/providers" element={
+        <ProtectedRoute>
+          <BaseLayout>
+            <ProviderSearchPage />
           </BaseLayout>
         </ProtectedRoute>
       } />
@@ -156,9 +193,15 @@ const App = () => {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <Router>
-          <AppRoutes />
-        </Router>
+        <DocumentProvider>
+          <ChatProvider>
+            <AppointmentProvider> {/* Added appointment provider */}
+              <Router>
+                <AppRoutes />
+              </Router>
+            </AppointmentProvider>
+          </ChatProvider>
+        </DocumentProvider>
       </AuthProvider>
     </ThemeProvider>
   );

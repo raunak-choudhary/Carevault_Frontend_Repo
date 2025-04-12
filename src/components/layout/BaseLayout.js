@@ -16,12 +16,16 @@ const BaseLayout = ({ children }) => {
     setSidebarOpen(false);
   };
 
+  // Check if the current route is the chat page to apply specific layout adjustments if needed
+  // This will be used in future phases for full-screen chat view or other layout modifications
+  const isChatPage = window.location.pathname.startsWith('/chat');
+
   return (
     <div className={styles.layout}>
       <Header />
       <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
       
-      <main className={styles.main}>
+      <main className={`${styles.main} ${isChatPage ? styles.chatLayout : ''}`}>
         {children}
       </main>
       

@@ -1,6 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { FiHome, FiFileText, FiMessageSquare, FiCalendar, FiPieChart, FiSettings, FiUpload } from 'react-icons/fi';
+import { 
+  FiHome, 
+  FiFileText, 
+  FiMessageSquare, 
+  FiCalendar, 
+  FiPieChart, 
+  FiSettings, 
+  FiUpload,
+  FiPlus,
+  FiSearch
+} from 'react-icons/fi';
 import styles from './Sidebar.module.css';
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -18,8 +28,22 @@ const Sidebar = ({ isOpen, onClose }) => {
         { to: "/documents/upload", label: "Upload New", icon: <FiUpload size={14} /> }
       ]
     },
-    { to: "/chat", icon: <FiMessageSquare className={styles.navIcon} />, label: "Chat" },
-    { to: "/appointments", icon: <FiCalendar className={styles.navIcon} />, label: "Appointments" },
+    { 
+      to: "/chat", 
+      icon: <FiMessageSquare className={styles.navIcon} />, 
+      label: "Chat Assistant"
+    },
+    // Updated Appointments nav item with subitems
+    { 
+      to: "/appointments", 
+      icon: <FiCalendar className={styles.navIcon} />, 
+      label: "Appointments",
+      subItems: [
+        { to: "/appointments", label: "My Appointments" },
+        { to: "/appointments/create", label: "Schedule New", icon: <FiPlus size={14} /> },
+        { to: "/appointments/providers", label: "Find Providers", icon: <FiSearch size={14} /> }
+      ]
+    },
     { to: "/insights", icon: <FiPieChart className={styles.navIcon} />, label: "Health Insights" },
     { to: "/settings", icon: <FiSettings className={styles.navIcon} />, label: "Settings" }
   ];

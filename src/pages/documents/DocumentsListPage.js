@@ -196,9 +196,6 @@ const DocumentsListPage = () => {
               <FiFileText size={48} />
               <h2>No documents yet</h2>
               <p>Upload your first document to get started.</p>
-              <Link to="/documents/upload" className={styles.uploadButtonLarge}>
-                <FiPlus /> Upload Document
-              </Link>
             </div>
           )}
         </div>

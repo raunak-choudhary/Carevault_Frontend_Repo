@@ -1,0 +1,122 @@
+.mapContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  background-color: #f8f9fa;
+}
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 10;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(76, 175, 80, 0.1);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--spacing-sm);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.mockMapContent {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #e0e0e0;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.mapWatermark {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.mapMarker {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  transform: translate(-50%, -100%);
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.3s ease;
+}
+
+.markerIcon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary);
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+}
+
+.selectedMarker .markerIcon {
+  color: #ff5722;
+  transform: scale(1.2);
+}
+
+.mapMarker:hover {
+  z-index: 10;
+}
+
+.mapMarker:hover .markerIcon {
+  transform: scale(1.2);
+}
+
+.mapControls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 5;
+}
+
+.mapControl {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.mapControl:hover {
+  background-color: #f1f1f1;
+}

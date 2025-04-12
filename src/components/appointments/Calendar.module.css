@@ -1,0 +1,117 @@
+.calendar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.calendarHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: var(--spacing-sm);
+}
+
+.dayName {
+  text-align: center;
+  font-weight: 500;
+  padding: var(--spacing-xs);
+  color: var(--text-secondary);
+}
+
+.calendarBody {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--spacing-xs);
+}
+
+.calendarDay, .emptyDay {
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-xs);
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-fast);
+}
+
+.calendarDay:hover {
+  border-color: var(--primary);
+  background-color: var(--bg-secondary);
+}
+
+.emptyDay {
+  background-color: var(--bg-tertiary);
+  opacity: 0.5;
+}
+
+.dayNumber {
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+}
+
+.dayContent {
+  flex-grow: 1;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+.today {
+  background-color: rgba(76, 175, 80, 0.05);
+  border-color: var(--primary);
+}
+
+.hasAppointments {
+  border-left: 3px solid var(--primary);
+}
+
+.appointmentsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.appointmentIndicator {
+  background-color: var(--primary);
+  color: white;
+  padding: 2px 4px;
+  border-radius: var(--border-radius-sm);
+  font-size: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cancelledAppointment {
+  background-color: var(--text-secondary);
+  text-decoration: line-through;
+}
+
+.moreAppointments {
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .calendarBody {
+    gap: 2px;
+  }
+  
+  .calendarDay, .emptyDay {
+    padding: 2px;
+  }
+  
+  .dayNumber {
+    font-size: 12px;
+  }
+  
+  .appointmentIndicator {
+    font-size: 8px;
+    padding: 1px 2px;
+  }
+  
+  .moreAppointments {
+    font-size: 8px;
+  }
+}

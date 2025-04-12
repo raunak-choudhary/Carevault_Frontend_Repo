@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiFileText, FiCalendar, FiArrowRight, FiUpload } from 'react-icons/fi';
-import { getUserDocuments } from '../../services/authService'; // Will be moved to documentService in future phases
+import { getUserDocuments } from '../../services/authService';
+import { useAppointments } from '../../hooks/useAppointments';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import styles from './DashboardPage.module.css';
 
 const DashboardPage = () => {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  // Get appointments from context
+  const { upcomingAppointments, loading: appointmentsLoading } = useAppointments();
   
   // Fetch user documents on component mount
   useEffect(() => {
@@ -25,21 +29,19 @@ const DashboardPage = () => {
     fetchDocuments();
   }, []);
   
-  // Placeholder data for stats and appointments
+  // Stats with real appointment data
   const stats = [
     { label: 'Documents', value: documents.length || 0 },
-    { label: 'Upcoming Appointments', value: 3 },
+    { label: 'Upcoming Appointments', value: upcomingAppointments.length || 0 },
     { label: 'Medication Reminders', value: 8 },
     { label: 'Health Insights', value: 12 }
-  ];
-  
-  const upcomingAppointments = [
-    { id: 1, title: 'Dental Checkup', type: 'Dental', date: '2024-04-15', time: '10:00 AM', provider: 'Dr. White' },
-    { id: 2, title: 'Eye Examination', type: 'Optometry', date: '2024-04-22', time: '2:30 PM', provider: 'Vision Care Clinic' }
   ];
 
   // Get the most recent documents (up to 3)
   const recentDocuments = documents.slice(0, 3);
+  
+  // Get most recent upcoming appointments (up to 2)
+  const recentAppointments = upcomingAppointments.slice(0, 2);
   
   // Format date properly without timezone issues
   const formatDocumentDate = (document) => {
@@ -59,6 +61,22 @@ const DashboardPage = () => {
     
     // Fallback to createdAt
     return new Date(document.createdAt).toLocaleDateString();
+  };
+  
+  // Format appointment date
+  const formatAppointmentDate = (dateString) => {
+    if (!dateString) return '';
+    
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
+  };
+  
+  // Format appointment time
+  const formatAppointmentTime = (dateString) => {
+    if (!dateString) return '';
+    
+    const date = new Date(dateString);
+    return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
   };
 
   return (
@@ -131,22 +149,35 @@ const DashboardPage = () => {
         </div>
         
         <div className={styles.cardGrid}>
-          {upcomingAppointments.map(appointment => (
-            <div key={appointment.id} className={styles.appointmentCard}>
-              <div className={styles.appointmentCardHeader}>
-                <span className={styles.appointmentType}>
-                  <FiCalendar style={{ marginRight: '4px' }} />
-                  {appointment.type}
-                </span>
-                <span className={styles.appointmentDate}>{appointment.date}</span>
-              </div>
-              <h3 className={styles.appointmentTitle}>{appointment.title}</h3>
-              <div className={styles.appointmentProvider}>
-                {appointment.provider}
-                <span className={styles.appointmentTime}>{appointment.time}</span>
-              </div>
+          {appointmentsLoading ? (
+            <div className={styles.loadingContainer}>
+              <LoadingSpinner size="medium" />
             </div>
-          ))}
+          ) : recentAppointments.length > 0 ? (
+            recentAppointments.map(appointment => (
+              <Link key={appointment.id} to={`/appointments/view/${appointment.id}`} className={styles.appointmentCard}>
+                <div className={styles.appointmentCardHeader}>
+                  <span className={styles.appointmentType}>
+                    <FiCalendar style={{ marginRight: '4px' }} />
+                    {appointment.type ? appointment.type.charAt(0).toUpperCase() + appointment.type.slice(1) : 'Appointment'}
+                  </span>
+                  <span className={styles.appointmentDate}>{formatAppointmentDate(appointment.startTime)}</span>
+                </div>
+                <h3 className={styles.appointmentTitle}>{appointment.title || 'Appointment'}</h3>
+                <div className={styles.appointmentProvider}>
+                  {appointment.providerName || 'Unknown Provider'}
+                  <span className={styles.appointmentTime}>{formatAppointmentTime(appointment.startTime)}</span>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <div className={styles.emptyState}>
+              <p>No upcoming appointments. Schedule your first appointment!</p>
+              <Link to="/appointments/create" className={styles.uploadButtonLarge}>
+                <FiCalendar style={{ marginRight: '8px' }} /> Schedule Appointment
+              </Link>
+            </div>
+          )}
         </div>
       </section>
     </div>

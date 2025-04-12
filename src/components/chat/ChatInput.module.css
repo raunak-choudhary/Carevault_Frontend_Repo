@@ -1,0 +1,119 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
+  }
+  
+  .attachmentPreview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bg-tertiary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .attachmentInfo {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .attachmentName {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+  }
+  
+  .attachmentSize {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+  }
+  
+  .removeAttachment {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  
+  .removeAttachment:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #f44336;
+  }
+  
+  .inputWrapper {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm);
+  }
+  
+  .messageInput {
+    flex: 1;
+    border: none;
+    background: none;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-md);
+    color: var(--text-primary);
+  }
+  
+  .messageInput:focus {
+    outline: none;
+  }
+  
+  .messageInput::placeholder {
+    color: var(--text-secondary);
+  }
+  
+  .inputActions {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+  
+  .attachButton, .sendButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    padding: 0;
+  }
+  
+  .attachButton {
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+  }
+  
+  .sendButton {
+    background-color: var(--primary);
+    color: white;
+  }
+  
+  .attachButton:hover {
+    background-color: var(--border-color);
+  }
+  
+  .sendButton:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  .sendButton:disabled, .attachButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .fileInput {
+    display: none;
+  }

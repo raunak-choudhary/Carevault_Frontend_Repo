@@ -1,0 +1,77 @@
+.timeSlotPicker {
+  margin-bottom: var(--spacing-lg);
+}
+
+.timeSlotSection {
+  margin-bottom: var(--spacing-md);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-md);
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-secondary);
+}
+
+.timeSlotGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.timeSlot {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.timeSlot:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.selectedTimeSlot {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.selectedTimeSlot:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.loadingContainer, .errorContainer, .noSlotsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius-md);
+  text-align: center;
+}
+
+.loadingContainer p, .errorContainer p, .noSlotsContainer p {
+  margin-top: var(--spacing-sm);
+  color: var(--text-secondary);
+}
+
+.errorIcon, .noSlotsIcon {
+  font-size: 32px;
+  color: #f44336;
+}
+
+.noSlotsIcon {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 576px) {
+  .timeSlotGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
