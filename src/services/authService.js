@@ -11,6 +11,86 @@ const USER_ROLES = {
   ADMIN: 'admin'
 };
 
+// Mock health data for demo
+const initialHealthData = {
+  weight: {
+    data: [
+      { value: 72.5, unit: 'kg', timestamp: '2024-03-01T08:30:00Z' },
+      { value: 72.1, unit: 'kg', timestamp: '2024-03-08T08:15:00Z' },
+      { value: 71.8, unit: 'kg', timestamp: '2024-03-15T08:45:00Z' },
+      { value: 71.3, unit: 'kg', timestamp: '2024-03-22T08:20:00Z' },
+      { value: 71.0, unit: 'kg', timestamp: '2024-03-29T08:10:00Z' },
+      { value: 70.8, unit: 'kg', timestamp: '2024-04-05T08:30:00Z' },
+      { value: 70.5, unit: 'kg', timestamp: '2024-04-12T08:15:00Z' },
+    ],
+    goal: 70.0,
+    unit: 'kg'
+  },
+  bloodPressure: {
+    data: [
+      { systolic: 135, diastolic: 85, timestamp: '2024-03-01T08:30:00Z' },
+      { systolic: 133, diastolic: 84, timestamp: '2024-03-08T08:15:00Z' },
+      { systolic: 130, diastolic: 83, timestamp: '2024-03-15T08:45:00Z' },
+      { systolic: 128, diastolic: 83, timestamp: '2024-03-22T08:20:00Z' },
+      { systolic: 126, diastolic: 82, timestamp: '2024-03-29T08:10:00Z' },
+      { systolic: 124, diastolic: 81, timestamp: '2024-04-05T08:30:00Z' },
+      { systolic: 120, diastolic: 80, timestamp: '2024-04-12T08:15:00Z' },
+    ],
+    goal: { systolic: 120, diastolic: 80 }
+  },
+  heartRate: {
+    data: [
+      { value: 78, unit: 'bpm', context: 'Resting', timestamp: '2024-03-01T08:30:00Z' },
+      { value: 76, unit: 'bpm', context: 'Resting', timestamp: '2024-03-08T08:15:00Z' },
+      { value: 75, unit: 'bpm', context: 'Resting', timestamp: '2024-03-15T08:45:00Z' },
+      { value: 74, unit: 'bpm', context: 'Resting', timestamp: '2024-03-22T08:20:00Z' },
+      { value: 74, unit: 'bpm', context: 'Resting', timestamp: '2024-03-29T08:10:00Z' },
+      { value: 73, unit: 'bpm', context: 'Resting', timestamp: '2024-04-05T08:30:00Z' },
+      { value: 72, unit: 'bpm', context: 'Resting', timestamp: '2024-04-12T08:15:00Z' },
+    ],
+    goal: { min: 60, max: 100 },
+    unit: 'bpm'
+  },
+  bloodGlucose: {
+    data: [
+      { value: 105, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-03-01T08:30:00Z' },
+      { value: 103, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-03-08T08:15:00Z' },
+      { value: 102, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-03-15T08:45:00Z' },
+      { value: 100, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-03-22T08:20:00Z' },
+      { value: 98, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-03-29T08:10:00Z' },
+      { value: 97, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-04-05T08:30:00Z' },
+      { value: 95, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-04-12T08:15:00Z' },
+    ],
+    goal: { min: 70, max: 99 },
+    unit: 'mg/dL'
+  },
+  sleep: {
+    data: [
+      { duration: 6.5, quality: 'Fair', timestamp: '2024-03-01T08:30:00Z' },
+      { duration: 6.8, quality: 'Good', timestamp: '2024-03-08T08:15:00Z' },
+      { duration: 7, quality: 'Good', timestamp: '2024-03-15T08:45:00Z' },
+      { duration: 7.2, quality: 'Good', timestamp: '2024-03-22T08:20:00Z' },
+      { duration: 7.5, quality: 'Very Good', timestamp: '2024-03-29T08:10:00Z' },
+      { duration: 7.8, quality: 'Very Good', timestamp: '2024-04-05T08:30:00Z' },
+      { duration: 8, quality: 'Excellent', timestamp: '2024-04-12T08:15:00Z' },
+    ],
+    goal: 8,
+    unit: 'hours'
+  },
+  steps: {
+    data: [
+      { count: 5200, timestamp: '2024-03-01T23:59:59Z' },
+      { count: 5500, timestamp: '2024-03-08T23:59:59Z' },
+      { count: 6300, timestamp: '2024-03-15T23:59:59Z' },
+      { count: 7100, timestamp: '2024-03-22T23:59:59Z' },
+      { count: 7800, timestamp: '2024-03-29T23:59:59Z' },
+      { count: 8200, timestamp: '2024-04-05T23:59:59Z' },
+      { count: 8500, timestamp: '2024-04-12T23:59:59Z' },
+    ],
+    goal: 10000
+  }
+};
+
 // Login user
 const login = async (credentials) => {
   // Simulate API call
@@ -31,6 +111,11 @@ const login = async (credentials) => {
     // Store in localStorage
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', 'demo-token-12345');
+    
+    // Initialize health data for demo user if not already present
+    if (!localStorage.getItem('healthData')) {
+      localStorage.setItem('healthData', JSON.stringify(initialHealthData));
+    }
     
     return { user, token: 'demo-token-12345' };
   }
@@ -58,6 +143,11 @@ const register = async (userData) => {
   // Store in localStorage
   localStorage.setItem('user', JSON.stringify(user));
   localStorage.setItem('token', `user-token-${user.id}`);
+  
+  // Initialize empty health data for new user
+  if (!localStorage.getItem('healthData')) {
+    localStorage.setItem('healthData', JSON.stringify(initialHealthData));
+  }
   
   return { user, token: `user-token-${user.id}` };
 };
@@ -91,6 +181,7 @@ const logout = () => {
   localStorage.removeItem('user');
   localStorage.removeItem('token');
   localStorage.removeItem('documents'); // Clear documents on logout
+  // Note: We're not clearing health data on logout for demo purposes
 };
 
 // Check if user is logged in
@@ -351,6 +442,85 @@ const searchDocuments = async (query) => {
   });
 };
 
+// Health metrics functions - Phase 6
+const getHealthMetrics = async () => {
+  // Simulate API call
+  await delay(800);
+  
+  // Get current user
+  const user = getCurrentUser();
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+  
+  // Get health data from localStorage or return empty object
+  const healthDataJson = localStorage.getItem('healthData');
+  return healthDataJson ? JSON.parse(healthDataJson) : {};
+};
+
+// Get specific health metric
+const getHealthMetric = async (metricType) => {
+  // Simulate API call
+  await delay(600);
+  
+  // Get all health metrics
+  const healthData = await getHealthMetrics();
+  
+  // Return specific metric or null if not found
+  return healthData[metricType] || null;
+};
+
+// Add new health metric reading
+const addHealthMetricReading = async (metricType, reading) => {
+  // Simulate API call
+  await delay(800);
+  
+  // Get current health data
+  const healthData = await getHealthMetrics();
+  
+  // If this metric doesn't exist yet, initialize it
+  if (!healthData[metricType]) {
+    healthData[metricType] = {
+      data: [],
+      unit: reading.unit || ''
+    };
+  }
+  
+  // Add timestamp if not provided
+  if (!reading.timestamp) {
+    reading.timestamp = new Date().toISOString();
+  }
+  
+  // Add reading to metric data
+  healthData[metricType].data.unshift(reading);
+  
+  // Save updated health data
+  localStorage.setItem('healthData', JSON.stringify(healthData));
+  
+  return healthData[metricType];
+};
+
+// Update health metric goal
+const updateHealthMetricGoal = async (metricType, goal) => {
+  // Simulate API call
+  await delay(600);
+  
+  // Get current health data
+  const healthData = await getHealthMetrics();
+  
+  // Update goal for specific metric
+  if (healthData[metricType]) {
+    healthData[metricType].goal = goal;
+    
+    // Save updated health data
+    localStorage.setItem('healthData', JSON.stringify(healthData));
+    
+    return healthData[metricType];
+  }
+  
+  throw new Error(`Metric ${metricType} not found`);
+};
+
 export {
   USER_ROLES,
   login,
@@ -369,5 +539,10 @@ export {
   deleteDocument,
   filterDocuments,
   searchDocuments,
-  saveFileData
+  saveFileData,
+  // Health metrics functions - Phase 6
+  getHealthMetrics,
+  getHealthMetric,
+  addHealthMetricReading,
+  updateHealthMetricGoal
 };

@@ -1,0 +1,178 @@
+.inputPage {
+    padding: var(--spacing-md);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .pageHeader {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .backButton {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-bottom: var(--spacing-sm);
+    width: fit-content;
+  }
+  
+  .backButton:hover {
+    color: var(--primary);
+  }
+  
+  .pageHeader h1 {
+    margin: 0;
+  }
+  
+  .errorMessage {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .inputContainer {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--spacing-lg);
+  }
+  
+  .metricSelector {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .metricButton {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+  
+  .metricButton:hover {
+    background-color: var(--bg-secondary);
+    transform: translateX(3px);
+  }
+  
+  .selectedMetric {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+  
+  .selectedMetric:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  .metricIcon {
+    color: inherit;
+    font-size: var(--font-size-lg);
+  }
+  
+  .formContainer {
+    width: 100%;
+  }
+  
+  .loadingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    background-color: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    height: 300px;
+  }
+  
+  .loadingContainer p {
+    margin-top: var(--spacing-md);
+    color: var(--text-secondary);
+  }
+  
+  .successContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-xl);
+    margin: var(--spacing-lg) auto;
+    max-width: 500px;
+  }
+  
+  .successIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 50%;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .successContainer h2 {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .successContainer p {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-secondary);
+  }
+  
+  .redirectMessage {
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-sm);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 992px) {
+    .inputContainer {
+      grid-template-columns: 1fr;
+    }
+    
+    .metricSelector {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .metricButton {
+      flex-direction: column;
+      text-align: center;
+      flex: 1;
+      min-width: 100px;
+    }
+    
+    .metricButton:hover {
+      transform: translateY(-3px);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .metricButton {
+      min-width: 80px;
+      padding: var(--spacing-xs);
+    }
+    
+    .metricIcon {
+      font-size: var(--font-size-md);
+    }
+  }

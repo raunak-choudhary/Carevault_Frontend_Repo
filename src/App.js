@@ -4,7 +4,8 @@ import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import { DocumentProvider } from './context/DocumentContext';
 import { ChatProvider } from './context/ChatContext';
-import { AppointmentProvider } from './context/AppointmentContext'; // Added for appointments
+import { AppointmentProvider } from './context/AppointmentContext';
+import { HealthProvider } from './context/HealthContext'; // Added for health insights
 import { useAuth } from './hooks/useAuth';
 
 // Import pages
@@ -30,9 +31,14 @@ import ChatPage from './pages/chat/ChatPage';
 import AppointmentsListPage from './pages/appointments/AppointmentsListPage';
 import AppointmentCreatePage from './pages/appointments/AppointmentCreatePage';
 import AppointmentViewPage from './pages/appointments/AppointmentViewPage';
-import AppointmentEditPage from './pages/appointments/AppointmentEditPage'; // Added for issue 1
+import AppointmentEditPage from './pages/appointments/AppointmentEditPage';
 import ProviderSearchPage from './pages/appointments/ProviderSearchPage';
-import ProviderDetailPage from './pages/appointments/ProviderDetailPage'; // Added for issue 3
+import ProviderDetailPage from './pages/appointments/ProviderDetailPage';
+
+// Import health insights pages - Phase 6
+import HealthInsightsPage from './pages/insights/HealthInsightsPage';
+import MetricDetailPage from './pages/insights/MetricDetailPage';
+import MetricInputPage from './pages/insights/MetricInputPage';
 
 // Import layout components
 import BaseLayout from './components/layout/BaseLayout';
@@ -185,10 +191,27 @@ const AppRoutes = () => {
         </ProtectedRoute>
       } />
       
+      {/* Health Insights routes - Phase 6 */}
       <Route path="/insights" element={
         <ProtectedRoute>
           <BaseLayout>
-            <div>Insights Page (Coming Soon)</div>
+            <HealthInsightsPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/insights/metric/:metricType" element={
+        <ProtectedRoute>
+          <BaseLayout>
+            <MetricDetailPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/insights/input" element={
+        <ProtectedRoute>
+          <BaseLayout>
+            <MetricInputPage />
           </BaseLayout>
         </ProtectedRoute>
       } />
@@ -213,10 +236,12 @@ const App = () => {
       <AuthProvider>
         <DocumentProvider>
           <ChatProvider>
-            <AppointmentProvider> {/* Added appointment provider */}
-              <Router>
-                <AppRoutes />
-              </Router>
+            <AppointmentProvider>
+              <HealthProvider> {/* Added health provider */}
+                <Router>
+                  <AppRoutes />
+                </Router>
+              </HealthProvider>
             </AppointmentProvider>
           </ChatProvider>
         </DocumentProvider>

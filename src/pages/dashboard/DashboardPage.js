@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiFileText, FiCalendar, FiArrowRight, FiUpload } from 'react-icons/fi';
+import { FiFileText, FiCalendar, FiArrowRight, FiUpload, FiActivity } from 'react-icons/fi';
 import { getUserDocuments } from '../../services/authService';
 import { useAppointments } from '../../hooks/useAppointments';
+import { useHealth } from '../../hooks/useHealth'; // Added for health insights
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import styles from './DashboardPage.module.css';
 
@@ -12,6 +13,9 @@ const DashboardPage = () => {
   
   // Get appointments from context
   const { upcomingAppointments, loading: appointmentsLoading } = useAppointments();
+  
+  // Get health metrics from context
+  const { metrics, loading: healthLoading } = useHealth();
   
   // Fetch user documents on component mount
   useEffect(() => {
@@ -29,12 +33,29 @@ const DashboardPage = () => {
     fetchDocuments();
   }, []);
   
-  // Stats with real appointment data
+  // Calculate the number of health metrics that have data
+  const calculateHealthInsightsCount = () => {
+    if (!metrics) return 0;
+    
+    // Count metrics that have at least one entry
+    let count = 0;
+    
+    if (metrics.weight && metrics.weight.length > 0) count++;
+    if (metrics.bloodPressure && metrics.bloodPressure.length > 0) count++;
+    if (metrics.bloodGlucose && metrics.bloodGlucose.length > 0) count++;
+    if (metrics.heartRate && metrics.heartRate.length > 0) count++;
+    if (metrics.sleep && metrics.sleep.length > 0) count++;
+    if (metrics.steps && metrics.steps.length > 0) count++;
+    
+    return count;
+  };
+  
+  // Stats with real data
   const stats = [
-    { label: 'Documents', value: documents.length || 0 },
-    { label: 'Upcoming Appointments', value: upcomingAppointments.length || 0 },
-    { label: 'Medication Reminders', value: 8 },
-    { label: 'Health Insights', value: 12 }
+    { label: 'Documents', value: documents.length || 0, link: '/documents' },
+    { label: 'Upcoming Appointments', value: upcomingAppointments.length || 0, link: '/appointments' },
+    { label: 'Medication Reminders', value: 8, link: '#' }, // This is still a placeholder
+    { label: 'Health Insights', value: calculateHealthInsightsCount(), link: '/insights' }
   ];
 
   // Get the most recent documents (up to 3)
@@ -88,10 +109,10 @@ const DashboardPage = () => {
       
       <div className={styles.statsGrid}>
         {stats.map((stat, index) => (
-          <div key={index} className={styles.statCard}>
+          <Link key={index} to={stat.link} className={styles.statCard}>
             <div className={styles.statValue}>{stat.value}</div>
             <div className={styles.statLabel}>{stat.label}</div>
-          </div>
+          </Link>
         ))}
       </div>
       
@@ -175,6 +196,37 @@ const DashboardPage = () => {
               <p>No upcoming appointments. Schedule your first appointment!</p>
               <Link to="/appointments/create" className={styles.uploadButtonLarge}>
                 <FiCalendar style={{ marginRight: '8px' }} /> Schedule Appointment
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
+      
+      <section className={styles.recentSection}>
+        <div className={styles.sectionTitle}>
+          <h2><FiActivity style={{ marginRight: '8px' }} /> Health Insights</h2>
+          <Link to="/insights" className={styles.viewAllLink}>
+            View All <FiArrowRight style={{ marginLeft: '4px' }} />
+          </Link>
+        </div>
+        
+        <div className={styles.cardGrid}>
+          {healthLoading ? (
+            <div className={styles.loadingContainer}>
+              <LoadingSpinner size="medium" />
+            </div>
+          ) : calculateHealthInsightsCount() > 0 ? (
+            <div className={styles.healthInsightsOverview}>
+              <p>You have health data for {calculateHealthInsightsCount()} metrics. Visit the Health Insights page to see detailed analysis.</p>
+              <Link to="/insights" className={styles.viewInsightsButton}>
+                <FiActivity style={{ marginRight: '8px' }} /> View Health Insights
+              </Link>
+            </div>
+          ) : (
+            <div className={styles.emptyState}>
+              <p>No health data available yet. Add your first health metric to get started!</p>
+              <Link to="/insights/input" className={styles.uploadButtonLarge}>
+                <FiActivity style={{ marginRight: '8px' }} /> Add Health Data
               </Link>
             </div>
           )}

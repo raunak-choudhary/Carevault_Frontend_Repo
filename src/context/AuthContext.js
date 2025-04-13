@@ -37,8 +37,34 @@ export const AuthProvider = ({ children }) => {
     setUser(prevUser => ({ ...prevUser, ...userData }));
   };
   
+  // Get user health metrics (simplified implementation)
+  const getUserHealthMetrics = () => {
+    // In a real app, this would be fetched from the backend
+    // Here we're just returning a placeholder
+    return {
+      recentMetrics: {
+        weight: { value: 70.5, unit: 'kg', timestamp: new Date().toISOString() },
+        bloodPressure: { systolic: 120, diastolic: 80, timestamp: new Date().toISOString() },
+        heartRate: { value: 72, unit: 'bpm', timestamp: new Date().toISOString() },
+        bloodGlucose: { value: 95, unit: 'mg/dL', timestamp: new Date().toISOString() }
+      },
+      healthGoals: [
+        { id: '1', title: 'Exercise 30 minutes daily', completed: false },
+        { id: '2', title: 'Keep blood pressure below 130/85', completed: true },
+        { id: '3', title: 'Maintain weight under 75kg', completed: true }
+      ]
+    };
+  };
+  
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signOut, updateUser }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      loading, 
+      signIn, 
+      signOut, 
+      updateUser,
+      getUserHealthMetrics 
+    }}>
       {children}
     </AuthContext.Provider>
   );

@@ -10,7 +10,7 @@ const MobileNavigation = () => {
     { to: "/dashboard", icon: <FiHome className={styles.navIcon} />, label: "Home" },
     { to: "/documents", icon: <FiFileText className={styles.navIcon} />, label: "Docs" },
     { to: "/chat", icon: <FiMessageSquare className={styles.navIcon} />, label: "Assistant" },
-    { to: "/appointments", icon: <FiCalendar className={styles.navIcon} />, label: "Appointments" }, // Updated label
+    { to: "/appointments", icon: <FiCalendar className={styles.navIcon} />, label: "Appointments" },
     { to: "/insights", icon: <FiPieChart className={styles.navIcon} />, label: "Insights" }
   ];
 
@@ -37,6 +37,10 @@ const MobileNavigation = () => {
               }
               // For appointments, consider all appointment routes as active
               if (item.to === '/appointments' && isActiveRoute('/appointments')) {
+                return `${styles.navItem} ${styles.navItemActive}`;
+              }
+              // For insights, consider all insights routes as active
+              if (item.to === '/insights' && isActiveRoute('/insights')) {
                 return `${styles.navItem} ${styles.navItemActive}`;
               }
               return isActive ? `${styles.navItem} ${styles.navItemActive}` : styles.navItem;

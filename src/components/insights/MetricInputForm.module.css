@@ -1,0 +1,157 @@
+.metricForm {
+    background-color: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .formTitle {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+    color: var(--primary);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .formRow {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .formRow .formGroup {
+    flex: 1;
+  }
+  
+  .formGroup {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .formGroup label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  
+  .formGroup input,
+  .formGroup select {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: var(--font-size-md);
+  }
+  
+  .formGroup input:focus,
+  .formGroup select:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+  
+  .dateTimeWrapper {
+    position: relative;
+  }
+  
+  .dateTimeIcon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+  }
+  
+  .formGroup input[type="datetime-local"] {
+    padding-left: 36px;
+  }
+  
+  .inputWithUnit {
+    display: flex;
+    align-items: center;
+  }
+  
+  .inputWithUnit input {
+    flex: 1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .unitSelect {
+    width: auto !important;
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .errorText {
+    color: #f44336;
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-xs);
+  }
+  
+  .targetHint {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-top: var(--spacing-xs);
+  }
+  
+  .formActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+  }
+  
+  .cancelButton,
+  .saveButton {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+  
+  .cancelButton {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: none;
+  }
+  
+  .cancelButton:hover {
+    background-color: var(--border-color);
+  }
+  
+  .saveButton {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+  }
+  
+  .saveButton:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .formRow {
+      flex-direction: column;
+      gap: 0;
+    }
+    
+    .formActions {
+      flex-direction: column-reverse;
+      gap: var(--spacing-sm);
+    }
+    
+    .cancelButton,
+    .saveButton {
+      width: 100%;
+      justify-content: center;
+    }
+  }

@@ -1,0 +1,222 @@
+.insightsPage {
+    padding: var(--spacing-md);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .pageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .pageHeader h1 {
+    margin: 0;
+  }
+  
+  .addButton {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--primary);
+    color: white;
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+  
+  .addButton:hover {
+    background-color: var(--primary-dark);
+    color: white;
+  }
+  
+  .metricCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .insightsContainer {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-lg);
+  }
+  
+  .detailSection {
+    background-color: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .detailSection h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .viewAllLink {
+    font-size: var(--font-size-sm);
+    color: var(--primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .viewAllLink:hover {
+    text-decoration: underline;
+  }
+  
+  .metricDetail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .metricChartPlaceholder {
+    height: 300px;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+  }
+  
+  .chartPlaceholder {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+  
+  .metricInfoCard {
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+  }
+  
+  .metricInfoCard h3 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-md);
+    color: var(--text-secondary);
+  }
+  
+  .metricValue {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--primary);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .metricDate {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-top: var(--spacing-xs);
+  }
+  
+  .insightsSection {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .insightLoading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    background-color: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    height: 100%;
+  }
+  
+  .insightLoading p {
+    margin-top: var(--spacing-md);
+    color: var(--text-secondary);
+  }
+  
+  .emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    text-align: center;
+    color: var(--text-secondary);
+  }
+  
+  .emptyStateButton {
+    display: inline-flex;
+    align-items: center;
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--primary);
+    color: white;
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+  
+  .emptyStateButton:hover {
+    background-color: var(--primary-dark);
+    color: white;
+  }
+  
+  .loadingContainer, .errorContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    text-align: center;
+  }
+  
+  .errorContainer h2 {
+    color: #f44336;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .errorContainer p {
+    color: var(--text-secondary);
+    max-width: 600px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 992px) {
+    .insightsContainer {
+      grid-template-columns: 1fr;
+    }
+    
+    .insightsSection {
+      order: -1;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .pageHeader {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-sm);
+    }
+    
+    .metricCards {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .addButton {
+      align-self: flex-start;
+    }
+  }

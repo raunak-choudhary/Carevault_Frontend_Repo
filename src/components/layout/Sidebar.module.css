@@ -43,6 +43,13 @@
   color: var(--text-primary);
   text-decoration: none;
   transition: all var(--transition-fast);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  font-size: inherit;
+  font-family: inherit;
 }
 
 .navItem:hover {
@@ -59,6 +66,16 @@
 .navIcon {
   margin-right: var(--spacing-md);
   font-size: var(--font-size-lg);
+}
+
+.navLabel {
+  flex: 1;
+}
+
+.expandIcon {
+  margin-left: var(--spacing-sm);
+  display: flex;
+  align-items: center;
 }
 
 /* Subitems styling */
