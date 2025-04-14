@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { FiHome, FiFileText, FiMessageSquare, FiCalendar, FiPieChart } from 'react-icons/fi';
+import { FiHome, FiFileText, FiMessageSquare, FiCalendar, FiPieChart, FiPackage } from 'react-icons/fi';
 import styles from './MobileNavigation.module.css';
 
 const MobileNavigation = () => {
@@ -11,6 +11,7 @@ const MobileNavigation = () => {
     { to: "/documents", icon: <FiFileText className={styles.navIcon} />, label: "Docs" },
     { to: "/chat", icon: <FiMessageSquare className={styles.navIcon} />, label: "Assistant" },
     { to: "/appointments", icon: <FiCalendar className={styles.navIcon} />, label: "Appointments" },
+    { to: "/medications", icon: <FiPackage className={styles.navIcon} />, label: "Meds" },
     { to: "/insights", icon: <FiPieChart className={styles.navIcon} />, label: "Insights" }
   ];
 
@@ -37,6 +38,10 @@ const MobileNavigation = () => {
               }
               // For appointments, consider all appointment routes as active
               if (item.to === '/appointments' && isActiveRoute('/appointments')) {
+                return `${styles.navItem} ${styles.navItemActive}`;
+              }
+              // For medications, consider all medication routes as active
+              if (item.to === '/medications' && isActiveRoute('/medications')) {
                 return `${styles.navItem} ${styles.navItemActive}`;
               }
               // For insights, consider all insights routes as active

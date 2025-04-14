@@ -14,7 +14,9 @@ import {
   FiHeart,
   FiTrendingUp,
   FiChevronDown,
-  FiChevronRight
+  FiChevronRight,
+  FiPackage,
+  FiBell
 } from 'react-icons/fi';
 import styles from './Sidebar.module.css';
 
@@ -50,6 +52,16 @@ const Sidebar = ({ isOpen, onClose }) => {
         { to: "/appointments", label: "My Appointments" },
         { to: "/appointments/create", label: "Schedule New", icon: <FiPlus size={14} /> },
         { to: "/appointments/providers", label: "Find Providers", icon: <FiSearch size={14} /> }
+      ]
+    },
+    {
+      to: "/medications",
+      icon: <FiPackage className={styles.navIcon} />,
+      label: "Medications",
+      subItems: [
+        { to: "/medications", label: "My Medications" },
+        { to: "/medications/add", label: "Add Medication", icon: <FiPlus size={14} /> },
+        { to: "/medications/reminders", label: "Reminders", icon: <FiBell size={14} /> }
       ]
     },
     { 

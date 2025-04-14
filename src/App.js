@@ -5,7 +5,8 @@ import { AuthProvider } from './context/AuthContext';
 import { DocumentProvider } from './context/DocumentContext';
 import { ChatProvider } from './context/ChatContext';
 import { AppointmentProvider } from './context/AppointmentContext';
-import { HealthProvider } from './context/HealthContext'; // Added for health insights
+import { HealthProvider } from './context/HealthContext';
+import { MedicationProvider } from './context/MedicationContext'; // Added for medication management
 import { useAuth } from './hooks/useAuth';
 
 // Import pages
@@ -39,6 +40,13 @@ import ProviderDetailPage from './pages/appointments/ProviderDetailPage';
 import HealthInsightsPage from './pages/insights/HealthInsightsPage';
 import MetricDetailPage from './pages/insights/MetricDetailPage';
 import MetricInputPage from './pages/insights/MetricInputPage';
+
+// Import medication pages - Phase 7
+import MedicationsListPage from './pages/medications/MedicationsListPage';
+import MedicationDetailPage from './pages/medications/MedicationDetailPage';
+import MedicationAddPage from './pages/medications/MedicationAddPage';
+import MedicationEditPage from './pages/medications/MedicationEditPage';
+import MedicationReminderPage from './pages/medications/MedicationReminderPage';
 
 // Import layout components
 import BaseLayout from './components/layout/BaseLayout';
@@ -191,6 +199,47 @@ const AppRoutes = () => {
         </ProtectedRoute>
       } />
       
+      {/* Medication management routes - Phase 7 */}
+      <Route path="/medications" element={
+        <ProtectedRoute>
+          <BaseLayout>
+            <MedicationsListPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/medications/view/:id" element={
+        <ProtectedRoute>
+          <BaseLayout>
+            <MedicationDetailPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/medications/add" element={
+        <ProtectedRoute>
+          <BaseLayout>
+            <MedicationAddPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/medications/edit/:id" element={
+        <ProtectedRoute>
+          <BaseLayout>
+            <MedicationEditPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/medications/reminders" element={
+        <ProtectedRoute>
+          <BaseLayout>
+            <MedicationReminderPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
       {/* Health Insights routes - Phase 6 */}
       <Route path="/insights" element={
         <ProtectedRoute>
@@ -237,10 +286,12 @@ const App = () => {
         <DocumentProvider>
           <ChatProvider>
             <AppointmentProvider>
-              <HealthProvider> {/* Added health provider */}
-                <Router>
-                  <AppRoutes />
-                </Router>
+              <HealthProvider>
+                <MedicationProvider> {/* Added medication provider */}
+                  <Router>
+                    <AppRoutes />
+                  </Router>
+                </MedicationProvider>
               </HealthProvider>
             </AppointmentProvider>
           </ChatProvider>

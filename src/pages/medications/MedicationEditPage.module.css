@@ -1,0 +1,107 @@
+.editPage {
+    padding: var(--spacing-md);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .pageHeader {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .backButton {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-bottom: var(--spacing-sm);
+    width: fit-content;
+  }
+  
+  .backButton:hover {
+    color: var(--primary);
+  }
+  
+  .pageHeader h1 {
+    margin: 0;
+  }
+  
+  .errorMessage {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .loadingContainer, .errorContainer, .notFoundContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    text-align: center;
+  }
+  
+  .errorContainer h2, .notFoundContainer h2 {
+    color: #f44336;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .errorContainer p, .notFoundContainer p {
+    margin-bottom: var(--spacing-lg);
+    max-width: 600px;
+  }
+  
+  .formContainer {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .successContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-xl);
+    margin: var(--spacing-lg) auto;
+    max-width: 500px;
+  }
+  
+  .successIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 50%;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .successContainer h2 {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .successContainer p {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-secondary);
+  }
+  
+  .redirectMessage {
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-sm);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .pageHeader {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }

@@ -70,7 +70,7 @@
   gap: var(--spacing-md);
 }
 
-.uploadButton {
+.uploadButton, .addButton {
   display: flex;
   align-items: center;
   padding: var(--spacing-xs) var(--spacing-md);
@@ -82,7 +82,7 @@
   transition: background-color var(--transition-fast);
 }
 
-.uploadButton:hover {
+.uploadButton:hover, .addButton:hover {
   background-color: var(--primary-dark);
   color: white;
 }
@@ -105,7 +105,7 @@
   gap: var(--spacing-md);
 }
 
-.documentCard, .appointmentCard {
+.documentCard, .appointmentCard, .medicationCard {
   background-color: var(--bg-primary);
   border-radius: var(--border-radius-md);
   padding: var(--spacing-md);
@@ -115,19 +115,19 @@
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.documentCard:hover, .appointmentCard:hover {
+.documentCard:hover, .appointmentCard:hover, .medicationCard:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
 
-.documentCardHeader, .appointmentCardHeader {
+.documentCardHeader, .appointmentCardHeader, .medicationCardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-sm);
 }
 
-.documentType, .appointmentType {
+.documentType, .appointmentType, .medicationType {
   background-color: var(--bg-tertiary);
   color: var(--text-secondary);
   padding: var(--spacing-xs) var(--spacing-sm);
@@ -137,22 +137,22 @@
   align-items: center;
 }
 
-.documentDate, .appointmentDate {
+.documentDate, .appointmentDate, .medicationDate {
   color: var(--text-secondary);
   font-size: var(--font-size-xs);
 }
 
-.documentTitle, .appointmentTitle {
+.documentTitle, .appointmentTitle, .medicationTitle {
   margin-bottom: var(--spacing-sm);
   color: var(--text-primary);
 }
 
-.documentProvider, .appointmentProvider {
+.documentProvider, .appointmentProvider, .medicationDetails {
   color: var(--text-secondary);
   font-size: var(--font-size-sm);
 }
 
-.appointmentTime {
+.appointmentTime, .medicationDosage {
   display: block;
   margin-top: var(--spacing-xs);
   color: var(--primary);
@@ -167,7 +167,7 @@
   box-shadow: var(--shadow-sm);
 }
 
-.uploadButtonLarge {
+.uploadButtonLarge, .actionButtonLarge {
   display: inline-flex;
   align-items: center;
   margin-top: var(--spacing-md);
@@ -179,7 +179,7 @@
   transition: background-color var(--transition-fast);
 }
 
-.uploadButtonLarge:hover {
+.uploadButtonLarge:hover, .actionButtonLarge:hover {
   background-color: var(--primary-dark);
   color: white;
 }
@@ -191,7 +191,7 @@
   padding: var(--spacing-lg);
 }
 
-.healthInsightsOverview {
+.healthInsightsOverview, .medicationsOverview {
   background-color: var(--bg-primary);
   border-radius: var(--border-radius-md);
   padding: var(--spacing-lg);
@@ -200,7 +200,7 @@
   grid-column: 1 / -1;
 }
 
-.viewInsightsButton {
+.viewInsightsButton, .viewMedicationsButton {
   display: inline-flex;
   align-items: center;
   margin-top: var(--spacing-md);
@@ -212,7 +212,63 @@
   transition: background-color var(--transition-fast);
 }
 
-.viewInsightsButton:hover {
+.viewInsightsButton:hover, .viewMedicationsButton:hover {
   background-color: var(--primary-dark);
   color: white;
+}
+
+.reminderItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background-color: var(--bg-secondary);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.reminderTime {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  min-width: 80px;
+}
+
+.reminderMedication {
+  flex: 1;
+}
+
+.reminderActions {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.reminderTakenButton, .reminderSkipButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.reminderTakenButton {
+  background-color: var(--primary);
+}
+
+.reminderTakenButton:hover {
+  background-color: var(--primary-dark);
+}
+
+.reminderSkipButton {
+  background-color: var(--text-secondary);
+}
+
+.reminderSkipButton:hover {
+  background-color: var(--text-primary);
 }

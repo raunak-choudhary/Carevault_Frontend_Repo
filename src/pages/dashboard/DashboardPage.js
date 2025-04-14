@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiFileText, FiCalendar, FiArrowRight, FiUpload, FiActivity } from 'react-icons/fi';
+import { FiFileText, FiCalendar, FiArrowRight, FiUpload, FiActivity, FiPackage, FiBell, FiClock, FiCheck, FiX, FiPlus } from 'react-icons/fi';
 import { getUserDocuments } from '../../services/authService';
 import { useAppointments } from '../../hooks/useAppointments';
-import { useHealth } from '../../hooks/useHealth'; // Added for health insights
+import { useHealth } from '../../hooks/useHealth';
+import { useMedications } from '../../hooks/useMedications'; // Added for medications
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import styles from './DashboardPage.module.css';
 
@@ -16,6 +17,9 @@ const DashboardPage = () => {
   
   // Get health metrics from context
   const { metrics, loading: healthLoading } = useHealth();
+  
+  // Get medications from context
+  const { medications, loading: medicationsLoading } = useMedications();
   
   // Fetch user documents on component mount
   useEffect(() => {
@@ -50,11 +54,78 @@ const DashboardPage = () => {
     return count;
   };
   
+  // Get active medications count
+  const getActiveMedicationsCount = () => {
+    if (!medications) return 0;
+    return medications.filter(med => med.status === 'active').length;
+  };
+  
+  // Generate upcoming medication reminders
+  const getUpcomingReminders = () => {
+    if (!medications) return [];
+    
+    const now = new Date();
+    const reminders = [];
+    
+    // Only get active medications
+    const activeMedications = medications.filter(med => med.status === 'active');
+    
+    // For each medication, create reminders for today
+    activeMedications.forEach(medication => {
+      // Only process medications with a dosage schedule
+      if (!medication.dosageSchedule || !medication.dosageSchedule.length) return;
+      
+      medication.dosageSchedule.forEach(timeString => {
+        // Parse time
+        const [hours, minutes] = timeString.split(':').map(Number);
+        
+        // Create today's date with this time
+        const doseTime = new Date(now);
+        doseTime.setHours(hours, minutes, 0, 0);
+        
+        // Only include upcoming doses for today (within next 12 hours)
+        if (doseTime > now && (doseTime - now) < 12 * 60 * 60 * 1000) {
+          reminders.push({
+            id: `${medication.id}-${doseTime.toISOString()}`,
+            medicationId: medication.id,
+            medicationName: medication.name,
+            dosage: `${medication.dosage} ${medication.unit}`,
+            time: doseTime,
+            status: 'scheduled'
+          });
+        }
+      });
+    });
+    
+    // Sort by time (soonest first)
+    reminders.sort((a, b) => a.time - b.time);
+    
+    // Return at most 3 reminders
+    return reminders.slice(0, 3);
+  };
+  
+  // Mark a reminder as taken
+  const handleMarkTaken = (reminderId) => {
+    // This would normally update the backend
+    console.log('Marked as taken:', reminderId);
+  };
+  
+  // Mark a reminder as skipped
+  const handleMarkSkipped = (reminderId) => {
+    // This would normally update the backend
+    console.log('Marked as skipped:', reminderId);
+  };
+  
+  // Format time for display
+  const formatTime = (date) => {
+    return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  };
+  
   // Stats with real data
   const stats = [
     { label: 'Documents', value: documents.length || 0, link: '/documents' },
     { label: 'Upcoming Appointments', value: upcomingAppointments.length || 0, link: '/appointments' },
-    { label: 'Medication Reminders', value: 8, link: '#' }, // This is still a placeholder
+    { label: 'Active Medications', value: getActiveMedicationsCount(), link: '/medications' },
     { label: 'Health Insights', value: calculateHealthInsightsCount(), link: '/insights' }
   ];
 
@@ -63,6 +134,13 @@ const DashboardPage = () => {
   
   // Get most recent upcoming appointments (up to 2)
   const recentAppointments = upcomingAppointments.slice(0, 2);
+  
+  // Get most recent active medications (up to 2)
+  const recentMedications = medications ? 
+    medications.filter(med => med.status === 'active').slice(0, 2) : [];
+  
+  // Get upcoming medication reminders
+  const upcomingReminders = getUpcomingReminders();
   
   // Format date properly without timezone issues
   const formatDocumentDate = (document) => {
@@ -155,6 +233,110 @@ const DashboardPage = () => {
               <p>No documents yet. Upload your first document to get started!</p>
               <Link to="/documents/upload" className={styles.uploadButtonLarge}>
                 <FiUpload style={{ marginRight: '8px' }} /> Upload Document
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
+      
+      {/* Medication Reminders Section */}
+      <section className={styles.recentSection}>
+        <div className={styles.sectionTitle}>
+          <h2><FiBell style={{ marginRight: '8px' }} /> Medication Reminders</h2>
+          <Link to="/medications/reminders" className={styles.viewAllLink}>
+            View All <FiArrowRight style={{ marginLeft: '4px' }} />
+          </Link>
+        </div>
+        
+        <div className={styles.cardGrid}>
+          {medicationsLoading ? (
+            <div className={styles.loadingContainer}>
+              <LoadingSpinner size="medium" />
+            </div>
+          ) : upcomingReminders.length > 0 ? (
+            <div className={styles.medicationsOverview}>
+              {upcomingReminders.map(reminder => (
+                <div key={reminder.id} className={styles.reminderItem}>
+                  <div className={styles.reminderTime}>
+                    <FiClock color="#4CAF50" />
+                    {formatTime(reminder.time)}
+                  </div>
+                  <div className={styles.reminderMedication}>
+                    <div><strong>{reminder.medicationName}</strong></div>
+                    <div>{reminder.dosage}</div>
+                  </div>
+                  <div className={styles.reminderActions}>
+                    <button 
+                      className={styles.reminderTakenButton}
+                      onClick={() => handleMarkTaken(reminder.id)}
+                      title="Mark as taken"
+                    >
+                      <FiCheck />
+                    </button>
+                    <button 
+                      className={styles.reminderSkipButton}
+                      onClick={() => handleMarkSkipped(reminder.id)}
+                      title="Skip"
+                    >
+                      <FiX />
+                    </button>
+                  </div>
+                </div>
+              ))}
+              <Link to="/medications/reminders" className={styles.viewMedicationsButton}>
+                <FiBell style={{ marginRight: '8px' }} /> Manage Reminders
+              </Link>
+            </div>
+          ) : (
+            <div className={styles.emptyState}>
+              <p>No upcoming medication reminders. Add medications to receive reminders.</p>
+              <Link to="/medications/add" className={styles.actionButtonLarge}>
+                <FiPlus style={{ marginRight: '8px' }} /> Add Medication
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
+      
+      <section className={styles.recentSection}>
+        <div className={styles.sectionTitle}>
+          <h2><FiPackage style={{ marginRight: '8px' }} /> Recent Medications</h2>
+          <Link to="/medications" className={styles.viewAllLink}>
+            View All <FiArrowRight style={{ marginLeft: '4px' }} />
+          </Link>
+        </div>
+        
+        <div className={styles.cardGrid}>
+          {medicationsLoading ? (
+            <div className={styles.loadingContainer}>
+              <LoadingSpinner size="medium" />
+            </div>
+          ) : recentMedications.length > 0 ? (
+            recentMedications.map(medication => (
+              <Link key={medication.id} to={`/medications/view/${medication.id}`} className={styles.medicationCard}>
+                <div className={styles.medicationCardHeader}>
+                  <span className={styles.medicationType}>
+                    <FiPackage style={{ marginRight: '4px' }} />
+                    {medication.status === 'active' ? 'Active' : 'Inactive'}
+                  </span>
+                  <span className={styles.medicationDate}>
+                    {new Date(medication.createdAt).toLocaleDateString()}
+                  </span>
+                </div>
+                <h3 className={styles.medicationTitle}>{medication.name}</h3>
+                <div className={styles.medicationDetails}>
+                  {medication.instructions || 'No special instructions'}
+                  <span className={styles.medicationDosage}>
+                    {medication.dosage} {medication.unit}
+                  </span>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <div className={styles.emptyState}>
+              <p>No medications added yet. Add your first medication to get started!</p>
+              <Link to="/medications/add" className={styles.actionButtonLarge}>
+                <FiPlus style={{ marginRight: '8px' }} /> Add Medication
               </Link>
             </div>
           )}

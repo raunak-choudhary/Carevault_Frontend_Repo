@@ -1,0 +1,243 @@
+.medicationForm {
+    background-color: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .formTitle {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+    color: var(--primary);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .formSection {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .sectionTitle {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+  }
+  
+  .formRow {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .formRow .formGroup {
+    flex: 1;
+  }
+  
+  .formGroup {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .formGroup label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  
+  .formGroup input,
+  .formGroup select,
+  .formGroup textarea {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: var(--font-size-md);
+  }
+  
+  .formGroup input:focus,
+  .formGroup select:focus,
+  .formGroup textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+  
+  .inputError {
+    border-color: #f44336 !important;
+  }
+  
+  .errorText {
+    color: #f44336;
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-xs);
+  }
+  
+  .dosageInput {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dosageInput input {
+    flex: 1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .dosageInput select {
+    width: auto;
+    min-width: 100px;
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .timeSlots {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .timeSlot {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .timeSlotInput {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .timeIcon, .dateIcon {
+    position: absolute;
+    left: 10px;
+    color: var(--text-secondary);
+  }
+  
+  .timeSlotInput input {
+    padding-left: 36px;
+  }
+  
+  .removeTimeButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+  
+  .removeTimeButton:hover {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .addTimeButton {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background-color: var(--bg-tertiary);
+    color: var(--primary);
+    border: none;
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    margin-top: var(--spacing-xs);
+    width: fit-content;
+  }
+  
+  .addTimeButton:hover {
+    background-color: var(--primary);
+    color: white;
+  }
+  
+  .dateInput {
+    position: relative;
+  }
+  
+  .dateInput input {
+    padding-left: 36px;
+  }
+  
+  .checkboxGroup {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .checkboxGroup input {
+    width: auto;
+    margin: 0;
+  }
+  
+  .checkboxGroup label {
+    margin: 0;
+    font-weight: normal;
+  }
+  
+  .formActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+  }
+  
+  .cancelButton,
+  .saveButton {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: none;
+  }
+  
+  .cancelButton {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+  
+  .cancelButton:hover {
+    background-color: var(--border-color);
+  }
+  
+  .saveButton {
+    background-color: var(--primary);
+    color: white;
+  }
+  
+  .saveButton:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .formRow {
+      flex-direction: column;
+      gap: 0;
+    }
+    
+    .formActions {
+      flex-direction: column-reverse;
+      gap: var(--spacing-sm);
+    }
+    
+    .cancelButton,
+    .saveButton {
+      width: 100%;
+      justify-content: center;
+    }
+  }
