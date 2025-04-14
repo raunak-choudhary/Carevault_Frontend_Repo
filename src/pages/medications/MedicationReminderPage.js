@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft, FiCalendar, FiClock, FiBell, FiFilter } from 'react-icons/fi';
 import ReminderCard from '../../components/medications/ReminderCard';
+import ReminderForm from '../../components/medications/ReminderForm';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { useMedications } from '../../hooks/useMedications';
 import notificationSystem from '../../utils/NotificationSystem';
@@ -12,6 +13,11 @@ const MedicationReminderPage = () => {
   const [reminders, setReminders] = useState([]);
   const [filterType, setFilterType] = useState('upcoming'); // upcoming, today, all
   const [showRequestPermission, setShowRequestPermission] = useState(false);
+  
+  // State for the reminder form modal
+  const [showReminderForm, setShowReminderForm] = useState(false);
+  const [currentReminder, setCurrentReminder] = useState(null);
+  const [currentMedication, setCurrentMedication] = useState(null);
   
   // Generate reminders based on medications
   useEffect(() => {
@@ -69,7 +75,13 @@ const MedicationReminderPage = () => {
                 status: 'scheduled', // scheduled, taken, skipped
                 notificationType: 'both', // popup, sound, both
                 notificationTime: 'atTime', // atTime, beforeTime
-                minutesBefore: 15
+                minutesBefore: 15,
+                soundEnabled: true,
+                soundType: 'default',
+                vibrationEnabled: true,
+                repeatNotification: false,
+                repeatInterval: 5,
+                maxRepeats: 3
               };
               
               generatedReminders.push(reminder);
@@ -163,8 +175,36 @@ const MedicationReminderPage = () => {
   
   // Edit a reminder's settings
   const handleEditReminder = (reminderId) => {
-    // In a real app, this would open a modal or redirect to an edit page
-    console.log('Edit reminder:', reminderId);
+    const reminderToEdit = reminders.find(r => r.id === reminderId);
+    if (!reminderToEdit) return;
+    
+    const medicationForReminder = findMedicationForReminder(reminderToEdit);
+    if (!medicationForReminder) return;
+    
+    setCurrentReminder(reminderToEdit);
+    setCurrentMedication(medicationForReminder);
+    setShowReminderForm(true);
+  };
+  
+  // Handle update reminder submission
+  const handleReminderUpdate = (updatedReminderData) => {
+    setReminders(prevReminders => 
+      prevReminders.map(reminder => 
+        reminder.id === updatedReminderData.id ? { ...reminder, ...updatedReminderData } : reminder
+      )
+    );
+    
+    // Close the form modal
+    setShowReminderForm(false);
+    setCurrentReminder(null);
+    setCurrentMedication(null);
+  };
+  
+  // Handle canceling the reminder edit
+  const handleCancelEdit = () => {
+    setShowReminderForm(false);
+    setCurrentReminder(null);
+    setCurrentMedication(null);
   };
   
   // Group reminders by date for display
@@ -288,6 +328,20 @@ const MedicationReminderPage = () => {
               </Link>
             </div>
           )}
+        </div>
+      )}
+      
+      {/* Reminder Form Modal */}
+      {showReminderForm && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <ReminderForm
+              medication={currentMedication}
+              initialData={currentReminder}
+              onSubmit={handleReminderUpdate}
+              onCancel={handleCancelEdit}
+            />
+          </div>
         </div>
       )}
     </div>

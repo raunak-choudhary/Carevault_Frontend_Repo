@@ -1,232 +1,261 @@
 .reminderPage {
-    padding: var(--spacing-md);
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
-  .pageHeader {
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .backButton {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    color: var(--text-secondary);
-    text-decoration: none;
-    margin-bottom: var(--spacing-sm);
-    width: fit-content;
-  }
-  
-  .backButton:hover {
-    color: var(--primary);
-  }
-  
-  .pageHeader h1 {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    margin: 0;
-  }
-  
-  .headerIcon {
-    color: var(--primary);
-  }
-  
-  .permissionBanner {
-    display: flex;
-    align-items: center;
-    padding: var(--spacing-md);
-    background-color: rgba(33, 150, 243, 0.1);
-    border-radius: var(--border-radius-md);
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .bannerIcon {
-    font-size: var(--font-size-xl);
-    color: #2196F3;
-    margin-right: var(--spacing-md);
-  }
-  
-  .bannerContent {
-    flex: 1;
-  }
-  
-  .bannerContent h3 {
-    margin: 0 0 var(--spacing-xs) 0;
-    color: #2196F3;
-  }
-  
-  .bannerContent p {
-    margin: 0;
-    color: var(--text-secondary);
-  }
-  
-  .permissionButton {
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    padding: var(--spacing-sm) var(--spacing-lg);
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
-    transition: background-color var(--transition-fast);
-  }
-  
-  .permissionButton:hover {
-    background-color: #1976D2;
-  }
-  
+  padding: var(--spacing-md);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: var(--spacing-lg);
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: var(--spacing-sm);
+  width: fit-content;
+}
+
+.backButton:hover {
+  color: var(--primary);
+}
+
+.pageHeader h1 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin: 0;
+}
+
+.headerIcon {
+  color: var(--primary);
+}
+
+.permissionBanner {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: rgba(33, 150, 243, 0.1);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.bannerIcon {
+  font-size: var(--font-size-xl);
+  color: #2196F3;
+  margin-right: var(--spacing-md);
+}
+
+.bannerContent {
+  flex: 1;
+}
+
+.bannerContent h3 {
+  margin: 0 0 var(--spacing-xs) 0;
+  color: #2196F3;
+}
+
+.bannerContent p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.permissionButton {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.permissionButton:hover {
+  background-color: #1976D2;
+}
+
+.reminderFilters {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.filterText {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--text-secondary);
+}
+
+.filterButtons {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.filterButton {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filterButton:hover {
+  background-color: var(--border-color);
+}
+
+.activeFilter {
+  background-color: var(--primary);
+  color: white;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xl);
+}
+
+.errorMessage {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.reminderList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.reminderDateGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.dateHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--primary);
+  font-weight: 600;
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dateIcon {
+  color: var(--primary);
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-xl);
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.emptyIcon {
+  font-size: 48px;
+  color: var(--primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.emptyState h3 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-sm);
+}
+
+.emptyState p {
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-secondary);
+  max-width: 400px;
+}
+
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--primary);
+  color: white;
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.addButton:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Modal styles for the reminder form */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: var(--spacing-md);
+}
+
+.modalContent {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .reminderFilters {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .filterText {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    color: var(--text-secondary);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
   }
   
   .filterButtons {
-    display: flex;
-    gap: var(--spacing-xs);
+    width: 100%;
   }
   
   .filterButton {
-    background-color: var(--bg-tertiary);
-    color: var(--text-secondary);
-    border: none;
-    padding: var(--spacing-xs) var(--spacing-md);
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
-    transition: all var(--transition-fast);
+    flex: 1;
+    text-align: center;
   }
   
-  .filterButton:hover {
-    background-color: var(--border-color);
-  }
-  
-  .activeFilter {
-    background-color: var(--primary);
-    color: white;
-  }
-  
-  .loadingContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: var(--spacing-xl);
-  }
-  
-  .errorMessage {
-    background-color: rgba(244, 67, 54, 0.1);
-    color: #f44336;
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-md);
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .reminderList {
-    display: flex;
+  .permissionBanner {
     flex-direction: column;
-    gap: var(--spacing-lg);
-  }
-  
-  .reminderDateGroup {
-    display: flex;
-    flex-direction: column;
+    text-align: center;
     gap: var(--spacing-md);
   }
   
-  .dateHeader {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    color: var(--primary);
-    font-weight: 600;
-    padding-bottom: var(--spacing-xs);
-    border-bottom: 1px solid var(--border-color);
+  .bannerIcon {
+    margin-right: 0;
   }
   
-  .dateIcon {
-    color: var(--primary);
+  .permissionButton {
+    width: 100%;
   }
   
-  .emptyState {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: var(--spacing-xl);
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-sm);
+  .modalContent {
+    max-width: 90%;
   }
-  
-  .emptyIcon {
-    font-size: 48px;
-    color: var(--primary);
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .emptyState h3 {
-    margin-top: 0;
-    margin-bottom: var(--spacing-sm);
-  }
-  
-  .emptyState p {
-    margin-bottom: var(--spacing-lg);
-    color: var(--text-secondary);
-    max-width: 400px;
-  }
-  
-  .addButton {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background-color: var(--primary);
-    color: white;
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    transition: background-color var(--transition-fast);
-  }
-  
-  .addButton:hover {
-    background-color: var(--primary-dark);
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .reminderFilters {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--spacing-sm);
-    }
-    
-    .filterButtons {
-      width: 100%;
-    }
-    
-    .filterButton {
-      flex: 1;
-      text-align: center;
-    }
-    
-    .permissionBanner {
-      flex-direction: column;
-      text-align: center;
-      gap: var(--spacing-md);
-    }
-    
-    .bannerIcon {
-      margin-right: 0;
-    }
-    
-    .permissionButton {
-      width: 100%;
-    }
-  }
+}

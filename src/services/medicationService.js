@@ -9,6 +9,42 @@ const generateId = () => {
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
 };
 
+// Helper function to ensure consistent date handling
+const formatDateForStorage = (dateString) => {
+  if (!dateString) return null;
+  
+  // For YYYY-MM-DD format dates (from date inputs)
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+    // Create a date object using the date parts
+    const [year, month, day] = dateString.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+    
+    // Validate the date is valid before storing
+    if (isNaN(date.getTime())) {
+      return null; // Invalid date
+    }
+    
+    // Store the date as a simple string format that won't be affected by timezone
+    return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+  }
+  
+  return dateString;
+};
+
+// Helper function to parse stored date strings consistently
+const parseStoredDate = (dateString) => {
+  if (!dateString) return null;
+  
+  // For our custom YYYY-MM-DD format
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+    const [year, month, day] = dateString.split('-').map(Number);
+    // Create date object with correct parts (month is 0-indexed in JS Date)
+    return new Date(year, month - 1, day);
+  }
+  
+  return new Date(dateString);
+};
+
 // Get all medications
 const getMedications = async () => {
   // Simulate API call
@@ -73,6 +109,12 @@ const addMedication = async (medicationData) => {
   const medicationsJson = localStorage.getItem('medications');
   const medications = medicationsJson ? JSON.parse(medicationsJson) : [];
   
+  // Format date fields for consistent storage
+  const formattedData = {
+    ...medicationData,
+    refillDate: formatDateForStorage(medicationData.refillDate)
+  };
+  
   // Create new medication object
   const newMedication = {
     id: generateId(),
@@ -80,7 +122,7 @@ const addMedication = async (medicationData) => {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     status: 'active',
-    ...medicationData
+    ...formattedData
   };
   
   // Add to medications array
@@ -114,10 +156,16 @@ const updateMedication = async (id, updates) => {
     throw new Error('Medication not found');
   }
   
+  // Format date fields for consistent storage
+  const formattedUpdates = {
+    ...updates,
+    refillDate: formatDateForStorage(updates.refillDate)
+  };
+  
   // Update medication
   const updatedMedication = {
     ...medications[medicationIndex],
-    ...updates,
+    ...formattedUpdates,
     updatedAt: new Date().toISOString()
   };
   
@@ -314,5 +362,6 @@ export {
   addMedicationReminder,
   updateMedicationReminder,
   deleteMedicationReminder,
-  searchMedications
+  searchMedications,
+  parseStoredDate // Export this for use in display components
 };

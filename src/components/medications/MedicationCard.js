@@ -4,9 +4,20 @@ import { FiClock, FiCalendar, FiChevronRight } from 'react-icons/fi';
 import styles from './MedicationCard.module.css';
 
 const MedicationCard = ({ medication, showActions = true, onClick }) => {
-  // Format date for display
+  // Format date for display - fixed to handle the timezone issue
   const formatDate = (dateString) => {
     if (!dateString) return '';
+    
+    // For YYYY-MM-DD format dates (from form inputs)
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+      const [year, month, day] = dateString.split('-').map(Number);
+      const options = { year: 'numeric', month: 'short', day: 'numeric' };
+      // Create date with local timezone (no conversion)
+      const date = new Date(year, month - 1, day); // month is 0-based in JS Date
+      return date.toLocaleDateString(undefined, options);
+    }
+    
+    // For ISO dates with time component
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
