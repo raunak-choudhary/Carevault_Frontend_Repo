@@ -1,0 +1,269 @@
+.patientSelectorContainer {
+  position: relative;
+  z-index: 10;
+  margin-bottom: var(--spacing-md);
+}
+
+.patientSelector {
+  position: relative;
+  cursor: pointer;
+}
+
+.selectorHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.selectorHeader:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.selectorHeader:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.userIcon {
+  color: var(--primary);
+  font-size: var(--font-size-md);
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: var(--spacing-xs);
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  max-height: 400px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  border: 1px solid var(--border-color);
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.searchContainer {
+  position: relative;
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  z-index: 1;
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--spacing-lg);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) var(--spacing-xl);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary-light);
+}
+
+.clearButton {
+  position: absolute;
+  right: calc(var(--spacing-md) + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: all var(--transition-fast);
+}
+
+.clearButton:hover {
+  color: var(--primary);
+  background-color: var(--bg-tertiary);
+}
+
+.clearButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.patientsList {
+  overflow-y: auto;
+  max-height: 300px;
+  overscroll-behavior: contain;
+}
+
+.patientItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: 100%;
+  padding: var(--spacing-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.patientItem:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.patientItem:focus {
+  outline: none;
+  background-color: var(--bg-tertiary);
+}
+
+.patientItem:last-child {
+  border-bottom: none;
+}
+
+.patientAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  flex-shrink: 0;
+  font-size: var(--font-size-sm);
+  overflow: hidden;
+}
+
+.patientAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.patientInfo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.patientName {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary);
+}
+
+.patientDob {
+  color: var(--text-secondary);
+  font-size: var(--font-size-xs);
+}
+
+.noResults {
+  padding: var(--spacing-md);
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.activePatientIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--primary);
+  color: white;
+  border-radius: var(--border-radius-md);
+}
+
+.activePatientInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+  min-width: 0;
+}
+
+.activePatientInfo .patientName {
+  color: white;
+}
+
+.activePatientIndicator .clearButton {
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: background-color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.activePatientIndicator .clearButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.activePatientIndicator .patientAvatar {
+  background-color: white;
+  color: var(--primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dropdown {
+    width: 250px;
+    position: absolute;
+    max-height: 60vh;
+  }
+  
+  .patientSelectorContainer {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .dropdown {
+    width: 90vw;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

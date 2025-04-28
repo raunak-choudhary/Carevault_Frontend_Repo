@@ -2,6 +2,45 @@
   padding: var(--spacing-md);
 }
 
+.patientContextBanner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-secondary);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-md);
+  border-left: 4px solid var(--primary);
+}
+
+.patientInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.patientIcon {
+  color: var(--primary);
+  font-size: 1.5rem;
+}
+
+.returnButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-md);
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.returnButton:hover {
+  background-color: var(--primary-dark);
+}
+
 .welcomeCard {
   background-color: var(--primary);
   color: white;
@@ -271,4 +310,47 @@
 
 .reminderSkipButton:hover {
   background-color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .patientContextBanner {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .returnButton {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .sectionTitle {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+  
+  .sectionActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 576px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .reminderItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .reminderActions {
+    align-self: flex-end;
+    margin-top: var(--spacing-xs);
+  }
 }

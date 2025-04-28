@@ -1,0 +1,56 @@
+.mobileNav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-primary);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    display: none;
+  }
+  
+  .navItems {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .navItem {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    transition: color var(--transition-fast);
+  }
+  
+  .navItem:hover {
+    color: var(--primary);
+  }
+  
+  .navItemActive {
+    color: var(--primary);
+  }
+  
+  .navIcon {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .navLabel {
+    font-size: var(--font-size-xs);
+  }
+  
+  /* Only show on mobile */
+  @media (max-width: 768px) {
+    .mobileNav {
+      display: block;
+    }
+    
+    /* Add padding to main content to prevent overlap with navigation */
+    :global(main) {
+      padding-bottom: 70px;
+    }
+  }

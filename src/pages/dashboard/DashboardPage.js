@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FiFileText, FiCalendar, FiArrowRight, FiUpload, FiActivity, FiPackage, FiBell, FiClock, FiCheck, FiX, FiPlus } from 'react-icons/fi';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { FiFileText, FiCalendar, FiArrowRight, FiUpload, FiActivity, FiPackage, FiBell, FiClock, FiCheck, FiX, FiPlus, FiUsers } from 'react-icons/fi';
 import { getUserDocuments } from '../../services/authService';
 import { useAppointments } from '../../hooks/useAppointments';
 import { useHealth } from '../../hooks/useHealth';
-import { useMedications } from '../../hooks/useMedications'; // Added for medications
+import { useMedications } from '../../hooks/useMedications';
+import { useAuth } from '../../hooks/useAuth';
+import { usePatients } from '../../hooks/usePatients';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
+import CaregiverDashboard from '../../components/caregiver/CaregiverDashboard';
 import styles from './DashboardPage.module.css';
 
 const DashboardPage = () => {
+  const navigate = useNavigate();
+  const { patientId } = useParams(); // Get patientId from URL params if available
+  const { isCaregiver } = useAuth();
+  const { activePatient, isViewingPatient, clearActivePatient, setActivePatient } = usePatients();
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   
@@ -21,11 +28,24 @@ const DashboardPage = () => {
   // Get medications from context
   const { medications, loading: medicationsLoading } = useMedications();
   
+  // If we have a patientId in the URL and we're a caregiver, set that patient as active
+  useEffect(() => {
+    if (isCaregiver() && patientId && (!activePatient || activePatient.id !== patientId)) {
+      setActivePatient(patientId);
+    }
+  }, [patientId, isCaregiver, activePatient, setActivePatient]);
+
   // Fetch user documents on component mount
   useEffect(() => {
     const fetchDocuments = async () => {
+      // Only fetch documents if we're not showing the caregiver dashboard
+      if (isCaregiver() && !isViewingPatient) {
+        setLoading(false);
+        return;
+      }
+      
       try {
-        const docs = await getUserDocuments();
+        const docs = await getUserDocuments(isViewingPatient ? activePatient?.id : null);
         setDocuments(docs);
       } catch (error) {
         console.error('Error fetching documents:', error);
@@ -35,7 +55,18 @@ const DashboardPage = () => {
     };
     
     fetchDocuments();
-  }, []);
+  }, [isViewingPatient, activePatient, isCaregiver]);
+  
+  // Handle returning to caregiver dashboard
+  const handleReturnToCaregiverDashboard = () => {
+    // First clear the active patient
+    clearActivePatient();
+    
+    // Use a small timeout to ensure state is updated before navigation
+    setTimeout(() => {
+      navigate('/dashboard', { replace: true });
+    }, 10);
+  };
   
   // Calculate the number of health metrics that have data
   const calculateHealthInsightsCount = () => {
@@ -123,10 +154,10 @@ const DashboardPage = () => {
   
   // Stats with real data
   const stats = [
-    { label: 'Documents', value: documents.length || 0, link: '/documents' },
-    { label: 'Upcoming Appointments', value: upcomingAppointments.length || 0, link: '/appointments' },
-    { label: 'Active Medications', value: getActiveMedicationsCount(), link: '/medications' },
-    { label: 'Health Insights', value: calculateHealthInsightsCount(), link: '/insights' }
+    { label: 'Documents', value: documents.length || 0, link: isViewingPatient ? `/patient/${activePatient.id}/documents` : '/documents' },
+    { label: 'Upcoming Appointments', value: upcomingAppointments.length || 0, link: isViewingPatient ? `/patient/${activePatient.id}/appointments` : '/appointments' },
+    { label: 'Active Medications', value: getActiveMedicationsCount(), link: isViewingPatient ? `/patient/${activePatient.id}/medications` : '/medications' },
+    { label: 'Health Insights', value: calculateHealthInsightsCount(), link: isViewingPatient ? `/patient/${activePatient.id}/insights` : '/insights' }
   ];
 
   // Get the most recent documents (up to 3)
@@ -178,10 +209,35 @@ const DashboardPage = () => {
     return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
   };
 
+  // If user is a caregiver and not viewing a patient, show caregiver dashboard
+  if (isCaregiver() && !isViewingPatient) {
+    return <CaregiverDashboard />;
+  }
+
   return (
     <div className={styles.dashboard}>
+      {/* Patient Context Banner (only for caregivers) */}
+      {isCaregiver() && isViewingPatient && (
+        <div className={styles.patientContextBanner}>
+          <div className={styles.patientInfo}>
+            <FiUsers className={styles.patientIcon} />
+            <span>Viewing dashboard for: <strong>{activePatient.firstName} {activePatient.lastName}</strong></span>
+          </div>
+          <button 
+            className={styles.returnButton}
+            onClick={handleReturnToCaregiverDashboard}
+          >
+            Return to Caregiver Dashboard
+          </button>
+        </div>
+      )}
+      
       <div className={styles.welcomeCard}>
-        <h1 className={styles.welcomeTitle}>Welcome to CareVault</h1>
+        <h1 className={styles.welcomeTitle}>
+          {isCaregiver() && isViewingPatient 
+            ? `${activePatient.firstName}'s Dashboard` 
+            : 'Welcome to CareVault'}
+        </h1>
         <p>Your personal healthcare management platform. Stay organized and informed about your health.</p>
       </div>
       
@@ -198,10 +254,10 @@ const DashboardPage = () => {
         <div className={styles.sectionTitle}>
           <h2><FiFileText style={{ marginRight: '8px' }} /> Recent Documents</h2>
           <div className={styles.sectionActions}>
-            <Link to="/documents/upload" className={styles.uploadButton}>
+            <Link to={isViewingPatient ? `/patient/${activePatient.id}/documents/upload` : "/documents/upload"} className={styles.uploadButton}>
               <FiUpload style={{ marginRight: '4px' }} /> Upload
             </Link>
-            <Link to="/documents" className={styles.viewAllLink}>
+            <Link to={isViewingPatient ? `/patient/${activePatient.id}/documents` : "/documents"} className={styles.viewAllLink}>
               View All <FiArrowRight style={{ marginLeft: '4px' }} />
             </Link>
           </div>
@@ -214,7 +270,7 @@ const DashboardPage = () => {
             </div>
           ) : recentDocuments.length > 0 ? (
             recentDocuments.map(doc => (
-              <Link key={doc.id} to={`/documents/view/${doc.id}`} className={styles.documentCard}>
+              <Link key={doc.id} to={isViewingPatient ? `/patient/${activePatient.id}/documents/view/${doc.id}` : `/documents/view/${doc.id}`} className={styles.documentCard}>
                 <div className={styles.documentCardHeader}>
                   <span className={styles.documentType}>
                     <FiFileText style={{ marginRight: '4px' }} />
@@ -231,7 +287,7 @@ const DashboardPage = () => {
           ) : (
             <div className={styles.emptyState}>
               <p>No documents yet. Upload your first document to get started!</p>
-              <Link to="/documents/upload" className={styles.uploadButtonLarge}>
+              <Link to={isViewingPatient ? `/patient/${activePatient.id}/documents/upload` : "/documents/upload"} className={styles.uploadButtonLarge}>
                 <FiUpload style={{ marginRight: '8px' }} /> Upload Document
               </Link>
             </div>
@@ -243,7 +299,7 @@ const DashboardPage = () => {
       <section className={styles.recentSection}>
         <div className={styles.sectionTitle}>
           <h2><FiBell style={{ marginRight: '8px' }} /> Medication Reminders</h2>
-          <Link to="/medications/reminders" className={styles.viewAllLink}>
+          <Link to={isViewingPatient ? `/patient/${activePatient.id}/medications/reminders` : "/medications/reminders"} className={styles.viewAllLink}>
             View All <FiArrowRight style={{ marginLeft: '4px' }} />
           </Link>
         </div>
@@ -283,14 +339,14 @@ const DashboardPage = () => {
                   </div>
                 </div>
               ))}
-              <Link to="/medications/reminders" className={styles.viewMedicationsButton}>
+              <Link to={isViewingPatient ? `/patient/${activePatient.id}/medications/reminders` : "/medications/reminders"} className={styles.viewMedicationsButton}>
                 <FiBell style={{ marginRight: '8px' }} /> Manage Reminders
               </Link>
             </div>
           ) : (
             <div className={styles.emptyState}>
               <p>No upcoming medication reminders. Add medications to receive reminders.</p>
-              <Link to="/medications/add" className={styles.actionButtonLarge}>
+              <Link to={isViewingPatient ? `/patient/${activePatient.id}/medications/add` : "/medications/add"} className={styles.actionButtonLarge}>
                 <FiPlus style={{ marginRight: '8px' }} /> Add Medication
               </Link>
             </div>
@@ -301,7 +357,7 @@ const DashboardPage = () => {
       <section className={styles.recentSection}>
         <div className={styles.sectionTitle}>
           <h2><FiPackage style={{ marginRight: '8px' }} /> Recent Medications</h2>
-          <Link to="/medications" className={styles.viewAllLink}>
+          <Link to={isViewingPatient ? `/patient/${activePatient.id}/medications` : "/medications"} className={styles.viewAllLink}>
             View All <FiArrowRight style={{ marginLeft: '4px' }} />
           </Link>
         </div>
@@ -313,7 +369,7 @@ const DashboardPage = () => {
             </div>
           ) : recentMedications.length > 0 ? (
             recentMedications.map(medication => (
-              <Link key={medication.id} to={`/medications/view/${medication.id}`} className={styles.medicationCard}>
+              <Link key={medication.id} to={isViewingPatient ? `/patient/${activePatient.id}/medications/view/${medication.id}` : `/medications/view/${medication.id}`} className={styles.medicationCard}>
                 <div className={styles.medicationCardHeader}>
                   <span className={styles.medicationType}>
                     <FiPackage style={{ marginRight: '4px' }} />
@@ -335,7 +391,7 @@ const DashboardPage = () => {
           ) : (
             <div className={styles.emptyState}>
               <p>No medications added yet. Add your first medication to get started!</p>
-              <Link to="/medications/add" className={styles.actionButtonLarge}>
+              <Link to={isViewingPatient ? `/patient/${activePatient.id}/medications/add` : "/medications/add"} className={styles.actionButtonLarge}>
                 <FiPlus style={{ marginRight: '8px' }} /> Add Medication
               </Link>
             </div>
@@ -346,7 +402,7 @@ const DashboardPage = () => {
       <section className={styles.recentSection}>
         <div className={styles.sectionTitle}>
           <h2><FiCalendar style={{ marginRight: '8px' }} /> Upcoming Appointments</h2>
-          <Link to="/appointments" className={styles.viewAllLink}>
+          <Link to={isViewingPatient ? `/patient/${activePatient.id}/appointments` : "/appointments"} className={styles.viewAllLink}>
             View All <FiArrowRight style={{ marginLeft: '4px' }} />
           </Link>
         </div>
@@ -358,7 +414,7 @@ const DashboardPage = () => {
             </div>
           ) : recentAppointments.length > 0 ? (
             recentAppointments.map(appointment => (
-              <Link key={appointment.id} to={`/appointments/view/${appointment.id}`} className={styles.appointmentCard}>
+              <Link key={appointment.id} to={isViewingPatient ? `/patient/${activePatient.id}/appointments/view/${appointment.id}` : `/appointments/view/${appointment.id}`} className={styles.appointmentCard}>
                 <div className={styles.appointmentCardHeader}>
                   <span className={styles.appointmentType}>
                     <FiCalendar style={{ marginRight: '4px' }} />
@@ -376,7 +432,7 @@ const DashboardPage = () => {
           ) : (
             <div className={styles.emptyState}>
               <p>No upcoming appointments. Schedule your first appointment!</p>
-              <Link to="/appointments/create" className={styles.uploadButtonLarge}>
+              <Link to={isViewingPatient ? `/patient/${activePatient.id}/appointments/create` : "/appointments/create"} className={styles.uploadButtonLarge}>
                 <FiCalendar style={{ marginRight: '8px' }} /> Schedule Appointment
               </Link>
             </div>
@@ -387,7 +443,7 @@ const DashboardPage = () => {
       <section className={styles.recentSection}>
         <div className={styles.sectionTitle}>
           <h2><FiActivity style={{ marginRight: '8px' }} /> Health Insights</h2>
-          <Link to="/insights" className={styles.viewAllLink}>
+          <Link to={isViewingPatient ? `/patient/${activePatient.id}/insights` : "/insights"} className={styles.viewAllLink}>
             View All <FiArrowRight style={{ marginLeft: '4px' }} />
           </Link>
         </div>
@@ -400,14 +456,14 @@ const DashboardPage = () => {
           ) : calculateHealthInsightsCount() > 0 ? (
             <div className={styles.healthInsightsOverview}>
               <p>You have health data for {calculateHealthInsightsCount()} metrics. Visit the Health Insights page to see detailed analysis.</p>
-              <Link to="/insights" className={styles.viewInsightsButton}>
+              <Link to={isViewingPatient ? `/patient/${activePatient.id}/insights` : "/insights"} className={styles.viewInsightsButton}>
                 <FiActivity style={{ marginRight: '8px' }} /> View Health Insights
               </Link>
             </div>
           ) : (
             <div className={styles.emptyState}>
               <p>No health data available yet. Add your first health metric to get started!</p>
-              <Link to="/insights/input" className={styles.uploadButtonLarge}>
+              <Link to={isViewingPatient ? `/patient/${activePatient.id}/insights/input` : "/insights/input"} className={styles.uploadButtonLarge}>
                 <FiActivity style={{ marginRight: '8px' }} /> Add Health Data
               </Link>
             </div>

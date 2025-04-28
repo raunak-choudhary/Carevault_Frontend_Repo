@@ -1,0 +1,353 @@
+/* CriticalAlertsWidget.module.css */
+.alertsWidget {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-md);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.widgetHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.widgetHeader h2 {
+  margin: 0;
+  font-size: var(--font-size-md);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.alertCount {
+  background-color: var(--primary);
+  color: white;
+  border-radius: 50%;
+  min-width: 20px;
+  height: 20px;
+  font-size: var(--font-size-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--spacing-xs);
+  padding: 0 4px;
+}
+
+.widgetControls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.filterContainer {
+  position: relative;
+}
+
+.filterSelect {
+  appearance: none;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding-right: 28px;
+  padding-left: 8px;
+  font-size: var(--font-size-xs);
+  height: 28px;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary-light);
+}
+
+.filterIcon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.collapseButton {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all var(--transition-fast);
+}
+
+.collapseButton:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--primary);
+}
+
+.collapseIcon {
+  transition: transform var(--transition-fast);
+  font-size: var(--font-size-md);
+}
+
+.collapseIcon.collapsed {
+  transform: rotate(-90deg);
+}
+
+.alertsContainer {
+  max-height: 600px;
+  transition: max-height var(--transition-normal);
+  overflow: hidden;
+}
+
+.alertsContainer.collapsed {
+  max-height: 0;
+}
+
+.alertItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: var(--bg-secondary);
+  margin: var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  border-left: 4px solid var(--primary);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  cursor: pointer;
+}
+
+.alertItem:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.alertItem:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.highPriority {
+  border-left-color: #f44336;
+}
+
+.mediumPriority {
+  border-left-color: #ff9800;
+}
+
+.lowPriority {
+  border-left-color: var(--primary);
+}
+
+.alertContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.alertHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+}
+
+.alertType {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.alertTypeIcon {
+  color: var(--primary);
+}
+
+.highPriority .alertTypeIcon {
+  color: #f44336;
+}
+
+.mediumPriority .alertTypeIcon {
+  color: #ff9800;
+}
+
+.alertTypeName {
+  text-transform: capitalize;
+}
+
+.alertDate {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.alertMessage {
+  margin-bottom: var(--spacing-xs);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.patientInfo {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.patientName {
+  font-weight: 500;
+}
+
+.alertActions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-left: var(--spacing-md);
+}
+
+.resolveButton, .viewButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.resolveButton:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.viewButton:hover {
+  background-color: #2196f3;
+  color: white;
+}
+
+.viewAllButton {
+  display: block;
+  text-align: center;
+  padding: var(--spacing-sm);
+  margin: var(--spacing-md);
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+  font-weight: 500;
+}
+
+.viewAllButton:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.loadingContainer, 
+.errorContainer,
+.noAlerts {
+  padding: var(--spacing-lg);
+  text-align: center;
+  color: var(--text-secondary);
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+
+.errorContainer {
+  color: #f44336;
+}
+
+.errorIcon {
+  font-size: var(--font-size-xl);
+}
+
+/* Animation for alert items */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.alertItem {
+  animation: slideIn 0.3s ease-out;
+  animation-fill-mode: both;
+}
+
+.alertItem:nth-child(2) {
+  animation-delay: 0.05s;
+}
+
+.alertItem:nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+.alertItem:nth-child(4) {
+  animation-delay: 0.15s;
+}
+
+.alertItem:nth-child(5) {
+  animation-delay: 0.2s;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .alertItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .alertContent {
+    width: 100%;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .alertActions {
+    margin-top: var(--spacing-sm);
+    align-self: flex-end;
+    margin-left: 0;
+  }
+  
+  .alertMessage {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 480px) {
+  .widgetHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+  
+  .widgetControls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .filterSelect {
+    min-width: 120px;
+  }
+}

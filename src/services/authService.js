@@ -118,6 +118,22 @@ const login = async (credentials) => {
     }
     
     return { user, token: 'demo-token-12345' };
+  } else if (credentials.email === 'caregiver@carevault.com' && credentials.password === 'password') {
+    // Caregiver user for demo purposes
+    const user = {
+      id: '2',
+      firstName: 'Care',
+      lastName: 'Giver',
+      email: 'caregiver@carevault.com',
+      role: USER_ROLES.CAREGIVER,
+      verified: true
+    };
+    
+    // Store in localStorage
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token', 'caregiver-token-12345');
+    
+    return { user, token: 'caregiver-token-12345' };
   }
   
   // Simulate error response
@@ -136,7 +152,7 @@ const register = async (userData) => {
     firstName: userData.firstName,
     lastName: userData.lastName,
     email: userData.email,
-    role: userData.role,
+    role: userData.role || USER_ROLES.PATIENT,
     verified: false
   };
   
@@ -145,7 +161,7 @@ const register = async (userData) => {
   localStorage.setItem('token', `user-token-${user.id}`);
   
   // Initialize empty health data for new user
-  if (!localStorage.getItem('healthData')) {
+  if (user.role === USER_ROLES.PATIENT && !localStorage.getItem('healthData')) {
     localStorage.setItem('healthData', JSON.stringify(initialHealthData));
   }
   
@@ -181,6 +197,7 @@ const logout = () => {
   localStorage.removeItem('user');
   localStorage.removeItem('token');
   localStorage.removeItem('documents'); // Clear documents on logout
+  localStorage.removeItem('currentPatientId'); // Clear current patient ID on logout
   // Note: We're not clearing health data on logout for demo purposes
 };
 
@@ -259,7 +276,7 @@ const saveFileData = (file) => {
 };
 
 // Get all user documents
-const getUserDocuments = async () => {
+const getUserDocuments = async (patientId = null) => {
   // Simulate API call
   await delay(1000);
   
@@ -271,11 +288,19 @@ const getUserDocuments = async () => {
   
   // Get documents from localStorage or return empty array
   const documentsJson = localStorage.getItem('documents');
-  return documentsJson ? JSON.parse(documentsJson) : [];
+  let documents = documentsJson ? JSON.parse(documentsJson) : [];
+  
+  // If patientId is provided (for caregivers viewing patient data), filter for that patient
+  if (patientId && user.role === USER_ROLES.CAREGIVER) {
+    return documents.filter(doc => doc.patientId === patientId);
+  }
+  
+  // Otherwise, return the user's own documents
+  return documents.filter(doc => doc.userId === user.id);
 };
 
 // Upload a new document
-const uploadDocument = async (documentData) => {
+const uploadDocument = async (documentData, patientId = null) => {
   // Simulate API call
   await delay(1500);
   
@@ -292,12 +317,14 @@ const uploadDocument = async (documentData) => {
   }
   
   // Get existing documents
-  const existingDocuments = await getUserDocuments();
+  const documentsJson = localStorage.getItem('documents');
+  const existingDocuments = documentsJson ? JSON.parse(documentsJson) : [];
   
   // Create new document with ID and timestamp
   const newDocument = {
     id: Date.now().toString(),
     userId: user.id,
+    patientId: patientId || user.id, // Use patientId if provided, otherwise use user's own id
     createdAt: new Date().toISOString(),
     status: 'processed', // In real app, this would initially be 'processing' until OCR is complete
     fileUrl: fileUrl, // Store data URL or original URL
@@ -314,12 +341,12 @@ const uploadDocument = async (documentData) => {
 };
 
 // Get document by ID
-const getDocumentById = async (id) => {
+const getDocumentById = async (id, patientId = null) => {
   // Simulate API call
   await delay(800);
   
   // Get documents
-  const documents = await getUserDocuments();
+  const documents = await getUserDocuments(patientId);
   
   // Find document with matching ID
   const document = documents.find(doc => doc.id === id);
@@ -332,15 +359,28 @@ const getDocumentById = async (id) => {
 };
 
 // Update document
-const updateDocument = async (id, updates) => {
+const updateDocument = async (id, updates, patientId = null) => {
   // Simulate API call
   await delay(1000);
   
   // Get documents
-  const documents = await getUserDocuments();
+  const documentsJson = localStorage.getItem('documents');
+  const documents = documentsJson ? JSON.parse(documentsJson) : [];
+  
+  // Get current user
+  const user = getCurrentUser();
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
   
   // Find document index
-  const documentIndex = documents.findIndex(doc => doc.id === id);
+  let documentIndex = -1;
+  
+  if (user.role === USER_ROLES.CAREGIVER && patientId) {
+    documentIndex = documents.findIndex(doc => doc.id === id && doc.patientId === patientId);
+  } else {
+    documentIndex = documents.findIndex(doc => doc.id === id && doc.userId === user.id);
+  }
   
   if (documentIndex === -1) {
     throw new Error('Document not found');
@@ -363,15 +403,28 @@ const updateDocument = async (id, updates) => {
 };
 
 // Delete document
-const deleteDocument = async (id) => {
+const deleteDocument = async (id, patientId = null) => {
   // Simulate API call
   await delay(1000);
   
   // Get documents
-  const documents = await getUserDocuments();
+  const documentsJson = localStorage.getItem('documents');
+  const documents = documentsJson ? JSON.parse(documentsJson) : [];
+  
+  // Get current user
+  const user = getCurrentUser();
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
   
   // Filter out document with matching ID
-  const updatedDocuments = documents.filter(doc => doc.id !== id);
+  let updatedDocuments;
+  
+  if (user.role === USER_ROLES.CAREGIVER && patientId) {
+    updatedDocuments = documents.filter(doc => !(doc.id === id && doc.patientId === patientId));
+  } else {
+    updatedDocuments = documents.filter(doc => !(doc.id === id && doc.userId === user.id));
+  }
   
   // If length is the same, document wasn't found
   if (updatedDocuments.length === documents.length) {
@@ -385,12 +438,12 @@ const deleteDocument = async (id) => {
 };
 
 // Filter documents
-const filterDocuments = async (filters) => {
+const filterDocuments = async (filters, patientId = null) => {
   // Simulate API call
   await delay(800);
   
   // Get all documents
-  const documents = await getUserDocuments();
+  const documents = await getUserDocuments(patientId);
   
   // Apply filters
   return documents.filter(doc => {
@@ -417,16 +470,16 @@ const filterDocuments = async (filters) => {
 };
 
 // Search documents
-const searchDocuments = async (query) => {
+const searchDocuments = async (query, patientId = null) => {
   // Simulate API call
   await delay(800);
   
   if (!query) {
-    return await getUserDocuments();
+    return await getUserDocuments(patientId);
   }
   
   // Get all documents
-  const documents = await getUserDocuments();
+  const documents = await getUserDocuments(patientId);
   const lowerQuery = query.toLowerCase();
   
   // Search in title, provider, type, notes, content and tags
@@ -443,7 +496,7 @@ const searchDocuments = async (query) => {
 };
 
 // Health metrics functions - Phase 6
-const getHealthMetrics = async () => {
+const getHealthMetrics = async (patientId = null) => {
   // Simulate API call
   await delay(800);
   
@@ -455,28 +508,37 @@ const getHealthMetrics = async () => {
   
   // Get health data from localStorage or return empty object
   const healthDataJson = localStorage.getItem('healthData');
-  return healthDataJson ? JSON.parse(healthDataJson) : {};
+  const healthData = healthDataJson ? JSON.parse(healthDataJson) : {};
+  
+  // If patientId is provided and user is a caregiver, return that patient's data
+  // In a real app, this would fetch the specific patient's data from the backend
+  if (patientId && user.role === USER_ROLES.CAREGIVER) {
+    // For demo purposes, we'll just return the same data
+    return healthData;
+  }
+  
+  return healthData;
 };
 
 // Get specific health metric
-const getHealthMetric = async (metricType) => {
+const getHealthMetric = async (metricType, patientId = null) => {
   // Simulate API call
   await delay(600);
   
   // Get all health metrics
-  const healthData = await getHealthMetrics();
+  const healthData = await getHealthMetrics(patientId);
   
   // Return specific metric or null if not found
   return healthData[metricType] || null;
 };
 
 // Add new health metric reading
-const addHealthMetricReading = async (metricType, reading) => {
+const addHealthMetricReading = async (metricType, reading, patientId = null) => {
   // Simulate API call
   await delay(800);
   
   // Get current health data
-  const healthData = await getHealthMetrics();
+  const healthData = await getHealthMetrics(patientId);
   
   // If this metric doesn't exist yet, initialize it
   if (!healthData[metricType]) {
@@ -501,12 +563,12 @@ const addHealthMetricReading = async (metricType, reading) => {
 };
 
 // Update health metric goal
-const updateHealthMetricGoal = async (metricType, goal) => {
+const updateHealthMetricGoal = async (metricType, goal, patientId = null) => {
   // Simulate API call
   await delay(600);
   
   // Get current health data
-  const healthData = await getHealthMetrics();
+  const healthData = await getHealthMetrics(patientId);
   
   // Update goal for specific metric
   if (healthData[metricType]) {

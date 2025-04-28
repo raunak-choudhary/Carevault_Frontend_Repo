@@ -8,23 +8,81 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  height: var(--header-height, 60px);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.headerCenter {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
 .logo {
   display: flex;
   align-items: center;
-}
-
-.logoImage {
-  height: 40px;
-  width: auto;
-  margin-right: var(--spacing-sm);
+  text-decoration: none;
 }
 
 .logoText {
   font-size: var(--font-size-lg);
   font-weight: bold;
   color: var(--primary);
+}
+
+.menuButton {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: var(--font-size-lg);
+  padding: var(--spacing-sm);
+  cursor: pointer;
+}
+
+.searchButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: var(--font-size-lg);
+  padding: var(--spacing-sm);
+  cursor: pointer;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  transition: background-color var(--transition-fast);
+}
+
+.searchButton:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--primary);
+}
+
+.returnButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--bg-tertiary);
+  color: var(--primary);
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  margin-left: var(--spacing-md);
+  transition: background-color var(--transition-fast);
+}
+
+.returnButton:hover {
+  background-color: var(--bg-secondary);
 }
 
 .headerRight {
@@ -39,12 +97,14 @@
   color: var(--text-secondary);
   margin-right: var(--spacing-md);
   font-size: var(--font-size-lg);
+  cursor: pointer;
 }
 
 .profileButton {
   display: flex;
   align-items: center;
   background: none;
+  border: none;
   color: var(--text-primary);
   padding: var(--spacing-sm);
   cursor: pointer;
@@ -87,6 +147,10 @@
   transition: transform var(--transition-fast);
 }
 
+.dropdownIconOpen {
+  transform: rotate(180deg);
+}
+
 .dropdown {
   position: absolute;
   top: 100%;
@@ -120,8 +184,30 @@ button.dropdownItem {
   text-align: left;
   background: none;
   border: none;
+  font-family: inherit;
+  font-size: inherit;
 }
 
-.dropdownIcon {
+.dropdownItemIcon {
   margin-right: var(--spacing-sm);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .menuButton {
+    display: block;
+  }
+  
+  .userName {
+    display: none;
+  }
+  
+  .returnButton {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xs);
+  }
+  
+  .headerCenter {
+    display: none;
+  }
 }

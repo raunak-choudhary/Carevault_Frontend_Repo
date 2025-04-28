@@ -1,0 +1,184 @@
+.patientCard {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-md);
+  transition: all var(--transition-fast);
+}
+
+.patientCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.patientHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.patientAvatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--bg-tertiary);
+  border-radius: 50%;
+  color: var(--primary);
+  margin-right: var(--spacing-sm);
+}
+
+.patientName {
+  flex: 1;
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+}
+
+.statusBadge {
+  font-size: var(--font-size-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-full);
+}
+
+.statusActive {
+  background-color: var(--primary);
+  color: white;
+}
+
+.statusInactive {
+  background-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+.patientInfo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+}
+
+.infoIcon {
+  color: var(--primary);
+  margin-top: 2px;
+}
+
+.infoContent {
+  flex: 1;
+}
+
+.infoLabel {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.infoValue {
+  font-weight: 500;
+}
+
+.alertCount {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.patientActions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.viewDashboardButton,
+.editProfileButton,
+.toggleStatusButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  flex: 1;
+}
+
+.viewDashboardButton {
+  background-color: var(--primary);
+  color: white;
+}
+
+.viewDashboardButton:hover {
+  background-color: var(--primary-dark);
+}
+
+.editProfileButton {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.editProfileButton:hover {
+  background-color: var(--bg-secondary);
+  color: var(--primary);
+}
+
+.toggleStatusButton {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.activateButton:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.deactivateButton:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+.buttonIcon {
+  font-size: var(--font-size-md);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .patientInfo {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .patientActions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .patientInfo {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  .patientHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+  
+  .patientAvatar {
+    margin-right: 0;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .statusBadge {
+    align-self: flex-start;
+  }
+}

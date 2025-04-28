@@ -1,3 +1,4 @@
+// App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
@@ -6,7 +7,8 @@ import { DocumentProvider } from './context/DocumentContext';
 import { ChatProvider } from './context/ChatContext';
 import { AppointmentProvider } from './context/AppointmentContext';
 import { HealthProvider } from './context/HealthContext';
-import { MedicationProvider } from './context/MedicationContext'; // Added for medication management
+import { MedicationProvider } from './context/MedicationContext';
+import { DependentProvider } from './context/DependentContext';
 import { useAuth } from './hooks/useAuth';
 
 // Import pages
@@ -25,10 +27,10 @@ import DocumentsListPage from './pages/documents/DocumentsListPage';
 import DocumentViewPage from './pages/documents/DocumentViewPage';
 import DocumentUploadPage from './pages/documents/DocumentUploadPage';
 
-// Import chat pages - Phase 4
+// Import chat pages
 import ChatPage from './pages/chat/ChatPage';
 
-// Import appointment pages - Phase 5
+// Import appointment pages
 import AppointmentsListPage from './pages/appointments/AppointmentsListPage';
 import AppointmentCreatePage from './pages/appointments/AppointmentCreatePage';
 import AppointmentViewPage from './pages/appointments/AppointmentViewPage';
@@ -36,17 +38,25 @@ import AppointmentEditPage from './pages/appointments/AppointmentEditPage';
 import ProviderSearchPage from './pages/appointments/ProviderSearchPage';
 import ProviderDetailPage from './pages/appointments/ProviderDetailPage';
 
-// Import health insights pages - Phase 6
+// Import health insights pages
 import HealthInsightsPage from './pages/insights/HealthInsightsPage';
 import MetricDetailPage from './pages/insights/MetricDetailPage';
 import MetricInputPage from './pages/insights/MetricInputPage';
 
-// Import medication pages - Phase 7
+// Import medication pages
 import MedicationsListPage from './pages/medications/MedicationsListPage';
 import MedicationDetailPage from './pages/medications/MedicationDetailPage';
 import MedicationAddPage from './pages/medications/MedicationAddPage';
 import MedicationEditPage from './pages/medications/MedicationEditPage';
 import MedicationReminderPage from './pages/medications/MedicationReminderPage';
+
+// Import patient management pages
+import PatientsListPage from './pages/patients/PatientsListPage';
+import AddPatientPage from './pages/patients/AddPatientPage';
+import PatientProfilePage from './pages/patients/PatientProfilePage';
+
+// Import settings pages
+import SettingsPage from './pages/settings/SettingsPage';
 
 // Import layout components
 import BaseLayout from './components/layout/BaseLayout';
@@ -55,8 +65,9 @@ import BaseLayout from './components/layout/BaseLayout';
 import './styles/global.css';
 
 // Protected route component that checks authentication status
-const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+const ProtectedRoute = ({ children, requireVerification = true, allowedRoles = [] }) => {
+  // eslint-disable-next-line no-unused-vars
+  const { user, loading, isCaregiver } = useAuth();
   const location = useLocation();
   
   // Show loading indicator while checking auth status
@@ -70,8 +81,13 @@ const ProtectedRoute = ({ children }) => {
   }
   
   // If user is authenticated but not verified, redirect to verification
-  if (user && !user.verified && location.pathname !== '/verify-account') {
+  if (requireVerification && !user.verified && location.pathname !== '/verify-account') {
     return <Navigate to="/verify-account" replace />;
+  }
+  
+  // Check if role is allowed (if specified)
+  if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/unauthorized" replace />;
   }
   
   return children;
@@ -116,7 +132,7 @@ const AppRoutes = () => {
         </ProtectedRoute>
       } />
       
-      {/* Document management routes - Phase 3 */}
+      {/* Document management routes */}
       <Route path="/documents" element={
         <ProtectedRoute>
           <BaseLayout>
@@ -141,7 +157,7 @@ const AppRoutes = () => {
         </ProtectedRoute>
       } />
       
-      {/* Chat routes - Phase 4 */}
+      {/* Chat routes */}
       <Route path="/chat" element={
         <ProtectedRoute>
           <BaseLayout>
@@ -150,7 +166,7 @@ const AppRoutes = () => {
         </ProtectedRoute>
       } />
       
-      {/* Appointment routes - Phase 5 */}
+      {/* Appointment routes */}
       <Route path="/appointments" element={
         <ProtectedRoute>
           <BaseLayout>
@@ -199,7 +215,7 @@ const AppRoutes = () => {
         </ProtectedRoute>
       } />
       
-      {/* Medication management routes - Phase 7 */}
+      {/* Medication routes */}
       <Route path="/medications" element={
         <ProtectedRoute>
           <BaseLayout>
@@ -240,7 +256,7 @@ const AppRoutes = () => {
         </ProtectedRoute>
       } />
       
-      {/* Health Insights routes - Phase 6 */}
+      {/* Health Insights routes */}
       <Route path="/insights" element={
         <ProtectedRoute>
           <BaseLayout>
@@ -265,10 +281,166 @@ const AppRoutes = () => {
         </ProtectedRoute>
       } />
       
+      {/* Patient management routes for caregivers */}
+      <Route path="/patients" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <PatientsListPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patients/add" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <AddPatientPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+
+      {/* Patient profile route */}
+      <Route path="/patients/profile/:id" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <PatientProfilePage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      {/* Settings route */}
       <Route path="/settings" element={
         <ProtectedRoute>
           <BaseLayout>
-            <div>Settings Page (Coming Soon)</div>
+            <SettingsPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      {/* Patient-specific routes for caregivers */}
+      <Route path="/patient/:patientId/dashboard" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <DashboardPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/documents" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <DocumentsListPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/documents/view/:id" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <DocumentViewPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/documents/upload" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <DocumentUploadPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/appointments" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <AppointmentsListPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/appointments/create" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <AppointmentCreatePage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/appointments/view/:id" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <AppointmentViewPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/appointments/edit/:id" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <AppointmentEditPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/medications" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <MedicationsListPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/medications/view/:id" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <MedicationDetailPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/medications/add" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <MedicationAddPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/medications/edit/:id" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <MedicationEditPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/medications/reminders" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <MedicationReminderPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/insights" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <HealthInsightsPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/insights/metric/:metricType" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <MetricDetailPage />
+          </BaseLayout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/patient/:patientId/insights/input" element={
+        <ProtectedRoute allowedRoles={['caregiver']}>
+          <BaseLayout>
+            <MetricInputPage />
           </BaseLayout>
         </ProtectedRoute>
       } />
@@ -283,19 +455,21 @@ const App = () => {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <DocumentProvider>
-          <ChatProvider>
-            <AppointmentProvider>
-              <HealthProvider>
-                <MedicationProvider> {/* Added medication provider */}
-                  <Router>
-                    <AppRoutes />
-                  </Router>
-                </MedicationProvider>
-              </HealthProvider>
-            </AppointmentProvider>
-          </ChatProvider>
-        </DocumentProvider>
+        <DependentProvider>
+          <DocumentProvider>
+            <ChatProvider>
+              <AppointmentProvider>
+                <HealthProvider>
+                  <MedicationProvider>
+                    <Router>
+                      <AppRoutes />
+                    </Router>
+                  </MedicationProvider>
+                </HealthProvider>
+              </AppointmentProvider>
+            </ChatProvider>
+          </DocumentProvider>
+        </DependentProvider>
       </AuthProvider>
     </ThemeProvider>
   );

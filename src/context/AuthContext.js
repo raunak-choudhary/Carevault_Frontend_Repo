@@ -37,6 +37,21 @@ export const AuthProvider = ({ children }) => {
     setUser(prevUser => ({ ...prevUser, ...userData }));
   };
   
+  // Check if user has a specific role
+  const hasRole = (role) => {
+    return user && user.role === role;
+  };
+  
+  // Check if user is a caregiver
+  const isCaregiver = () => {
+    return hasRole('caregiver');
+  };
+  
+  // Check if user is a patient
+  const isPatient = () => {
+    return hasRole('patient');
+  };
+  
   // Get user health metrics (simplified implementation)
   const getUserHealthMetrics = () => {
     // In a real app, this would be fetched from the backend
@@ -63,7 +78,10 @@ export const AuthProvider = ({ children }) => {
       signIn, 
       signOut, 
       updateUser,
-      getUserHealthMetrics 
+      getUserHealthMetrics,
+      hasRole,
+      isCaregiver,
+      isPatient
     }}>
       {children}
     </AuthContext.Provider>

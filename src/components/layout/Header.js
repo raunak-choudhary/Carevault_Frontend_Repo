@@ -1,20 +1,51 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FiUser, FiSun, FiMoon, FiLogOut, FiSettings, FiChevronDown } from 'react-icons/fi';
+import { 
+  FiUser, 
+  FiSun, 
+  FiMoon, 
+  FiLogOut, 
+  FiSettings, 
+  FiChevronDown, 
+  FiMenu, 
+  FiSearch 
+} from 'react-icons/fi';
 import { useTheme } from '../../hooks/useTheme';
 import { useAuth } from '../../hooks/useAuth';
+import { usePatients } from '../../hooks/usePatients';
+import QuickPatientSwitcher from '../patients/QuickPatientSwitcher';
+import PatientSearchModal from '../patients/PatientSearchModal';
 import styles from './Header.module.css';
 
-const Header = () => {
+const Header = ({ toggleSidebar }) => {
   const { theme, toggleTheme } = useTheme();
-  const { user, signOut } = useAuth();
+  const { user, signOut, isCaregiver } = useAuth();
+  const { setActivePatient } = usePatients();
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [patientSearchOpen, setPatientSearchOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   const handleLogout = () => {
     signOut();
     navigate('/login');
+  };
+  
+  // Handle patient selection from search modal with error handling
+  const handlePatientSelect = async (patient) => {
+    try {
+      // First set the active patient and wait for it to complete
+      await setActivePatient(patient.id);
+      
+      // Then navigate after patient is set
+      navigate(`/patient/${patient.id}/dashboard`);
+      
+      // Close the search modal
+      setPatientSearchOpen(false);
+    } catch (error) {
+      console.error('Error selecting patient from search:', error);
+      // Handle the error - could show a toast or alert
+    }
   };
   
   // Close dropdown when clicking outside
@@ -33,11 +64,29 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>
-        <div className={styles.logoImage}>
-          <img src={require('../../assets/images/carevault-logo.png')} alt="CareVault" className={styles.logoImage} />
-        </div>
-        <span className={styles.logoText}>CareVault</span>
+      <div className={styles.headerLeft}>
+        <button className={styles.menuButton} onClick={toggleSidebar} aria-label="Open menu">
+          <FiMenu />
+        </button>
+        
+        <Link to="/dashboard" className={styles.logo}>
+          <span className={styles.logoText}>CareVault</span>
+        </Link>
+      </div>
+      
+      <div className={styles.headerCenter}>
+        {isCaregiver() && (
+          <>
+            <QuickPatientSwitcher />
+            <button 
+              className={styles.searchButton}
+              onClick={() => setPatientSearchOpen(true)}
+              aria-label="Search patients"
+            >
+              <FiSearch />
+            </button>
+          </>
+        )}
       </div>
       
       <div className={styles.headerRight}>
@@ -62,21 +111,21 @@ const Header = () => {
               <span className={styles.userName}>
                 {user.firstName ? `${user.firstName} ${user.lastName}` : 'User'}
               </span>
-              <FiChevronDown className={styles.dropdownIcon} />
+              <FiChevronDown className={`${styles.dropdownIcon} ${dropdownOpen ? styles.dropdownIconOpen : ''}`} />
             </button>
             
             {dropdownOpen && (
               <div className={styles.dropdown}>
                 <Link to="/profile" className={styles.dropdownItem} onClick={() => setDropdownOpen(false)}>
-                  <FiUser className={styles.dropdownIcon} />
+                  <FiUser className={styles.dropdownItemIcon} />
                   <span>Profile</span>
                 </Link>
                 <Link to="/settings" className={styles.dropdownItem} onClick={() => setDropdownOpen(false)}>
-                  <FiSettings className={styles.dropdownIcon} />
+                  <FiSettings className={styles.dropdownItemIcon} />
                   <span>Settings</span>
                 </Link>
                 <button className={styles.dropdownItem} onClick={handleLogout}>
-                  <FiLogOut className={styles.dropdownIcon} />
+                  <FiLogOut className={styles.dropdownItemIcon} />
                   <span>Logout</span>
                 </button>
               </div>
@@ -89,6 +138,13 @@ const Header = () => {
           </Link>
         )}
       </div>
+      
+      {/* Patient Search Modal */}
+      <PatientSearchModal 
+        isOpen={patientSearchOpen} 
+        onClose={() => setPatientSearchOpen(false)}
+        onSelectPatient={handlePatientSelect}
+      />
     </header>
   );
 };

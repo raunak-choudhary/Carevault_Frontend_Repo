@@ -1,0 +1,68 @@
+/* src/components/settings/SettingsNav.module.css */
+.settingsNav {
+    background-color: var(--bg-secondary);
+    height: 100%;
+    min-height: 600px;
+  }
+  
+  .navList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navItem {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: none;
+    border: none;
+    text-align: left;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: var(--font-size-md);
+  }
+  
+  .navItem:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--primary);
+  }
+  
+  .navItem.active {
+    color: var(--primary);
+    background-color: var(--bg-tertiary);
+    border-left: 3px solid var(--primary);
+  }
+  
+  .navIcon {
+    font-size: var(--font-size-lg);
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .settingsNav {
+      min-height: auto;
+    }
+    
+    .navList {
+      display: flex;
+      overflow-x: auto;
+      padding: var(--spacing-sm);
+    }
+    
+    .navItem {
+      flex-direction: column;
+      padding: var(--spacing-sm);
+      text-align: center;
+      border-left: none;
+      border-bottom: 3px solid transparent;
+    }
+    
+    .navItem.active {
+      border-left: none;
+      border-bottom: 3px solid var(--primary);
+    }
+  }

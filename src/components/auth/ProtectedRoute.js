@@ -6,9 +6,10 @@ import LoadingSpinner from '../common/LoadingSpinner';
 const ProtectedRoute = ({ 
   children, 
   requireVerification = true,
-  allowedRoles = [] // Optional: roles allowed to access the route
+  allowedRoles = [], // Optional: roles allowed to access the route
+  redirectPath = '/dashboard' // Default redirect path
 }) => {
-  const { user, loading } = useAuth();
+  const { user, loading, isCaregiver } = useAuth();
   const location = useLocation();
   
   // Show loading indicator while checking auth status
@@ -37,9 +38,14 @@ const ProtectedRoute = ({
   
   // Check if user role is allowed (if roles are specified)
   if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
+    // Special handling for caregivers - redirect to caregiver dashboard
+    if (isCaregiver() && redirectPath === '/dashboard') {
+      return <Navigate to="/caregiver" replace />;
+    }
+    
     return <Navigate to="/unauthorized" replace />;
   }
-  
+  // eslint-disable-next-line no-unused-vars 
   // If all checks pass, render the protected component
   return children;
 };

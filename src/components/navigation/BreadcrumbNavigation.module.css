@@ -1,0 +1,95 @@
+.breadcrumbs {
+  padding: var(--spacing-xs) 0;
+  margin-bottom: var(--spacing-md);
+  overflow: hidden;
+  width: 100%;
+}
+
+.breadcrumbsList {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+.breadcrumbItem {
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.breadcrumbItem a {
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.breadcrumbItem a:hover {
+  color: var(--primary);
+}
+
+.homeLink {
+  color: var(--text-secondary) !important;
+}
+
+.patientLink {
+  color: var(--primary) !important;
+  font-weight: 500;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.currentPage {
+  display: flex;
+  align-items: center;
+  color: var(--text-primary);
+  font-weight: 500;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.separator {
+  margin: 0 var(--spacing-xs);
+  color: var(--border-color);
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  margin-right: var(--spacing-xs);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .breadcrumbs {
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  
+  .breadcrumbs::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+  
+  .breadcrumbItem a, .currentPage, .patientLink {
+    max-width: none;
+  }
+  
+  .breadcrumbsList {
+    flex-wrap: nowrap;
+  }
+}
