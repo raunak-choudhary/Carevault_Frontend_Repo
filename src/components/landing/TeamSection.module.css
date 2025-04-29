@@ -1,0 +1,611 @@
+/* TeamSection.module.css */
+.teamSection {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  padding: 2rem 0;
+}
+
+.teamSection.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.teamGrid {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin-bottom: 4rem;
+  padding: 0 2rem;
+}
+
+.teamCard {
+  height: 380px;
+  width: 320px;
+  perspective: 1500px;
+  cursor: pointer;
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards;
+  animation-delay: var(--animation-delay, 0s);
+  transition: transform 0.3s ease;
+}
+
+.teamCard:hover {
+  transform: translateY(-10px);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.teamCard .cardFront,
+.teamCard .cardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.cardFront {
+  background: linear-gradient(145deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  transform: rotateY(0deg);
+  z-index: 2;
+  position: relative;
+}
+
+.cardFront::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top right, rgba(76, 175, 80, 0.1), transparent 70%);
+  z-index: -1;
+}
+
+.cardBack {
+  background: linear-gradient(145deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotateY(180deg);
+  position: relative;
+  overflow: hidden;
+}
+
+.cardBack::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent 70%);
+  z-index: 0;
+}
+
+.teamCard:hover .cardFront,
+.teamCard:focus .cardFront,
+.teamCard.active .cardFront {
+  transform: rotateY(-180deg);
+}
+
+.teamCard:hover .cardBack,
+.teamCard:focus .cardBack,
+.teamCard.active .cardBack {
+  transform: rotateY(0deg);
+  z-index: 3;
+}
+
+.memberAvatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border: 4px solid var(--primary);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.teamCard:hover .memberAvatar {
+  transform: scale(1.05) rotate(5deg);
+  box-shadow: 0 12px 30px rgba(76, 175, 80, 0.3);
+}
+
+.memberAvatar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, rgba(76, 175, 80, 0.2), transparent);
+  z-index: 1;
+}
+
+.memberAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 0;
+  transition: transform 0.5s ease;
+}
+
+.teamCard:hover .memberAvatar img {
+  transform: scale(1.1);
+}
+
+.avatarPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatarPlaceholder span {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.memberInfo {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.memberName {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  position: relative;
+  display: inline-block;
+  word-break: break-word; /* Allow long names to wrap */
+}
+
+.memberName::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+  border-radius: 3px;
+}
+
+.teamCard:hover .memberName::after {
+  width: 70%;
+}
+
+.memberRole {
+  color: var(--primary);
+  font-size: 1.1rem;
+  font-weight: 500;
+  opacity: 0.9;
+  margin-top: 0.75rem;
+}
+
+.cardActions {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 5;
+}
+
+.infoButton {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: var(--bg-secondary);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-primary); /* Changed color for visibility */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.infoButton svg { /* Ensure SVG icon is visible */
+  width: 18px;
+  height: 18px;
+  fill: currentColor; /* Explicitly set fill */
+  stroke-width: 2; /* Ensure stroke is visible */
+}
+
+.infoButton:hover, .infoButton:focus {
+  background-color: var(--primary);
+  color: white;
+  transform: scale(1.15) rotate(15deg);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+}
+
+.backContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.backContent .memberName {
+  color: white;
+  margin-bottom: 1.2rem;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 1.6rem; /* Slightly reduce font size on back */
+  word-break: break-word; /* Allow long names to wrap */
+}
+
+.backContent .memberName::after {
+  background-color: white;
+}
+
+.memberBio {
+  text-align: center;
+  margin-bottom: 1.8rem;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  max-width: 90%;
+}
+
+.memberDetails {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.8rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+}
+
+.detailItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.detailItem:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.socialLink {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.socialLink::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.socialLink:hover::before {
+  opacity: 1;
+}
+
+.socialLink:hover, .socialLink:focus {
+  background-color: white;
+  color: var(--primary);
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.projectInfo {
+  background: linear-gradient(145deg, var(--bg-primary) 0%, var(--bg-secondary) 5%);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2.5rem;
+  animation: slideUp 0.8s ease forwards;
+  animation-delay: 0.6s;
+  opacity: 0;
+  transform: translateY(30px);
+  position: relative;
+  overflow: hidden;
+  margin: 0 2rem;
+}
+
+.projectInfo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at bottom left, rgba(76, 175, 80, 0.08), transparent 70%);
+  z-index: 0;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.projectMetadata {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.metadataItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  transition: transform 0.3s ease;
+  padding: 0.8rem;
+  border-radius: 10px;
+}
+
+.metadataItem:hover {
+  transform: translateX(5px);
+  background-color: rgba(76, 175, 80, 0.05);
+}
+
+.metadataLabel {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.metadataIcon {
+  color: var(--primary);
+}
+
+.metadataLabel::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  background-color: var(--primary);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.metadataItem:hover .metadataLabel::before {
+  width: 30px;
+}
+
+.metadataValue {
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.projectDescription {
+  border-left: 3px solid var(--primary);
+  padding-left: 2.5rem;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+
+.projectDescription::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -3px;
+  width: 3px;
+  height: 0;
+  background-color: var(--primary-light);
+  transition: height 0.5s ease;
+}
+
+.projectInfo:hover .projectDescription::before {
+  height: 100%;
+}
+
+.projectDescription p {
+  line-height: 1.9;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  position: relative;
+  padding: 1rem;
+  border-radius: 10px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.projectInfo:hover .projectDescription p {
+  transform: translateY(-5px);
+  background-color: rgba(76, 175, 80, 0.05);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+  .teamGrid {
+    gap: 3rem;
+  }
+  
+  .teamCard {
+    width: 300px;
+  }
+}
+
+@media (max-width: 992px) {
+  .teamGrid {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+  
+  .projectInfo {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .projectDescription {
+    border-left: none;
+    padding-left: 0;
+    border-top: 3px solid var(--primary);
+    padding-top: 2.5rem;
+  }
+  
+  .projectDescription::before {
+    top: -3px;
+    left: 0;
+    width: 0;
+    height: 3px;
+  }
+  
+  .projectInfo:hover .projectDescription::before {
+    width: 100%;
+    height: 3px;
+  }
+}
+
+@media (max-width: 768px) {
+  .teamCard {
+    height: 360px;
+    width: 280px;
+  }
+  
+  .memberAvatar {
+    width: 130px;
+    height: 130px;
+  }
+  
+  .memberBio {
+    font-size: 0.95rem;
+  }
+  
+  .memberName {
+    font-size: 1.6rem;
+  }
+
+  .backContent .memberName {
+    font-size: 1.5rem; /* Further reduce font size on back for smaller screens */
+  }
+  
+  .projectInfo {
+    padding: 2rem;
+  }
+  
+  .projectDescription p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .teamCard {
+    height: 340px;
+    width: 260px;
+  }
+  
+  .memberAvatar {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .cardFront, .cardBack {
+    padding: 1.5rem;
+  }
+
+  .memberName {
+    font-size: 1.4rem;
+  }
+
+  .backContent .memberName {
+    font-size: 1.3rem; /* Further reduce font size on back for smallest screens */
+  }
+  
+  .memberDetails {
+    font-size: 0.85rem;
+  }
+  
+  .projectInfo {
+    padding: 1.5rem;
+    margin: 0 1rem;
+  }
+  
+  .metadataValue {
+    font-size: 1.05rem;
+  }
+  
+  .projectDescription p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+}

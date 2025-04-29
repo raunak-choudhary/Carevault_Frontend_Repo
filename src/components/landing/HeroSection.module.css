@@ -1,0 +1,572 @@
+/* HeroSection.module.css */
+.heroSection {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8rem 2rem 5rem;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.heroSection.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.heroContent {
+  max-width: 600px;
+  position: relative;
+  z-index: 5;
+  /* Add subtle entrance animation */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s; /* Delay after section fade-in */
+}
+
+.heroSection.visible .heroContent {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
+  position: relative;
+  /* Staggered animation */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease 0.6s, transform 0.5s ease 0.6s;
+}
+
+.heroSection.visible .heroTitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.titleAnimation {
+  display: inline-block;
+  background: linear-gradient(to right, var(--primary), var(--primary-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.highlight {
+  color: var(--text-primary);
+  position: relative;
+  display: inline-block;
+}
+
+.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-color: rgba(76, 175, 80, 0.2);
+  z-index: -1;
+  border-radius: 4px;
+}
+
+.heroSubtitle {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  min-height: 38px;
+  /* Staggered animation */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease 0.8s, transform 0.5s ease 0.8s;
+}
+
+.heroSection.visible .heroSubtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.heroCta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  /* Staggered animation */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease 1s, transform 0.5s ease 1s;
+}
+
+.heroSection.visible .heroCta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.primaryButton {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(76, 175, 80, 0.3);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.primaryButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transition: all 0.6s ease;
+}
+
+.primaryButton:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(76, 175, 80, 0.4);
+}
+
+.primaryButton:hover::before {
+  left: 100%;
+}
+
+.secondaryButton {
+  background-color: transparent;
+  color: var(--text-primary);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative; /* Needed for pseudo-element */
+  overflow: hidden; /* Hide the pseudo-element initially */
+}
+
+/* Enhanced hover effect for secondary button */
+.secondaryButton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(76, 175, 80, 0.1); /* Subtle green background */
+  border-radius: 50px;
+  transform: scale(0.8);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: -1;
+}
+
+.secondaryButton:hover {
+  background-color: transparent; /* Keep background transparent */
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-3px); /* Add slight lift */
+}
+
+.secondaryButton:hover::after {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.heroBadges {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  /* Staggered animation */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease 1.2s, transform 0.5s ease 1.2s;
+}
+
+.heroSection.visible .heroBadges {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--bg-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  border: 1px solid transparent; /* Add border for hover effect */
+}
+
+.badge:hover {
+  transform: translateY(-3px) scale(1.03); /* Slightly larger lift and scale */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  border-color: var(--primary-light); /* Add subtle border color */
+  color: var(--text-primary); /* Slightly darken text */
+}
+
+.badgeIcon {
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.badge:hover .badgeIcon {
+  color: var(--primary-dark); /* Darken icon on hover */
+}
+
+.heroImage {
+  position: relative;
+  z-index: 4;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin-left: 2rem;
+  max-width: 50%;
+  /* Staggered animation */
+  opacity: 0;
+  transform: translateX(20px) perspective(1000px) rotateY(-5deg);
+  transition: opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s;
+}
+
+.heroSection.visible .heroImage {
+  opacity: 1;
+  transform: translateX(0) perspective(1000px) rotateY(-5deg);
+}
+
+.mainImage {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+  /* Removed transform from here, applied to .heroImage container */
+  transition: all 0.5s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.heroImage:hover .mainImage {
+  transform: perspective(1000px) rotateY(0deg) scale(1.02); /* Add slight scale on hover */
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced medical animation styles - Repositioned to cover entire hero section */
+.medicationAnimation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2; /* Above background, below content */
+  overflow: visible; /* Allow elements to be visible outside container */
+}
+
+/* Floating pill animation - Modified for vertical linear movement */
+.floatingPill {
+  position: absolute;
+  width: var(--size);
+  height: calc(var(--size) / 2);
+  background-color: var(--color);
+  border-radius: 50px;
+  /* Position in vertical lanes */
+  left: var(--lane-position);
+  bottom: -50px; /* Start below the viewport */
+  transform: rotate(var(--rotate));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  opacity: 0;
+  animation: floatPillVertical var(--duration) linear infinite;
+  animation-delay: var(--delay);
+  will-change: transform, opacity;
+}
+
+/* Floating capsule animation - Modified for vertical linear movement */
+.floatingCapsule {
+  position: absolute;
+  width: var(--width);
+  height: var(--height);
+  /* Position in vertical lanes */
+  left: var(--lane-position);
+  bottom: -50px; /* Start below the viewport */
+  transform: rotate(var(--rotate));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  opacity: 0;
+  animation: floatCapsuleVertical var(--duration) linear infinite;
+  animation-delay: var(--delay);
+  will-change: transform, opacity;
+  border-radius: 50px;
+  background: linear-gradient(to right, var(--color1) 50%, var(--color2) 50%);
+}
+
+.healthIcon {
+  position: absolute;
+  font-size: 2rem;
+  left: var(--icon-pos-x);
+  top: var(--icon-pos-y);
+  opacity: 0;
+  animation: pulseIcon 4s ease-in-out infinite;
+  animation-delay: var(--icon-delay);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* New vertical animation for pills */
+@keyframes floatPillVertical {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(var(--rotate));
+  }
+  10% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120vh) rotate(calc(var(--rotate) + 40deg));
+  }
+}
+
+/* New vertical animation for capsules */
+@keyframes floatCapsuleVertical {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(var(--rotate));
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120vh) rotate(calc(var(--rotate) + 60deg));
+  }
+}
+
+@keyframes pulseIcon {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  20% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+  40% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  80% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+.heroBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Enhanced background shapes */
+.shape1, .shape2, .shape3 {
+  position: absolute;
+  border-radius: 50%;
+  /* Use radial gradient for softer effect and add blur */
+  background: radial-gradient(circle, rgba(76, 175, 80, 0.15) 0%, rgba(139, 195, 74, 0.05) 70%);
+  filter: blur(15px); /* Increased blur for more atmospheric feel */
+  will-change: transform; /* Optimize animation */
+}
+
+.shape1 {
+  width: 60vw;
+  height: 60vw;
+  bottom: -30vw;
+  left: -20vw;
+  animation: rotate 90s infinite linear;
+}
+
+.shape2 {
+  width: 40vw;
+  height: 40vw;
+  top: -15vw;
+  right: -10vw;
+  animation: rotate 60s infinite linear reverse;
+}
+
+.shape3 {
+  width: 25vw; /* Slightly larger */
+  height: 25vw;
+  bottom: 15vh;
+  right: 18vw;
+  animation: pulseShape 15s infinite ease-in-out alternate; /* Use alternate direction */
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animation for the third shape */
+@keyframes pulseShape {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+  .heroSection {
+    padding: 7rem 1.5rem 4rem;
+  }
+  
+  .heroTitle {
+    font-size: 3rem;
+  }
+  
+  .mainImage {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 992px) {
+  .heroSection {
+    flex-direction: column;
+    padding: 6rem 1.5rem 3rem;
+    text-align: center;
+  }
+  
+  .heroContent {
+    max-width: 100%;
+    margin-bottom: 3rem;
+  }
+  
+  .heroCta {
+    justify-content: center;
+  }
+  
+  .heroBadges {
+    justify-content: center;
+  }
+  
+  .heroImage {
+    margin-left: 0;
+    max-width: 80%;
+    /* Adjust entrance animation for centered layout */
+    transform: translateY(20px) perspective(1000px) rotateY(0deg);
+  }
+
+  .heroSection.visible .heroImage {
+    transform: translateY(0) perspective(1000px) rotateY(0deg);
+  }
+  
+  .heroTitle::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  
+  .heroSubtitle {
+    font-size: 1.2rem;
+  }
+  
+  .heroCta {
+    flex-direction: column;
+  }
+  
+  .primaryButton, .secondaryButton {
+    width: 100%;
+    max-width: 350px; /* Limit button width on smaller screens */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  
+  .heroImage {
+    max-width: 100%;
+  }
+  
+  .mainImage {
+    transform: none;
+  }
+
+  .heroImage:hover .mainImage {
+    transform: scale(1.02); /* Keep scale effect */
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 2rem;
+  }
+  
+  .heroSection {
+    padding: 5rem 1rem 2rem;
+  }
+  
+  .badge {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}

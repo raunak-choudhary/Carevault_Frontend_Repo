@@ -1,0 +1,527 @@
+CareVault: Healthcare Management Platform - Development Instructions
+Project Overview
+CareVault is a full-stack, mobile-responsive web platform for healthcare management with the features you outlined. Based on your wireframes, I'll provide detailed instructions with a minimalist, clean design using the green (primary), white and grey (secondary) color scheme, incorporating your existing logo.
+Development Phases
+Phase 1: Setup & Foundation (2-3 weeks)
+
+Set up project repositories with proper documentation
+Configure development environments for all team members
+Create database schema and initial migrations
+Implement role-based authentication system
+Develop core UI components following wireframe designs
+
+Phase 2: Core Features (4-6 weeks)
+
+Implement document management system with filtering
+Build user profile with role management capabilities
+Develop visit scheduler with Google Maps integration
+Create medication reminder system
+Set up basic health insights dashboard
+
+Phase 3: AI Integration (3-4 weeks)
+
+Implement OCR processing for uploaded documents
+Set up RAG architecture with LangChain
+Integrate OpenAI API (GPT-4o-mini)
+Build chat interface as shown in wireframe
+Create document embeddings system
+
+Phase 4: Advanced Features (3-4 weeks)
+
+Develop health insights dashboard with charts and recommendations
+Implement multi-profile management for caregivers
+Create advanced search functionality across documents
+Build admin dashboard for system management
+Enhance security features and access controls
+
+Phase 5: Testing & Deployment (2-3 weeks)
+
+Comprehensive testing across devices and browsers
+Performance optimization for mobile users
+Security audits and penetration testing
+Deployment setup with CI/CD pipeline
+Documentation finalization for users and developers
+
+Frontend Development Instructions
+Design System
+
+Follow the minimalist, clean aesthetic shown in wireframes
+Implement the color palette:
+
+Primary: Green (#4CAF50 or similar)
+Secondary: White, Light Grey, Medium Grey, Dark Grey
+
+
+Use sans-serif typography (Inter, Open Sans, or Roboto)
+Maintain consistent spacing and component sizing
+Implement rounded corners for cards and interactive elements
+Use the provided shield logo with consistent placement
+
+Component Architecture
+
+Create a component library with design system elements
+Implement responsive layouts for mobile and desktop
+Build reusable components for document cards, chat bubbles, etc.
+Create centralized state management for user data
+Implement proper loading and error states for all views
+
+Screen Implementations
+Authentication Screens
+
+Implement login, registration, and password reset flows
+Create role selection during signup (patient/caregiver)
+Build email/mobile verification components
+Implement secure password requirements
+Design proper error messaging for authentication issues
+
+Chat Screen (Based on Image 1)
+
+Implement conversational UI with distinct message bubbles
+Create file attachment functionality for sending documents
+Design AI responses to display both text and relevant media
+Implement typing indicators and loading states
+Build input field with send and attachment buttons
+
+Documents Screen (Based on Image 2)
+
+Create document listing with metadata display
+Implement filtering by date, document type, and provider
+Build search functionality for document content
+Design document preview cards with type indicators
+Implement upload button and process flow
+
+Health Insights Screen (Based on Image 3)
+
+Build chart visualization for health metrics
+Implement weekly/monthly view toggles
+Create health summary section with AI-generated insights
+Build recommendation checklist with completion tracking
+Design navigation between different insight types
+
+Responsive Design Approach
+
+Implement mobile-first design following wireframes
+Create desktop layouts that maintain clean aesthetic
+Ensure touch targets are appropriate for mobile
+Implement proper viewport settings
+Test across multiple device sizes
+
+Backend Development Instructions
+API Architecture
+
+Implement RESTful API design
+Create proper error handling and status codes
+Build authentication middleware
+Implement rate limiting for public endpoints
+Design versioning strategy for future updates
+
+Database Design
+
+Implement normalized schema for PostgreSQL
+Create proper relationships between entities
+Design efficient indexes for common queries
+Implement soft delete functionality
+Create audit logging for sensitive operations
+
+Authentication & Security
+
+Implement JWT-based authentication
+Create role-based access control
+Design proper password hashing and storage
+Implement CSRF protection
+Build comprehensive data validation
+
+Document Management
+
+Implement secure file storage
+Create document categorization system
+Build OCR processing pipeline
+Design metadata extraction and tagging
+Implement document search indexing
+
+AI Features Implementation
+
+Design prompt engineering for healthcare context
+Create RAG system for document retrieval
+Implement conversation history management
+Build document chunking strategy
+Create feedback mechanism for improving responses
+
+Integration Instructions
+Frontend-Backend Integration
+
+Implement standardized API service layer
+Create proper error handling and retry logic
+Build offline capabilities where appropriate
+Implement progressive loading for large documents
+Design real-time updates for critical features
+
+AI-Backend Integration
+
+Create secure API communication
+Implement background processing for document analysis
+Design caching strategy for frequent queries
+Build fallback mechanisms for API unavailability
+Create usage monitoring and cost optimization
+
+Mobile Responsiveness
+
+Ensure all features work properly on mobile devices
+Optimize image loading and processing for mobile
+Implement touch-friendly interfaces
+Design offline capability for critical functions
+Test on various screen sizes and resolutions
+
+Testing Strategy
+Frontend Testing
+
+Implement component unit tests
+Create integration tests for user flows
+Build accessibility testing
+Implement cross-browser compatibility testing
+Design visual regression tests
+
+Backend Testing
+
+Create unit tests for business logic
+Implement API integration tests
+Build database query testing
+Design security and penetration testing
+Implement performance benchmarking
+
+AI/LLM Testing
+
+Test prompt effectiveness in healthcare context
+Evaluate retrieval accuracy with typical documents
+Test edge cases with unusual documents
+Monitor hallucination rates and response quality
+Implement continuous improvement feedback loop
+
+Deployment Strategy
+
+Create containerized application with Docker
+Implement CI/CD pipeline for automated deployment
+Design environment configuration management
+Build monitoring and alerting system
+Implement backup and disaster recovery procedures
+
+-------------------------------------------------------------------------
+Let me feed you whole information regarding my project Again
+-----------------------------------------------------------------------------------
+Approach to Frontend Development
+I understand your requirements for:
+* Phased development with error checking at each stage
+* Responsive design from the beginning
+* Clear notification about placeholder content (like your logo)
+* Clean file structure with meaningful component names
+* A base template for shared layouts
+* A distinctive landing page outside the template system
+* Minimal but sufficient components
+Frontend Development Phases
+Phase 1: Project Setup and Core Infrastructure
+* Create React project structure
+* Set up CSS Modules configuration
+* Implement base layout components (header, sidebar, mobile navigation)
+* Create theme system (light/dark mode)
+* Set up routing configuration
+* Establish state management foundation
+Phase 2: Authentication and User Onboarding
+* Login screen
+* Registration screen (patient/caregiver roles)
+* Password reset flow
+* Email/mobile verification screens
+* User profile creation/editing
+Phase 3: Document Management
+* Document listing screen
+* Document upload interface
+* Document filtering and search
+* Document viewer
+* Document categorization UI
+Phase 4: Chat Assistant
+* Chat interface
+* Message composition with file attachments
+* Message history view
+* Chat context management
+* Guided suggestions UI
+Phase 5: Visit Scheduler
+* Calendar view
+* Appointment creation/editing
+* Provider search with map integration
+* Appointment reminder settings
+* Appointment history view
+Phase 6: Health Insights
+* Health metrics dashboard
+* Charts and visualization components
+* Summary and recommendation sections
+* Trend analysis view
+* Health metrics input forms
+Phase 7: Medication Management
+* Medication listing screen
+* Medication scheduling interface
+* Reminder setup screens
+* Medication history view
+* Medication information display
+Phase 8: Dashboard and Navigation
+* Home dashboard
+* Navigation implementation (responsive)
+* User profile section
+* Settings screens
+* Role-specific dashboard elements
+Phase 9: Landing Page and Marketing
+* Landing page design
+* Feature showcase sections
+* Testimonials and social proof
+* Call-to-action components
+* Responsive marketing elements
+Phase 10: Final Integration and Polish
+* Loading states and error handling
+* Accessibility improvements
+* Performance optimization
+* Transition refinements
+* Cross-browser testing
+------------------------------------------------------------------------
+In all chats you need to make sure of this frontend plan until we complete the frontend plan
+
+
+-----------------------------------------------------------------------
+File structure:
+src
+├── App.js
+├── App.module.css
+├── assets
+│   └── images
+│       ├── app-screenshot.png
+│       └── carevault-logo.png
+├── components
+│   ├── appointments
+│   │   ├── AppointmentCard.js
+│   │   ├── AppointmentCard.module.css
+│   │   ├── AppointmentForm.js
+│   │   ├── AppointmentForm.module.css
+│   │   ├── Calendar.js
+│   │   ├── Calendar.module.css
+│   │   ├── MapView.js
+│   │   ├── MapView.module.css
+│   │   ├── ProviderCard.js
+│   │   ├── ProviderCard.module.css
+│   │   ├── TimeSlotPicker.js
+│   │   └── TimeSlotPicker.module.css
+│   ├── auth
+│   │   ├── AuthGuard.js
+│   │   └── ProtectedRoute.js
+│   ├── caregiver
+│   │   ├── CaregiverDashboard.js
+│   │   ├── CaregiverDashboard.module.css
+│   │   ├── CriticalAlertsWidget.js
+│   │   ├── CriticalAlertsWidget.module.css
+│   │   ├── PatientCard.js
+│   │   ├── PatientCard.module.css
+│   │   ├── PatientOverview.js
+│   │   ├── PatientOverview.module.css
+│   │   ├── PatientSelector.js
+│   │   ├── PatientSelector.module.css
+│   │   ├── PatientsList.js
+│   │   └── PatientsList.module.css
+│   ├── chat
+│   │   ├── ChatInput.js
+│   │   ├── ChatInput.module.css
+│   │   ├── ChatMessage.js
+│   │   ├── ChatMessage.module.css
+│   │   ├── ChatSuggestions.js
+│   │   └── ChatSuggestions.module.css
+│   ├── common
+│   │   ├── LoadingSpinner.js
+│   │   ├── LoadingSpinner.module.css
+│   │   ├── PasswordStrengthMeter.js
+│   │   └── PasswordStrengthMeter.module.css
+│   ├── documents
+│   │   ├── DocumentCard.js
+│   │   ├── DocumentCard.module.css
+│   │   ├── DocumentFilter.js
+│   │   ├── DocumentFilter.module.css
+│   │   ├── FilePreview.js
+│   │   ├── FilePreview.module.css
+│   │   ├── FileUploader.js
+│   │   └── FileUploader.module.css
+│   ├── insights
+│   │   ├── HealthMetricCard.js
+│   │   ├── HealthMetricCard.module.css
+│   │   ├── HealthSummary.js
+│   │   ├── HealthSummary.module.css
+│   │   ├── MetricChart.js
+│   │   ├── MetricChart.module.css
+│   │   ├── MetricInputForm.js
+│   │   ├── MetricInputForm.module.css
+│   │   ├── RecommendationsList.js
+│   │   └── RecommendationsList.module.css
+│   ├── landing
+│   │   ├── app-screenshot.png
+│   │   ├── ContactForm.js
+│   │   ├── ContactForm.module.css
+│   │   ├── FeatureShowcase.js
+│   │   ├── FeatureShowcase.module.css
+│   │   ├── Footer.js
+│   │   ├── Footer.module.css
+│   │   ├── HeroSection.js
+│   │   ├── HeroSection.module.css
+│   │   ├── ProblemStatement.js
+│   │   ├── ProblemStatement.module.css
+│   │   ├── TeamSection.js
+│   │   └── TeamSection.module.css
+│   ├── layout
+│   │   ├── BaseLayout.js
+│   │   ├── BaseLayout.module.css
+│   │   ├── CaregiverNavigation.js
+│   │   ├── CaregiverNavigation.module.css
+│   │   ├── CaregiverSidebar.js
+│   │   ├── CaregiverSidebar.module.css
+│   │   ├── Header.js
+│   │   ├── Header.module.css
+│   │   ├── MobileNavigation.js
+│   │   ├── MobileNavigation.module.css
+│   │   ├── Sidebar.js
+│   │   └── Sidebar.module.css
+│   ├── medications
+│   │   ├── MedicationCard.js
+│   │   ├── MedicationCard.module.css
+│   │   ├── MedicationDetails.js
+│   │   ├── MedicationDetails.module.css
+│   │   ├── MedicationForm.js
+│   │   ├── MedicationForm.module.css
+│   │   ├── MedicationList.js
+│   │   ├── MedicationList.module.css
+│   │   ├── MedicationSchedule.js
+│   │   ├── MedicationSchedule.module.css
+│   │   ├── ReminderCard.js
+│   │   ├── ReminderCard.module.css
+│   │   ├── ReminderForm.js
+│   │   └── ReminderForm.module.css
+│   ├── navigation
+│   │   ├── BreadcrumbNavigation.js
+│   │   ├── BreadcrumbNavigation.module.css
+│   │   ├── ContextIndicator.js
+│   │   └── ContextIndicator.module.css
+│   ├── patients
+│   │   ├── PatientBanner.js
+│   │   ├── PatientBanner.module.css
+│   │   ├── PatientForm.js
+│   │   ├── PatientForm.module.css
+│   │   ├── PatientSearchModal.js
+│   │   ├── PatientSearchModal.module.css
+│   │   ├── QuickPatientSwitcher.js
+│   │   └── QuickPatientSwitcher.module.css
+│   └── settings
+│       ├── SettingsNav.js
+│       └── SettingsNav.module.css
+├── context
+│   ├── AppointmentContext.js
+│   ├── AuthContext.js
+│   ├── ChatContext.js
+│   ├── DependentContext.js
+│   ├── DocumentContext.js
+│   ├── HealthContext.js
+│   ├── MedicationContext.js
+│   ├── PatientContext.js
+│   └── ThemeContext.js
+├── hooks
+│   ├── useAppointments.js
+│   ├── useAuth.js
+│   ├── useChat.js
+│   ├── useDocuments.js
+│   ├── useHealth.js
+│   ├── useMedications.js
+│   ├── usePatients.js
+│   └── useTheme.js
+├── index.css
+├── index.js
+├── pages
+│   ├── appointments
+│   │   ├── AppointmentCreatePage.js
+│   │   ├── AppointmentCreatePage.module.css
+│   │   ├── AppointmentEditPage.js
+│   │   ├── AppointmentEditPage.module.css
+│   │   ├── AppointmentsListPage.js
+│   │   ├── AppointmentsListPage.module.css
+│   │   ├── AppointmentViewPage.js
+│   │   ├── AppointmentViewPage.module.css
+│   │   ├── ProviderDetailPage.js
+│   │   ├── ProviderDetailPage.module.css
+│   │   ├── ProviderSearchPage.js
+│   │   └── ProviderSearchPage.module.css
+│   ├── auth
+│   │   ├── ForgotPasswordPage.js
+│   │   ├── ForgotPasswordPage.module.css
+│   │   ├── LoginPage.js
+│   │   ├── LoginPage.module.css
+│   │   ├── LogoutPage.js
+│   │   ├── RegisterPage.js
+│   │   ├── RegisterPage.module.css
+│   │   ├── ResetPasswordPage.js
+│   │   ├── ResetPasswordPage.module.css
+│   │   ├── UnauthorizedPage.js
+│   │   ├── UnauthorizedPage.module.css
+│   │   ├── VerifyAccountPage.js
+│   │   └── VerifyAccountPage.module.css
+│   ├── chat
+│   │   ├── ChatPage.js
+│   │   └── ChatPage.module.css
+│   ├── dashboard
+│   │   ├── DashboardPage.js
+│   │   └── DashboardPage.module.css
+│   ├── documents
+│   │   ├── DocumentsListPage.js
+│   │   ├── DocumentsListPage.module.css
+│   │   ├── DocumentUploadPage.js
+│   │   ├── DocumentUploadPage.module.css
+│   │   ├── DocumentViewPage.js
+│   │   └── DocumentViewPage.module.css
+│   ├── insights
+│   │   ├── HealthInsightsPage.js
+│   │   ├── HealthInsightsPage.module.css
+│   │   ├── MetricDetailPage.js
+│   │   ├── MetricDetailPage.module.css
+│   │   ├── MetricInputPage.js
+│   │   └── MetricInputPage.module.css
+│   ├── landing
+│   │   ├── LandingPage.js
+│   │   └── LandingPage.module.css
+│   ├── medications
+│   │   ├── MedicationAddPage.js
+│   │   ├── MedicationAddPage.module.css
+│   │   ├── MedicationDetailPage.js
+│   │   ├── MedicationDetailPage.module.css
+│   │   ├── MedicationEditPage.js
+│   │   ├── MedicationEditPage.module.css
+│   │   ├── MedicationReminderPage.js
+│   │   ├── MedicationReminderPage.module.css
+│   │   ├── MedicationsListPage.js
+│   │   └── MedicationsListPage.module.css
+│   ├── not-found
+│   │   ├── NotFoundPage.js
+│   │   └── NotFoundPage.module.css
+│   ├── patients
+│   │   ├── AddPatientPage.js
+│   │   ├── AddPatientPage.module.css
+│   │   ├── PatientProfilePage.js
+│   │   ├── PatientProfilePage.module.css
+│   │   ├── PatientsListPage.js
+│   │   └── PatientsListPage.module.css
+│   ├── profile
+│   │   ├── ProfilePage.js
+│   │   └── ProfilePage.module.css
+│   └── settings
+│       ├── SettingsPage.js
+│       └── SettingsPage.module.css
+├── services
+│   ├── appointmentService.js
+│   ├── authService.js
+│   ├── chatService.js
+│   ├── healthService.js
+│   ├── medicationService.js
+│   ├── patientService.js
+│   └── providerService.js
+├── styles
+│   ├── global.css
+│   └── variables.css
+└── utils
+    └── NotificationSystem.js

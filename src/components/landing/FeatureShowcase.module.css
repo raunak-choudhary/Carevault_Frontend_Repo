@@ -1,0 +1,740 @@
+/* FeatureShowcase.module.css */
+.featureShowcaseContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.featureShowcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.featureCard {
+  background-color: var(--bg-primary);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden; /* Keep overflow hidden to contain effects */
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform: translateY(50px);
+  opacity: 0;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  will-change: transform, box-shadow; /* Optimize transitions */
+}
+
+.featureCard.animate {
+  opacity: 1;
+  transform: translateY(0);
+  animation-delay: var(--delay);
+}
+
+/* Combined hover and focus styles, removed .active */
+.featureCard:hover, 
+.featureCard:focus {
+  transform: translateY(-12px) scale(1.04) rotate(-1deg); /* Slightly more lift, scale, and a subtle tilt */
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  outline: none;
+  z-index: 10; /* Ensure hovered card is on top */
+}
+
+.featureCard::before {
+  content: ""; /* Fixed syntax error */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--feature-color), transparent); /* Gradient border */
+  transition: width 0.4s ease, opacity 0.4s ease;
+  opacity: 0.8;
+  z-index: 0; /* Ensure it's behind content */
+}
+
+/* Combined hover/focus for ::before, removed .active */
+.featureCard:hover::before, 
+.featureCard:focus::before {
+  width: 10px; /* Make border slightly thicker on hover */
+  opacity: 1;
+}
+
+.iconWrapper {
+  width: 70px;
+  height: 70px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 2;
+}
+
+/* Combined hover/focus for iconWrapper, removed .active */
+.featureCard:hover .iconWrapper, 
+.featureCard:focus .iconWrapper {
+  transform: scale(1.15) rotate(5deg); /* More scale and rotation */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  background-color: var(--feature-color) !important;
+}
+
+/* Combined hover/focus for iconWrapper svg, removed .active */
+.featureCard:hover .iconWrapper svg, 
+.featureCard:focus .iconWrapper svg {
+  color: white !important;
+  transform: scale(1.1); /* Scale icon inside */
+}
+
+.featureTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+.featureCard:hover .featureTitle,
+.featureCard:focus .featureTitle {
+  color: var(--feature-color); /* Change title color on hover */
+}
+
+.featureDesc {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  position: relative;
+  z-index: 2;
+}
+
+.demoPreview {
+  margin-top: auto;
+  height: 120px;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  opacity: 0.8;
+  transition: all 0.4s ease;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--bg-tertiary); /* Add subtle border */
+}
+
+/* Combined hover/focus for demoPreview, removed .active */
+.featureCard:hover .demoPreview, 
+.featureCard:focus .demoPreview {
+  opacity: 1;
+  transform: scale(1.08) translateY(-5px); /* Scale more and lift slightly */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.featureMore {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  font-weight: 500;
+  margin-top: auto;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.arrowIcon {
+  transition: transform 0.3s ease;
+}
+
+/* Combined hover/focus for arrowIcon, removed .active */
+.featureCard:hover .arrowIcon, 
+.featureCard:focus .arrowIcon {
+  transform: translateX(8px) scale(1.1); /* Move further and scale */
+}
+
+/* Document Demo */
+.documentDemo {
+  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.documentList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.documentItem {
+  height: 15px;
+  background-color: var(--bg-tertiary);
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+  transition: width 0.3s ease;
+}
+
+.featureCard:hover .documentItem:nth-child(1) { width: 95%; transition-delay: 0.1s; }
+.featureCard:hover .documentItem:nth-child(2) { width: 85%; transition-delay: 0.2s; }
+.featureCard:hover .documentItem:nth-child(3) { width: 75%; transition-delay: 0.3s; }
+
+.documentItem::after {
+  content: ""; /* Fixed syntax error */
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shine 2s infinite;
+}
+
+.documentItem:nth-child(1) {
+  width: 90%;
+  animation-delay: 0.2s;
+}
+
+.documentItem:nth-child(2) {
+  width: 75%;
+  animation-delay: 0.4s;
+}
+
+.documentItem:nth-child(3) {
+  width: 60%;
+  animation-delay: 0.6s;
+}
+
+/* Chat Demo */
+.chatDemo {
+  height: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.chatBubble {
+  height: 15px;
+  border-radius: 10px;
+  background-color: var(--bg-tertiary);
+  transition: transform 0.3s ease;
+}
+
+.featureCard:hover .chatBubble:nth-child(1) { transform: translateX(5px); transition-delay: 0.1s; }
+.featureCard:hover .chatBubble:nth-child(2) { transform: translateX(-5px); transition-delay: 0.2s; }
+
+.chatBubble:nth-child(1) {
+  width: 80%;
+  align-self: flex-start;
+}
+
+.chatBubble:nth-child(2) {
+  width: 65%;
+  align-self: flex-end;
+  background-color: var(--feature-color);
+  opacity: 0.7;
+}
+
+.chatInput {
+  height: 20px;
+  border-radius: 20px;
+  background-color: var(--bg-tertiary);
+  margin-top: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.chatInput::after {
+  content: ""; /* Fixed syntax error */
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--bg-primary);
+  border-radius: 50%;
+  right: 10px;
+  top: 5px;
+  animation: pulse 1.5s infinite;
+}
+
+/* Calendar Demo */
+.calendarDemo {
+  height: 100%;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+
+.calendarDay {
+  aspect-ratio: 1;
+  background-color: var(--bg-tertiary);
+  border-radius: 6px;
+  position: relative;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Added --i custom property inline for staggered delay */
+.featureCard:hover .calendarDay:nth-child(odd) { 
+  transform: scale(0.9); 
+  transition-delay: calc(var(--i, 1) * 0.05s); 
+}
+.featureCard:hover .calendarDay:nth-child(even) { 
+  transform: scale(1.1); 
+  transition-delay: calc(var(--i, 1) * 0.05s); 
+}
+
+/* Assign --i to each child for the delay calculation */
+.calendarDay:nth-child(1) { --i: 1; }
+.calendarDay:nth-child(2) { --i: 2; }
+.calendarDay:nth-child(3) { --i: 3; }
+.calendarDay:nth-child(4) { --i: 4; }
+.calendarDay:nth-child(5) { --i: 5; background-color: var(--feature-color); opacity: 0.7; }
+.calendarDay:nth-child(6) { --i: 6; }
+.calendarDay:nth-child(7) { --i: 7; }
+.calendarDay:nth-child(8) { --i: 8; }
+.calendarDay:nth-child(9) { --i: 9; }
+
+
+/* Medication Demo */
+.medicationDemo {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pillContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.pill {
+  width: 40px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: var(--bg-tertiary);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.featureCard:hover .pill:nth-child(1) { transform: rotate(-15deg) translateX(-5px); transition-delay: 0.1s; }
+.featureCard:hover .pill:nth-child(2) { transform: scale(1.2); transition-delay: 0.2s; }
+.featureCard:hover .pill:nth-child(3) { transform: rotate(15deg) translateX(5px); transition-delay: 0.3s; }
+
+.pill:nth-child(2) {
+  background-color: var(--feature-color);
+  opacity: 0.7;
+  animation: float 2s infinite ease-in-out;
+}
+
+/* Chart Demo */
+.chartDemo {
+  height: 100%;
+  padding: 1rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 80px;
+  width: 100%;
+}
+
+.chartBar {
+  flex: 1;
+  background-color: var(--bg-tertiary);
+  border-radius: 6px 6px 0 0;
+  transition: height 0.5s ease, background-color 0.3s ease;
+}
+
+.featureCard:hover .chartBar {
+  background-color: var(--feature-color);
+  opacity: 0.6;
+}
+
+.featureCard:hover .chartBar:nth-child(1) { height: 70%; transition-delay: 0.1s; }
+.featureCard:hover .chartBar:nth-child(2) { height: 90%; transition-delay: 0.2s; background-color: var(--feature-color); opacity: 1;}
+.featureCard:hover .chartBar:nth-child(3) { height: 50%; transition-delay: 0.3s; }
+.featureCard:hover .chartBar:nth-child(4) { height: 80%; transition-delay: 0.4s; }
+
+.chartBar:nth-child(2) {
+  background-color: var(--feature-color);
+  opacity: 0.7;
+  animation: grow 2s infinite ease-in-out alternate;
+}
+
+/* Users Demo */
+.usersDemo {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.userCircle {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: var(--bg-tertiary);
+  transition: transform 0.3s ease;
+}
+
+.featureCard:hover .userCircle:nth-child(1) { transform: translate(-15px, -5px) scale(1.1); transition-delay: 0.1s; }
+.featureCard:hover .userCircle:nth-child(2) { transform: translateY(-10px) scale(1.2); transition-delay: 0.2s; }
+.featureCard:hover .userCircle:nth-child(3) { transform: translate(15px, -5px) scale(1.1); transition-delay: 0.3s; }
+
+.userCircle:nth-child(2) {
+  background-color: var(--feature-color);
+  opacity: 0.7;
+  transform: translateY(-5px);
+}
+
+.userCircle:nth-child(1) {
+  transform: translateX(-10px);
+}
+
+.userCircle:nth-child(3) {
+  transform: translateX(10px);
+}
+
+/* Removed hoverEffect div styling as it wasn't adding much and ::before is used */
+/* .hoverEffect { ... } */
+/* .featureCard:hover .hoverEffect, ... { ... } */
+
+/* Integrated View */
+.integratedView {
+  margin-top: 3rem;
+  position: relative;
+}
+
+.integrationHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.integrationHeader h3 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.integrationHeader p {
+  color: var(--text-secondary);
+}
+
+.integrationDemo {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.deviceFrame {
+  width: 260px;
+  height: 520px;
+  border-radius: 40px;
+  background-color: var(--bg-tertiary);
+  padding: 10px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
+}
+
+.pulseDevice {
+  box-shadow: 0 20px 60px rgba(76, 175, 80, 0.3);
+}
+
+.deviceScreen {
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  background-color: var(--bg-primary);
+  overflow: hidden;
+}
+
+.appInterface {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.appHeader {
+  height: 50px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.appLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.logoImg {
+  width: 20px;
+  height: 20px;
+}
+
+.appContent {
+  flex: 1;
+  display: flex;
+}
+
+.appNav {
+  width: 60px;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+  gap: 1rem;
+}
+
+.navItem {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: var(--bg-secondary);
+}
+
+.navItem:nth-child(1) {
+  background-color: var(--primary);
+  opacity: 0.7;
+}
+
+.appMain {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.appWidget {
+  height: 120px;
+  background-color: var(--bg-secondary);
+  border-radius: 16px;
+  animation: pulse 3s infinite alternate;
+}
+
+.appWidgetsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.appWidgetSmall {
+  height: 100px;
+  background-color: var(--bg-secondary);
+  border-radius: 16px;
+}
+
+.appWidgetSmall:nth-child(1) {
+  animation: pulse 3s infinite alternate 0.5s;
+}
+
+.appWidgetSmall:nth-child(2) {
+  animation: pulse 3s infinite alternate 1s;
+}
+
+.appWidgetSmall:nth-child(3) {
+  animation: pulse 3s infinite alternate 1.5s;
+}
+
+.appWidgetSmall:nth-child(4) {
+  animation: pulse 3s infinite alternate 2s;
+}
+
+.widgetActive {
+  background-color: rgba(76, 175, 80, 0.2);
+  animation: widgetPulse 2s infinite alternate;
+}
+
+.connectors {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.connector {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  transform-origin: center center;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+.pulseConnector {
+  opacity: 1;
+}
+
+.connectorNode {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.connectorNode:hover {
+  transform: scale(1.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations */
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes grow {
+  from {
+    height: 70%;
+  }
+  to {
+    height: 90%;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes widgetPulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Media query for responsiveness */
+@media (max-width: 992px) {
+  .featureShowcase {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  
+  .integrationDemo {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .connectors {
+    display: block; /* Changed from none to block */
+  }
+}
+
+@media (max-width: 768px) {
+  .featureCard {
+    padding: 1.5rem;
+  }
+  
+  /* Adjusted hover/focus for smaller screens */
+  .featureCard:hover, 
+  .featureCard:focus {
+    transform: translateY(-8px) scale(1.03); /* Less dramatic effect */
+    /* Removed rotate for smaller screens if it feels too much */
+  }
+  
+  .demoPreview {
+    height: 100px;
+  }
+  
+  .iconWrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+  }
+  
+  .deviceFrame {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .featureShowcase {
+    grid-template-columns: 1fr;
+  }
+  
+  .featureCard {
+    max-width: 100%;
+  }
+
+  /* Further reduced hover/focus effect for mobile */
+  .featureCard:hover, 
+  .featureCard:focus {
+    transform: translateY(-5px) scale(1.02);
+  }
+  
+  .deviceFrame {
+    transform: scale(0.8);
+  }
+}
