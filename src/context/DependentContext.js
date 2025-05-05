@@ -11,12 +11,12 @@ export const DependentProvider = ({ children }) => {
   const [currentPatient, setCurrentPatient] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   // Fetch patients on component mount
   useEffect(() => {
     const fetchPatients = async () => {
       if (!user || user.role !== 'caregiver') return;
-      
+
       try {
         setLoading(true);
         const patientsData = await getPatients();
@@ -29,79 +29,82 @@ export const DependentProvider = ({ children }) => {
         setLoading(false);
       }
     };
-    
+
     fetchPatients();
   }, [user]);
-  
+
   // Set current patient
-  const switchPatient = useCallback(async (patientId) => {
-    if (!user || user.role !== 'caregiver') {
-      return Promise.reject(new Error('User not authorized'));
-    }
-    
-    if (!patientId) {
-      setCurrentPatient(null);
-      localStorage.removeItem('currentPatientId');
-      return Promise.resolve(null);
-    }
-    
-    try {
-      setLoading(true);
-      setError(null); // Clear any previous errors
-      
-      // Check if patient exists in already loaded patients list
-      const existingPatient = patients.find(p => p.id === patientId);
-      
-      if (existingPatient) {
-        setCurrentPatient(existingPatient);
+  const switchPatient = useCallback(
+    async (patientId) => {
+      if (!user || user.role !== 'caregiver') {
+        return Promise.reject(new Error('User not authorized'));
+      }
+
+      if (!patientId) {
+        setCurrentPatient(null);
+        localStorage.removeItem('currentPatientId');
+        return Promise.resolve(null);
+      }
+
+      try {
+        setLoading(true);
+        setError(null); // Clear any previous errors
+
+        // Check if patient exists in already loaded patients list
+        const existingPatient = patients.find((p) => p.id === patientId);
+
+        if (existingPatient) {
+          setCurrentPatient(existingPatient);
+          localStorage.setItem('currentPatientId', patientId);
+          setLoading(false);
+          return existingPatient;
+        }
+
+        // If not in cached list, fetch from service
+        const patient = await getPatientById(patientId);
+        setCurrentPatient(patient);
+
+        // Update patients list if needed
+        if (!patients.some((p) => p.id === patientId)) {
+          setPatients((prev) => [...prev, patient]);
+        }
+
+        // Store in localStorage to persist through page refreshes
         localStorage.setItem('currentPatientId', patientId);
+        return patient; // Return the patient data for chaining
+      } catch (err) {
+        console.error('Error fetching patient details:', err);
+        setError('Failed to load patient details. Please try again.');
+        throw err; // Rethrow to allow handling in components
+      } finally {
         setLoading(false);
-        return existingPatient;
       }
-      
-      // If not in cached list, fetch from service
-      const patient = await getPatientById(patientId);
-      setCurrentPatient(patient);
-      
-      // Update patients list if needed
-      if (!patients.some(p => p.id === patientId)) {
-        setPatients(prev => [...prev, patient]);
-      }
-      
-      // Store in localStorage to persist through page refreshes
-      localStorage.setItem('currentPatientId', patientId);
-      return patient; // Return the patient data for chaining
-    } catch (err) {
-      console.error('Error fetching patient details:', err);
-      setError('Failed to load patient details. Please try again.');
-      throw err; // Rethrow to allow handling in components
-    } finally {
-      setLoading(false);
-    }
-  }, [user, patients]);
-  
+    },
+    [user, patients],
+  );
+
   // NEW FUNCTION: Update the current patient data in context when it's modified elsewhere
   const refreshCurrentPatient = useCallback(async () => {
     if (!currentPatient || !currentPatient.id) {
       return Promise.resolve(null);
     }
-    
+
     try {
       setLoading(true);
-      
+
       // Fetch the latest patient data
       const updatedPatient = await getPatientById(currentPatient.id);
-      
+
       // Update both the current patient and the patients list
       setCurrentPatient(updatedPatient);
-      
+
       // Update in patients array
-      setPatients(prevPatients => 
-        prevPatients.map(p => 
-          p.id === updatedPatient.id ? updatedPatient : p
-        )
+      setPatients((prevPatients) =>
+        prevPatients.map((p) =>
+          p.id === updatedPatient.id ? updatedPatient : p,
+        ),
       );
-      
+
       return updatedPatient;
     } catch (err) {
       console.error('Error refreshing patient data:', err);
@@ -110,12 +113,12 @@ export const DependentProvider = ({ children }) => {
       setLoading(false);
     }
   }, [currentPatient]);
-  
+
   // Check for previously selected patient in localStorage on mount
   useEffect(() => {
     const checkStoredPatient = async () => {
       if (!user || user.role !== 'caregiver') return;
-      
+
       const storedPatientId = localStorage.getItem('currentPatientId');
       if (storedPatientId) {
         try {
@@ -127,24 +130,24 @@ export const DependentProvider = ({ children }) => {
         }
       }
     };
-    
+
     checkStoredPatient();
   }, [user, switchPatient]);
-  
+
   // Clear current patient - UPDATED to be more robust
   const clearCurrentPatient = useCallback(() => {
     // First remove from localStorage to ensure persistence is cleared
     localStorage.removeItem('currentPatientId');
-    
+
     // Then clear the state
     setCurrentPatient(null);
-    
+
     // Return a resolved promise to allow for chaining with navigation
     return Promise.resolve();
   }, []);
-  
+
   return (
-    <DependentContext.Provider 
+    <DependentContext.Provider
       value={{
         patients,
         currentPatient,
@@ -153,7 +156,7 @@ export const DependentProvider = ({ children }) => {
         switchPatient,
         clearCurrentPatient,
         isViewingPatient: !!currentPatient,
-        refreshCurrentPatient // Add the new function to the context
+        refreshCurrentPatient, // Add the new function to the context
       }}
     >
       {children}

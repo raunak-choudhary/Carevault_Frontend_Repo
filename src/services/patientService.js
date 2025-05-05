@@ -2,7 +2,7 @@
 // For now, we'll use localStorage for persistence and simulate API behavior
 
 // Helper function to simulate API delay
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Generate a unique ID
 const generateId = () => {
@@ -25,7 +25,7 @@ const mockPatients = [
     createdAt: '2023-03-15T10:30:00Z',
     updatedAt: '2023-04-10T14:45:00Z',
     status: 'active',
-    notes: 'Regular check-ups for blood pressure monitoring.'
+    notes: 'Regular check-ups for blood pressure monitoring.',
   },
   {
     id: 'patient2',
@@ -41,8 +41,8 @@ const mockPatients = [
     createdAt: '2023-04-02T09:15:00Z',
     updatedAt: '2023-04-20T11:30:00Z',
     status: 'active',
-    notes: 'Diabetes management. Needs regular glucose monitoring.'
-  }
+    notes: 'Diabetes management. Needs regular glucose monitoring.',
+  },
 ];
 
 // Initialize mock data if not already present
@@ -56,26 +56,26 @@ const initializeMockData = () => {
 const getPatients = async () => {
   // Initialize mock data
   initializeMockData();
-  
+
   // Simulate API call
   await delay(800);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id || user.role !== 'caregiver') {
     throw new Error('User not authenticated or not a caregiver');
   }
-  
+
   // Get patients from localStorage or return empty array
   const patientsJson = localStorage.getItem('patients');
   let patients = patientsJson ? JSON.parse(patientsJson) : [];
-  
+
   // Filter patients by caregiver
-  patients = patients.filter(patient => patient.caregiverId === user.id);
-  
+  patients = patients.filter((patient) => patient.caregiverId === user.id);
+
   // Sort by last updated
   patients.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-  
+
   return patients;
 };
 
@@ -83,27 +83,29 @@ const getPatients = async () => {
 const getPatientById = async (id) => {
   // Initialize mock data
   initializeMockData();
-  
+
   // Simulate API call
   await delay(500);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id || user.role !== 'caregiver') {
     throw new Error('User not authenticated or not a caregiver');
   }
-  
+
   // Get patients from localStorage
   const patientsJson = localStorage.getItem('patients');
   const patients = patientsJson ? JSON.parse(patientsJson) : [];
-  
+
   // Find patient with matching ID
-  const patient = patients.find(patient => patient.id === id && patient.caregiverId === user.id);
-  
+  const patient = patients.find(
+    (patient) => patient.id === id && patient.caregiverId === user.id,
+  );
+
   if (!patient) {
     throw new Error('Patient not found');
   }
-  
+
   return patient;
 };
 
@@ -111,20 +113,20 @@ const getPatientById = async (id) => {
 const addPatient = async (patientData) => {
   // Initialize mock data
   initializeMockData();
-  
+
   // Simulate API call
   await delay(1000);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id || user.role !== 'caregiver') {
     throw new Error('User not authenticated or not a caregiver');
   }
-  
+
   // Get existing patients
   const patientsJson = localStorage.getItem('patients');
   const patients = patientsJson ? JSON.parse(patientsJson) : [];
-  
+
   // Create new patient object
   const newPatient = {
     id: generateId(),
@@ -132,15 +134,15 @@ const addPatient = async (patientData) => {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     status: 'active',
-    ...patientData
+    ...patientData,
   };
-  
+
   // Add to patients array
   patients.push(newPatient);
-  
+
   // Save to localStorage
   localStorage.setItem('patients', JSON.stringify(patients));
-  
+
   return newPatient;
 };
 
@@ -148,42 +150,42 @@ const addPatient = async (patientData) => {
 const updatePatient = async (id, updates) => {
   // Initialize mock data
   initializeMockData();
-  
+
   // Simulate API call
   await delay(800);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id || user.role !== 'caregiver') {
     throw new Error('User not authenticated or not a caregiver');
   }
-  
+
   // Get patients from localStorage
   const patientsJson = localStorage.getItem('patients');
   const patients = patientsJson ? JSON.parse(patientsJson) : [];
-  
+
   // Find patient index
   const patientIndex = patients.findIndex(
-    patient => patient.id === id && patient.caregiverId === user.id
+    (patient) => patient.id === id && patient.caregiverId === user.id,
   );
-  
+
   if (patientIndex === -1) {
     throw new Error('Patient not found');
   }
-  
+
   // Update patient
   const updatedPatient = {
     ...patients[patientIndex],
     ...updates,
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString(),
   };
-  
+
   // Replace in array
   patients[patientIndex] = updatedPatient;
-  
+
   // Save to localStorage
   localStorage.setItem('patients', JSON.stringify(patients));
-  
+
   return updatedPatient;
 };
 
@@ -191,32 +193,32 @@ const updatePatient = async (id, updates) => {
 const deletePatient = async (id) => {
   // Initialize mock data
   initializeMockData();
-  
+
   // Simulate API call
   await delay(800);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id || user.role !== 'caregiver') {
     throw new Error('User not authenticated or not a caregiver');
   }
-  
+
   // Get patients from localStorage
   const patientsJson = localStorage.getItem('patients');
   const patients = patientsJson ? JSON.parse(patientsJson) : [];
-  
+
   // Filter out the patient to delete
   const updatedPatients = patients.filter(
-    patient => !(patient.id === id && patient.caregiverId === user.id)
+    (patient) => !(patient.id === id && patient.caregiverId === user.id),
   );
-  
+
   if (updatedPatients.length === patients.length) {
     throw new Error('Patient not found');
   }
-  
+
   // Save to localStorage
   localStorage.setItem('patients', JSON.stringify(updatedPatients));
-  
+
   return { success: true };
 };
 
@@ -224,21 +226,21 @@ const deletePatient = async (id) => {
 const searchPatients = async (query) => {
   // Initialize mock data
   initializeMockData();
-  
+
   // Simulate API call
   await delay(700);
-  
+
   // Get all patients
   const patients = await getPatients();
-  
+
   // If no query, return all patients
   if (!query) {
     return patients;
   }
-  
+
   // Search in name, email and notes
   const lowercaseQuery = query.toLowerCase();
-  return patients.filter(patient => {
+  return patients.filter((patient) => {
     return (
       patient.firstName?.toLowerCase().includes(lowercaseQuery) ||
       patient.lastName?.toLowerCase().includes(lowercaseQuery) ||
@@ -255,5 +257,5 @@ export {
   addPatient,
   updatePatient,
   deletePatient,
-  searchPatients
+  searchPatients,
 };

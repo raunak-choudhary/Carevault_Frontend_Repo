@@ -1,228 +1,228 @@
 .reminderForm {
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-lg);
-    box-shadow: var(--shadow-md);
-  }
-  
-  .formTitle {
-    font-size: var(--font-size-xl);
-    font-weight: 600;
-    margin-bottom: var(--spacing-lg);
-    color: var(--primary);
-    padding-bottom: var(--spacing-sm);
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .formSection {
-    margin-bottom: var(--spacing-lg);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: var(--spacing-md);
-  }
-  
-  .formSection:last-of-type {
-    border-bottom: none;
-  }
-  
-  .formGroup {
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .formGroup label {
-    display: block;
-    margin-bottom: var(--spacing-xs);
-    color: var(--text-secondary);
-    font-weight: 500;
-  }
-  
-  .formGroup input,
-  .formGroup select {
-    width: 100%;
-    padding: var(--spacing-sm);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-size: var(--font-size-md);
-  }
-  
-  .formGroup input:focus,
-  .formGroup select:focus {
-    outline: none;
-    border-color: var(--primary);
-  }
-  
-  .inputError {
-    border-color: #f44336 !important;
-  }
-  
-  .errorText {
-    color: #f44336;
-    font-size: var(--font-size-sm);
-    margin-top: var(--spacing-xs);
-  }
-  
-  /* Switch toggle */
-  .switchGroup {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
-  }
-  
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--border-color);
-    transition: var(--transition-fast);
-    border-radius: 24px;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 18px;
-    width: 18px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    transition: var(--transition-fast);
-    border-radius: 50%;
-  }
-  
-  input:checked + .slider {
-    background-color: var(--primary);
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px var(--primary);
-  }
-  
-  input:checked + .slider:before {
-    transform: translateX(26px);
-  }
-  
-  /* Option buttons */
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.formTitle {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  margin-bottom: var(--spacing-lg);
+  color: var(--primary);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.formSection {
+  margin-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-md);
+}
+
+.formSection:last-of-type {
+  border-bottom: none;
+}
+
+.formGroup {
+  margin-bottom: var(--spacing-md);
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.formGroup input,
+.formGroup select {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: var(--font-size-md);
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.inputError {
+  border-color: #f44336 !important;
+}
+
+.errorText {
+  color: #f44336;
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
+}
+
+/* Switch toggle */
+.switchGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--border-color);
+  transition: var(--transition-fast);
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: var(--transition-fast);
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--primary);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Option buttons */
+.optionButtons {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.optionButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  flex: 1;
+  min-width: 100px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.optionButton:hover {
+  border-color: var(--primary);
+}
+
+.optionButtonSelected {
+  border-color: var(--primary);
+  background-color: rgba(76, 175, 80, 0.05);
+}
+
+.hiddenRadio {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.optionIcon {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-secondary);
+}
+
+.optionButtonSelected .optionIcon {
+  color: var(--primary);
+}
+
+.combinedIcons {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+/* Form actions */
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.cancelButton,
+.saveButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+}
+
+.cancelButton {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.cancelButton:hover {
+  background-color: var(--border-color);
+}
+
+.saveButton {
+  background-color: var(--primary);
+  color: white;
+}
+
+.saveButton:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .optionButtons {
-    display: flex;
-    gap: var(--spacing-sm);
-    flex-wrap: wrap;
-  }
-  
-  .optionButton {
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: var(--spacing-sm);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    flex: 1;
-    min-width: 100px;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    text-align: center;
   }
-  
-  .optionButton:hover {
-    border-color: var(--primary);
-  }
-  
-  .optionButtonSelected {
-    border-color: var(--primary);
-    background-color: rgba(76, 175, 80, 0.05);
-  }
-  
-  .hiddenRadio {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .optionIcon {
-    font-size: var(--font-size-xl);
-    margin-bottom: var(--spacing-xs);
-    color: var(--text-secondary);
-  }
-  
-  .optionButtonSelected .optionIcon {
-    color: var(--primary);
-  }
-  
-  .combinedIcons {
-    display: flex;
-    gap: var(--spacing-xs);
-  }
-  
-  /* Form actions */
+
   .formActions {
-    display: flex;
-    justify-content: flex-end;
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-lg);
+    flex-direction: column-reverse;
+    gap: var(--spacing-sm);
   }
-  
+
   .cancelButton,
   .saveButton {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--border-radius-md);
-    font-size: var(--font-size-md);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    border: none;
+    width: 100%;
+    justify-content: center;
   }
-  
-  .cancelButton {
-    background-color: var(--bg-tertiary);
-    color: var(--text-primary);
-  }
-  
-  .cancelButton:hover {
-    background-color: var(--border-color);
-  }
-  
-  .saveButton {
-    background-color: var(--primary);
-    color: white;
-  }
-  
-  .saveButton:hover {
-    background-color: var(--primary-dark);
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .optionButtons {
-      flex-direction: column;
-    }
-    
-    .formActions {
-      flex-direction: column-reverse;
-      gap: var(--spacing-sm);
-    }
-    
-    .cancelButton,
-    .saveButton {
-      width: 100%;
-      justify-content: center;
-    }
-  }
+}

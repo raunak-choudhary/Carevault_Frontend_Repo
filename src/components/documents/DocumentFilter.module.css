@@ -1,208 +1,208 @@
 .filterContainer {
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
-    box-shadow: var(--shadow-sm);
-  }
-  
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.searchForm {
+  display: flex;
+  margin-bottom: var(--spacing-md);
+}
+
+.searchInputWrapper {
+  position: relative;
+  flex-grow: 1;
+  margin-right: var(--spacing-sm);
+}
+
+.searchIcon {
+  position: absolute;
+  left: var(--spacing-sm);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 36px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.clearButton {
+  position: absolute;
+  right: var(--spacing-sm);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchButton {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.searchButton:hover {
+  background-color: var(--primary-dark);
+}
+
+.filtersWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.filterLabel {
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+  margin-right: var(--spacing-md);
+  font-weight: 500;
+}
+
+.filterControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  flex-grow: 1;
+}
+
+.filterSelect,
+.filterInput,
+.filterDate {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+}
+
+.filterSelect {
+  min-width: 150px;
+}
+
+.filterInput {
+  min-width: 150px;
+  flex-grow: 1;
+}
+
+.dateRangeWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.dateRangeSeparator {
+  margin: 0 var(--spacing-xs);
+  color: var(--text-secondary);
+}
+
+.activeFilters {
+  display: flex;
+  align-items: flex-start;
+  margin-top: var(--spacing-sm);
+}
+
+.activeFiltersLabel {
+  margin-right: var(--spacing-sm);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  padding-top: var(--spacing-xs);
+}
+
+.filterChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.filterChip {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-tertiary);
+  border-radius: var(--border-radius-full);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+}
+
+.chipRemove {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  margin-left: var(--spacing-xs);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chipRemove:hover {
+  color: var(--primary);
+}
+
+.clearAllButton {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+.clearAllButton:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .searchForm {
-    display: flex;
-    margin-bottom: var(--spacing-md);
+    flex-direction: column;
   }
-  
+
   .searchInputWrapper {
-    position: relative;
-    flex-grow: 1;
-    margin-right: var(--spacing-sm);
+    margin-right: 0;
+    margin-bottom: var(--spacing-sm);
   }
-  
-  .searchIcon {
-    position: absolute;
-    left: var(--spacing-sm);
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
-  }
-  
-  .searchInput {
-    width: 100%;
-    padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 36px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    font-size: var(--font-size-md);
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-  }
-  
-  .clearButton {
-    position: absolute;
-    right: var(--spacing-sm);
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .searchButton {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background-color: var(--primary);
-    color: white;
-    border: none;
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
-    transition: background-color var(--transition-fast);
-  }
-  
-  .searchButton:hover {
-    background-color: var(--primary-dark);
-  }
-  
+
   .filtersWrapper {
-    display: flex;
-    align-items: center;
-    margin-bottom: var(--spacing-md);
-    flex-wrap: wrap;
-  }
-  
-  .filterLabel {
-    display: flex;
-    align-items: center;
-    color: var(--text-secondary);
-    margin-right: var(--spacing-md);
-    font-weight: 500;
-  }
-  
-  .filterControls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    flex-grow: 1;
-  }
-  
-  .filterSelect,
-  .filterInput,
-  .filterDate {
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-size: var(--font-size-sm);
-  }
-  
-  .filterSelect {
-    min-width: 150px;
-  }
-  
-  .filterInput {
-    min-width: 150px;
-    flex-grow: 1;
-  }
-  
-  .dateRangeWrapper {
-    display: flex;
-    align-items: center;
-  }
-  
-  .dateRangeSeparator {
-    margin: 0 var(--spacing-xs);
-    color: var(--text-secondary);
-  }
-  
-  .activeFilters {
-    display: flex;
+    flex-direction: column;
     align-items: flex-start;
-    margin-top: var(--spacing-sm);
   }
-  
+
+  .filterLabel {
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .filterControls {
+    width: 100%;
+  }
+
+  .activeFilters {
+    flex-direction: column;
+  }
+
   .activeFiltersLabel {
-    margin-right: var(--spacing-sm);
-    color: var(--text-secondary);
-    white-space: nowrap;
-    padding-top: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
   }
-  
-  .filterChips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-xs);
-  }
-  
-  .filterChip {
-    display: flex;
-    align-items: center;
-    background-color: var(--bg-tertiary);
-    border-radius: var(--border-radius-full);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: var(--font-size-sm);
-    color: var(--text-primary);
-  }
-  
-  .chipRemove {
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    margin-left: var(--spacing-xs);
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .chipRemove:hover {
-    color: var(--primary);
-  }
-  
-  .clearAllButton {
-    background: none;
-    border: none;
-    color: var(--primary);
-    font-size: var(--font-size-sm);
-    cursor: pointer;
-    padding: var(--spacing-xs) var(--spacing-sm);
-  }
-  
-  .clearAllButton:hover {
-    text-decoration: underline;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .searchForm {
-      flex-direction: column;
-    }
-    
-    .searchInputWrapper {
-      margin-right: 0;
-      margin-bottom: var(--spacing-sm);
-    }
-    
-    .filtersWrapper {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    
-    .filterLabel {
-      margin-bottom: var(--spacing-xs);
-    }
-    
-    .filterControls {
-      width: 100%;
-    }
-    
-    .activeFilters {
-      flex-direction: column;
-    }
-    
-    .activeFiltersLabel {
-      margin-bottom: var(--spacing-xs);
-    }
-  }
+}

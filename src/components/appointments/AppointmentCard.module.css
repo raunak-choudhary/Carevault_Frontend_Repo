@@ -109,7 +109,7 @@
     align-items: flex-start;
     gap: var(--spacing-xs);
   }
-  
+
   .appointmentStatus {
     align-self: flex-start;
   }

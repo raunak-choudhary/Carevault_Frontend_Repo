@@ -16,13 +16,13 @@
 .userMode {
   background-color: rgba(33, 150, 243, 0.1);
   border-color: rgba(33, 150, 243, 0.3);
-  color: #2196F3;
+  color: #2196f3;
 }
 
 .caregiverMode {
   background-color: rgba(33, 150, 243, 0.1);
   border-color: rgba(33, 150, 243, 0.3);
-  color: #2196F3;
+  color: #2196f3;
 }
 
 .patientMode {
@@ -56,7 +56,7 @@
     justify-content: center;
     min-width: 120px;
   }
-  
+
   .text {
     max-width: 150px;
   }

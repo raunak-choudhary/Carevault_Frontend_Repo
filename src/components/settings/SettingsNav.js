@@ -10,42 +10,44 @@ const SettingsNav = ({ activeSection, onSectionChange, isCaregiver }) => {
       id: 'account',
       label: 'Account',
       icon: <FiUser className={styles.navIcon} />,
-      roles: ['patient', 'caregiver']  // Available for all roles
+      roles: ['patient', 'caregiver'], // Available for all roles
     },
     {
       id: 'notifications',
       label: 'Notifications',
       icon: <FiBell className={styles.navIcon} />,
-      roles: ['patient', 'caregiver']  // Available for all roles
+      roles: ['patient', 'caregiver'], // Available for all roles
     },
     {
       id: 'privacy',
       label: 'Privacy',
       icon: <FiShield className={styles.navIcon} />,
-      roles: ['patient', 'caregiver']  // Available for all roles
+      roles: ['patient', 'caregiver'], // Available for all roles
     },
     {
       id: 'caregiving',
       label: 'Caregiving',
       icon: <FiUsers className={styles.navIcon} />,
-      roles: ['caregiver']  // Only available for caregivers
-    }
+      roles: ['caregiver'], // Only available for caregivers
+    },
   ];
-  
+
   // Filter items based on user role
-  const filteredNavItems = navItems.filter(item => {
+  const filteredNavItems = navItems.filter((item) => {
     // If user is caregiver, show caregiver-specific items
     if (isCaregiver) {
       return item.roles.includes('caregiver');
     }
     // Otherwise, only show patient items
-    return item.roles.includes('patient') && !item.roles.includes('caregiver-only');
+    return (
+      item.roles.includes('patient') && !item.roles.includes('caregiver-only')
+    );
   });
-  
+
   return (
     <div className={styles.settingsNav}>
       <ul className={styles.navList}>
-        {filteredNavItems.map(item => (
+        {filteredNavItems.map((item) => (
           <li key={item.id}>
             <button
               className={`${styles.navItem} ${activeSection === item.id ? styles.active : ''}`}

@@ -54,7 +54,9 @@
   box-shadow: var(--shadow-md);
   text-decoration: none;
   color: inherit;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
   border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
@@ -90,7 +92,7 @@
   font-size: var(--font-size-md);
 }
 
-.alertsSection, 
+.alertsSection,
 .patientsSection {
   margin-bottom: var(--spacing-lg);
 }
@@ -275,7 +277,7 @@
   background-color: var(--bg-tertiary);
 }
 
-.loadingContainer, 
+.loadingContainer,
 .errorContainer {
   display: flex;
   justify-content: center;
@@ -333,30 +335,30 @@
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .sectionTitle {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-sm);
   }
-  
+
   .addButton {
     align-self: stretch;
     justify-content: center;
     width: 100%;
   }
-  
+
   .searchFilterBar {
     flex-direction: column;
     align-items: stretch;
     gap: var(--spacing-sm);
   }
-  
-  .searchContainer, 
+
+  .searchContainer,
   .filterContainer {
     width: 100%;
   }
-  
+
   .welcomeCard p {
     max-width: 100%;
   }
@@ -366,15 +368,15 @@
   .statsGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .caregiverDashboard {
     padding: var(--spacing-sm);
   }
-  
+
   .welcomeCard {
     padding: var(--spacing-md);
   }
-  
+
   .welcomeTitle {
     font-size: var(--font-size-xl);
   }

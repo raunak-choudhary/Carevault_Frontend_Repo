@@ -1,6 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; 
-import { FiUser, FiX, FiChevronDown, FiSearch, FiAlertCircle } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+import {
+  FiUser,
+  FiX,
+  FiChevronDown,
+  FiSearch,
+  FiAlertCircle,
+} from 'react-icons/fi';
 import { usePatients } from '../../hooks/usePatients';
 import styles from './QuickPatientSwitcher.module.css';
 
@@ -14,7 +20,7 @@ const QuickPatientSwitcher = () => {
   const searchInputRef = useRef(null);
   const listRef = useRef(null);
   const navigate = useNavigate();
-  
+
   // Handle click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -24,13 +30,13 @@ const QuickPatientSwitcher = () => {
         setError(null);
       }
     };
-    
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-  
+
   // Focus search input when dropdown opens
   useEffect(() => {
     if (isOpen && searchInputRef.current) {
@@ -39,51 +45,52 @@ const QuickPatientSwitcher = () => {
       }, 100);
     }
   }, [isOpen]);
-  
+
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyboard = (e) => {
       if (!isOpen) return;
-      
+
       if (e.key === 'Escape') {
         setIsOpen(false);
         setSearchTerm('');
         setError(null);
       }
     };
-    
+
     document.addEventListener('keydown', handleKeyboard);
     return () => {
       document.removeEventListener('keydown', handleKeyboard);
     };
   }, [isOpen]);
-  
+
   // Filter patients based on search term
-  const filteredPatients = patients.filter(patient => {
+  const filteredPatients = patients.filter((patient) => {
     if (!searchTerm.trim()) return true;
-    
-    const fullName = `${patient.firstName || ''} ${patient.lastName || ''}`.toLowerCase();
+
+    const fullName =
+      `${patient.firstName || ''} ${patient.lastName || ''}`.toLowerCase();
     return fullName.includes(searchTerm.toLowerCase());
   });
-  
+
   // Toggle dropdown
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
     setSearchTerm('');
     setError(null);
-    
+
     // Reset scroll position when opening
     if (!isOpen && listRef.current) {
       listRef.current.scrollTop = 0;
     }
   };
-  
+
   // Handle patient selection
   const handleSelectPatient = async (patient) => {
     try {
       setLoading(true);
       setError(null);
-      
+
       await setActivePatient(patient.id);
       setIsOpen(false);
       setSearchTerm('');
@@ -96,17 +103,17 @@ const QuickPatientSwitcher = () => {
       setLoading(false);
     }
   };
-  
+
   // Handle search input change
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    
+
     // Reset scroll position when search changes
     if (listRef.current) {
       listRef.current.scrollTop = 0;
     }
   };
-  
+
   // Clear search input
   const clearSearch = () => {
     setSearchTerm('');
@@ -114,12 +121,12 @@ const QuickPatientSwitcher = () => {
       searchInputRef.current.focus();
     }
   };
-  
+
   if (patients.length === 0) return null;
-  
+
   return (
     <div className={styles.switcher} ref={dropdownRef}>
-      <button 
+      <button
         className={styles.switcherButton}
         onClick={toggleDropdown}
         aria-expanded={isOpen}
@@ -131,9 +138,9 @@ const QuickPatientSwitcher = () => {
           <>
             <div className={styles.patientAvatar}>
               {activePatient.avatar ? (
-                <img 
-                  src={activePatient.avatar} 
-                  alt={`${activePatient.firstName} ${activePatient.lastName}`} 
+                <img
+                  src={activePatient.avatar}
+                  alt={`${activePatient.firstName} ${activePatient.lastName}`}
                 />
               ) : (
                 <FiUser />
@@ -149,9 +156,11 @@ const QuickPatientSwitcher = () => {
             <span>Select Patient</span>
           </>
         )}
-        <FiChevronDown className={`${styles.chevron} ${isOpen ? styles.chevronUp : ''}`} />
+        <FiChevronDown
+          className={`${styles.chevron} ${isOpen ? styles.chevronUp : ''}`}
+        />
       </button>
-      
+
       {isOpen && (
         <div className={styles.dropdown} role="listbox">
           <div className={styles.searchContainer}>
@@ -166,7 +175,7 @@ const QuickPatientSwitcher = () => {
               aria-label="Search patients"
             />
             {searchTerm && (
-              <button 
+              <button
                 className={styles.clearButton}
                 onClick={clearSearch}
                 aria-label="Clear search"
@@ -175,17 +184,17 @@ const QuickPatientSwitcher = () => {
               </button>
             )}
           </div>
-          
+
           {error && (
             <div className={styles.errorMessage}>
               <FiAlertCircle className={styles.errorIcon} />
               <p>{error}</p>
             </div>
           )}
-          
+
           <ul className={styles.patientList} ref={listRef}>
             {filteredPatients.length > 0 ? (
-              filteredPatients.map(patient => (
+              filteredPatients.map((patient) => (
                 <li key={patient.id}>
                   <button
                     className={`${styles.patientItem} ${activePatient?.id === patient.id ? styles.activePatient : ''}`}
@@ -196,9 +205,9 @@ const QuickPatientSwitcher = () => {
                   >
                     <div className={styles.patientAvatar}>
                       {patient.avatar ? (
-                        <img 
-                          src={patient.avatar} 
-                          alt={`${patient.firstName} ${patient.lastName}`} 
+                        <img
+                          src={patient.avatar}
+                          alt={`${patient.firstName} ${patient.lastName}`}
                         />
                       ) : (
                         <FiUser />
@@ -210,7 +219,9 @@ const QuickPatientSwitcher = () => {
                       </div>
                       {patient.birthDate && (
                         <div className={styles.patientAge}>
-                          {new Date().getFullYear() - new Date(patient.birthDate).getFullYear()} years
+                          {new Date().getFullYear() -
+                            new Date(patient.birthDate).getFullYear()}{' '}
+                          years
                         </div>
                       )}
                     </div>

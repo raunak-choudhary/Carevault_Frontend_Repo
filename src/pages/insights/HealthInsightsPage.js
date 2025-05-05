@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiPlusCircle, FiTrendingUp, FiActivity, FiHeart, FiDroplet, FiMoon, FiWatch } from 'react-icons/fi';
+import {
+  FiPlusCircle,
+  FiTrendingUp,
+  FiActivity,
+  FiHeart,
+  FiDroplet,
+  FiMoon,
+  FiWatch,
+} from 'react-icons/fi';
 import HealthMetricCard from '../../components/insights/HealthMetricCard';
 import HealthSummary from '../../components/insights/HealthSummary';
 import RecommendationsList from '../../components/insights/RecommendationsList';
@@ -13,12 +21,12 @@ const HealthInsightsPage = () => {
   const [selectedMetric, setSelectedMetric] = useState('weight');
   const [insights, setInsights] = useState(null);
   const [insightLoading, setInsightLoading] = useState(false);
-  
+
   // Get initial insights when component mounts
   useEffect(() => {
     const fetchInitialInsights = async () => {
       if (loading || !metrics) return;
-      
+
       try {
         setInsightLoading(true);
         const initialInsights = await getInsights('weight');
@@ -29,15 +37,15 @@ const HealthInsightsPage = () => {
         setInsightLoading(false);
       }
     };
-    
+
     fetchInitialInsights();
   }, [loading, metrics, getInsights]);
-  
+
   // Get insights when selected metric changes
   useEffect(() => {
     const fetchInsights = async () => {
       if (!selectedMetric) return;
-      
+
       try {
         setInsightLoading(true);
         const metricInsights = await getInsights(selectedMetric);
@@ -48,10 +56,10 @@ const HealthInsightsPage = () => {
         setInsightLoading(false);
       }
     };
-    
+
     fetchInsights();
   }, [selectedMetric, getInsights]);
-  
+
   if (loading) {
     return (
       <div className={styles.loadingContainer}>
@@ -59,7 +67,7 @@ const HealthInsightsPage = () => {
       </div>
     );
   }
-  
+
   if (error) {
     return (
       <div className={styles.errorContainer}>
@@ -68,7 +76,7 @@ const HealthInsightsPage = () => {
       </div>
     );
   }
-  
+
   return (
     <div className={styles.insightsPage}>
       <div className={styles.pageHeader}>
@@ -77,7 +85,7 @@ const HealthInsightsPage = () => {
           <FiPlusCircle /> Add Health Data
         </Link>
       </div>
-      
+
       <div className={styles.metricCards}>
         <HealthMetricCard
           title="Weight"
@@ -128,16 +136,20 @@ const HealthInsightsPage = () => {
           onClick={() => setSelectedMetric('steps')}
         />
       </div>
-      
+
       <div className={styles.insightsContainer}>
         <div className={styles.detailSection}>
           <h2>
-            {selectedMetric.charAt(0).toUpperCase() + selectedMetric.slice(1)} Details
-            <Link to={`/insights/metric/${selectedMetric}`} className={styles.viewAllLink}>
+            {selectedMetric.charAt(0).toUpperCase() + selectedMetric.slice(1)}{' '}
+            Details
+            <Link
+              to={`/insights/metric/${selectedMetric}`}
+              className={styles.viewAllLink}
+            >
               View All
             </Link>
           </h2>
-          
+
           {metrics[selectedMetric]?.length > 0 ? (
             <div className={styles.metricDetail}>
               <div className={styles.metricChartPlaceholder}>
@@ -146,38 +158,50 @@ const HealthInsightsPage = () => {
                   Chart visualization will appear here
                 </div>
               </div>
-              
+
               <div className={styles.metricInfoCard}>
                 <h3>Latest Reading</h3>
                 {selectedMetric === 'weight' && metrics.weight[0] && (
                   <div className={styles.metricValue}>
                     {metrics.weight[0].value} {metrics.weight[0].unit}
                     <span className={styles.metricDate}>
-                      {new Date(metrics.weight[0].timestamp).toLocaleDateString()}
+                      {new Date(
+                        metrics.weight[0].timestamp,
+                      ).toLocaleDateString()}
                     </span>
                   </div>
                 )}
-                {selectedMetric === 'bloodPressure' && metrics.bloodPressure[0] && (
-                  <div className={styles.metricValue}>
-                    {metrics.bloodPressure[0].systolic}/{metrics.bloodPressure[0].diastolic} mmHg
-                    <span className={styles.metricDate}>
-                      {new Date(metrics.bloodPressure[0].timestamp).toLocaleDateString()}
-                    </span>
-                  </div>
-                )}
-                {selectedMetric === 'bloodGlucose' && metrics.bloodGlucose[0] && (
-                  <div className={styles.metricValue}>
-                    {metrics.bloodGlucose[0].value} {metrics.bloodGlucose[0].unit}
-                    <span className={styles.metricDate}>
-                      {new Date(metrics.bloodGlucose[0].timestamp).toLocaleDateString()}
-                    </span>
-                  </div>
-                )}
+                {selectedMetric === 'bloodPressure' &&
+                  metrics.bloodPressure[0] && (
+                    <div className={styles.metricValue}>
+                      {metrics.bloodPressure[0].systolic}/
+                      {metrics.bloodPressure[0].diastolic} mmHg
+                      <span className={styles.metricDate}>
+                        {new Date(
+                          metrics.bloodPressure[0].timestamp,
+                        ).toLocaleDateString()}
+                      </span>
+                    </div>
+                  )}
+                {selectedMetric === 'bloodGlucose' &&
+                  metrics.bloodGlucose[0] && (
+                    <div className={styles.metricValue}>
+                      {metrics.bloodGlucose[0].value}{' '}
+                      {metrics.bloodGlucose[0].unit}
+                      <span className={styles.metricDate}>
+                        {new Date(
+                          metrics.bloodGlucose[0].timestamp,
+                        ).toLocaleDateString()}
+                      </span>
+                    </div>
+                  )}
                 {selectedMetric === 'heartRate' && metrics.heartRate[0] && (
                   <div className={styles.metricValue}>
                     {metrics.heartRate[0].value} {metrics.heartRate[0].unit}
                     <span className={styles.metricDate}>
-                      {new Date(metrics.heartRate[0].timestamp).toLocaleDateString()}
+                      {new Date(
+                        metrics.heartRate[0].timestamp,
+                      ).toLocaleDateString()}
                     </span>
                   </div>
                 )}
@@ -185,7 +209,9 @@ const HealthInsightsPage = () => {
                   <div className={styles.metricValue}>
                     {metrics.sleep[0].duration} hours
                     <span className={styles.metricDate}>
-                      {new Date(metrics.sleep[0].timestamp).toLocaleDateString()}
+                      {new Date(
+                        metrics.sleep[0].timestamp,
+                      ).toLocaleDateString()}
                     </span>
                   </div>
                 )}
@@ -193,7 +219,9 @@ const HealthInsightsPage = () => {
                   <div className={styles.metricValue}>
                     {metrics.steps[0].count} steps
                     <span className={styles.metricDate}>
-                      {new Date(metrics.steps[0].timestamp).toLocaleDateString()}
+                      {new Date(
+                        metrics.steps[0].timestamp,
+                      ).toLocaleDateString()}
                     </span>
                   </div>
                 )}
@@ -208,7 +236,7 @@ const HealthInsightsPage = () => {
             </div>
           )}
         </div>
-        
+
         <div className={styles.insightsSection}>
           {insightLoading ? (
             <div className={styles.insightLoading}>
@@ -217,13 +245,13 @@ const HealthInsightsPage = () => {
             </div>
           ) : (
             <>
-              <HealthSummary 
+              <HealthSummary
                 metricType={selectedMetric}
-                summary={insights?.summary || ""}
-                trend={insights?.trend || ""}
+                summary={insights?.summary || ''}
+                trend={insights?.trend || ''}
               />
-              
-              <RecommendationsList 
+
+              <RecommendationsList
                 recommendations={insights?.recommendations || []}
               />
             </>

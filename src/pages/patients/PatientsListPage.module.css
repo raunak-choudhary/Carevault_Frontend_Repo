@@ -1,249 +1,249 @@
 .patientsListPage {
-    padding: var(--spacing-md);
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
+  padding: var(--spacing-md);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.pageHeader h1 {
+  margin: 0;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--primary);
+  color: white;
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.addButton:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.filterBar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  background-color: var(--bg-primary);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.searchInput {
+  position: relative;
+  flex: 1;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+}
+
+.searchInput input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 36px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-md);
+}
+
+.searchInput input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.clearSearchButton {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xs);
+}
+
+.clearSearchButton:hover {
+  color: var(--primary);
+}
+
+.filterDropdown {
+  position: relative;
+  min-width: 150px;
+}
+
+.filterIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+.filterDropdown select {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 36px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  appearance: none;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.filterDropdown select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.filterDropdown::after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--text-secondary);
+  pointer-events: none;
+}
+
+.clearFiltersButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+}
+
+.clearFiltersButton:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.patientsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.loadingContainer,
+.errorContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xl);
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  min-height: 200px;
+}
+
+.errorContainer {
+  color: #f44336;
+}
+
+.emptyState {
+  text-align: center;
+  padding: var(--spacing-xl);
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.addEmptyButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--primary);
+  color: white;
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.addEmptyButton:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.unauthorizedContainer {
+  text-align: center;
+  padding: var(--spacing-xl);
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  margin: var(--spacing-xl) auto;
+  max-width: 600px;
+}
+
+.backButton {
+  display: inline-block;
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--primary);
+  color: white;
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.backButton:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
   .pageHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .pageHeader h1 {
-    margin: 0;
-  }
-  
-  .addButton {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background-color: var(--primary);
-    color: white;
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    transition: background-color var(--transition-fast);
-  }
-  
-  .addButton:hover {
-    background-color: var(--primary-dark);
-    color: white;
-  }
-  
-  .filterBar {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    background-color: var(--bg-primary);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-sm);
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .searchInput {
-    position: relative;
-    flex: 1;
-  }
-  
-  .searchIcon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
-  }
-  
-  .searchInput input {
-    width: 100%;
-    padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 36px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    font-size: var(--font-size-md);
-  }
-  
-  .searchInput input:focus {
-    outline: none;
-    border-color: var(--primary);
-  }
-  
-  .clearSearchButton {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--spacing-xs);
-  }
-  
-  .clearSearchButton:hover {
-    color: var(--primary);
-  }
-  
-  .filterDropdown {
-    position: relative;
-    min-width: 150px;
-  }
-  
-  .filterIcon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
-    pointer-events: none;
-  }
-  
-  .filterDropdown select {
-    width: 100%;
-    padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 36px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    appearance: none;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    cursor: pointer;
-  }
-  
-  .filterDropdown select:focus {
-    outline: none;
-    border-color: var(--primary);
-  }
-  
-  .filterDropdown::after {
-    content: '';
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid var(--text-secondary);
-    pointer-events: none;
-  }
-  
-  .clearFiltersButton {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    padding: var(--spacing-sm);
-    font-size: var(--font-size-sm);
-  }
-  
-  .clearFiltersButton:hover {
-    color: var(--primary);
-    text-decoration: underline;
-  }
-  
-  .patientsList {
-    display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+    align-items: flex-start;
   }
-  
-  .loadingContainer, 
-  .errorContainer {
-    display: flex;
+
+  .addButton {
+    width: 100%;
     justify-content: center;
-    align-items: center;
-    padding: var(--spacing-xl);
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-md);
-    min-height: 200px;
   }
-  
-  .errorContainer {
-    color: #f44336;
+
+  .filterBar {
+    flex-direction: column;
+    gap: var(--spacing-sm);
   }
-  
-  .emptyState {
-    text-align: center;
-    padding: var(--spacing-xl);
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-sm);
+
+  .searchInput,
+  .filterDropdown {
+    width: 100%;
   }
-  
-  .addEmptyButton {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    margin-top: var(--spacing-md);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background-color: var(--primary);
-    color: white;
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    transition: background-color var(--transition-fast);
+
+  .clearFiltersButton {
+    align-self: flex-end;
   }
-  
-  .addEmptyButton:hover {
-    background-color: var(--primary-dark);
-    color: white;
-  }
-  
-  .unauthorizedContainer {
-    text-align: center;
-    padding: var(--spacing-xl);
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-md);
-    margin: var(--spacing-xl) auto;
-    max-width: 600px;
-  }
-  
-  .backButton {
-    display: inline-block;
-    margin-top: var(--spacing-lg);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background-color: var(--primary);
-    color: white;
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    transition: background-color var(--transition-fast);
-  }
-  
-  .backButton:hover {
-    background-color: var(--primary-dark);
-    color: white;
-  }
-  
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .pageHeader {
-      flex-direction: column;
-      gap: var(--spacing-md);
-      align-items: flex-start;
-    }
-    
-    .addButton {
-      width: 100%;
-      justify-content: center;
-    }
-    
-    .filterBar {
-      flex-direction: column;
-      gap: var(--spacing-sm);
-    }
-    
-    .searchInput, 
-    .filterDropdown {
-      width: 100%;
-    }
-    
-    .clearFiltersButton {
-      align-self: flex-end;
-    }
-  }
+}

@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { FiArrowLeft, FiEdit2, FiTrash2, FiClock, FiCalendar, FiUser, FiHome, FiAlertCircle } from 'react-icons/fi';
+import {
+  FiArrowLeft,
+  FiEdit2,
+  FiTrash2,
+  FiClock,
+  FiCalendar,
+  FiUser,
+  FiHome,
+  FiAlertCircle,
+} from 'react-icons/fi';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { useMedications } from '../../hooks/useMedications';
 import styles from './MedicationDetailPage.module.css';
@@ -9,12 +18,12 @@ const MedicationDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { getMedication, deleteMedication } = useMedications();
-  
+
   const [medication, setMedication] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  
+
   // Fetch medication data
   useEffect(() => {
     const fetchMedication = async () => {
@@ -30,10 +39,10 @@ const MedicationDetailPage = () => {
         setLoading(false);
       }
     };
-    
+
     fetchMedication();
   }, [id, getMedication]);
-  
+
   // Handle medication deletion
   const handleDeleteMedication = async () => {
     try {
@@ -46,11 +55,11 @@ const MedicationDetailPage = () => {
       setLoading(false);
     }
   };
-  
+
   // Format date for display - fixed to handle the timezone issue
   const formatDate = (dateString) => {
     if (!dateString) return 'Not specified';
-    
+
     // For YYYY-MM-DD format dates (from form inputs)
     if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
       const [year, month, day] = dateString.split('-').map(Number);
@@ -59,19 +68,22 @@ const MedicationDetailPage = () => {
       const date = new Date(year, month - 1, day); // month is 0-based in JS Date
       return date.toLocaleDateString(undefined, options);
     }
-    
+
     // For ISO dates with time component
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
-  
+
   // Format time for display
   const formatTime = (timeString) => {
     if (!timeString) return '';
     const options = { hour: '2-digit', minute: '2-digit' };
-    return new Date(`2000-01-01T${timeString}`).toLocaleTimeString(undefined, options);
+    return new Date(`2000-01-01T${timeString}`).toLocaleTimeString(
+      undefined,
+      options,
+    );
   };
-  
+
   // Format frequency text
   const formatFrequency = (frequency, customFrequency) => {
     switch (frequency) {
@@ -91,7 +103,7 @@ const MedicationDetailPage = () => {
         return 'Not specified';
     }
   };
-  
+
   if (loading) {
     return (
       <div className={styles.loadingContainer}>
@@ -99,7 +111,7 @@ const MedicationDetailPage = () => {
       </div>
     );
   }
-  
+
   if (error) {
     return (
       <div className={styles.errorContainer}>
@@ -111,19 +123,21 @@ const MedicationDetailPage = () => {
       </div>
     );
   }
-  
+
   if (!medication) {
     return (
       <div className={styles.notFoundContainer}>
         <h2>Medication Not Found</h2>
-        <p>The medication you are looking for does not exist or has been removed.</p>
+        <p>
+          The medication you are looking for does not exist or has been removed.
+        </p>
         <Link to="/medications" className={styles.backButton}>
           <FiArrowLeft /> Back to Medications
         </Link>
       </div>
     );
   }
-  
+
   return (
     <div className={styles.detailPage}>
       <div className={styles.pageHeader}>
@@ -131,12 +145,15 @@ const MedicationDetailPage = () => {
           <FiArrowLeft /> Back to Medications
         </Link>
         <h1>{medication.name}</h1>
-        
+
         <div className={styles.actionButtons}>
-          <Link to={`/medications/edit/${medication.id}`} className={styles.editButton}>
+          <Link
+            to={`/medications/edit/${medication.id}`}
+            className={styles.editButton}
+          >
             <FiEdit2 /> Edit
           </Link>
-          <button 
+          <button
             className={styles.deleteButton}
             onClick={() => setShowDeleteConfirm(true)}
           >
@@ -144,7 +161,7 @@ const MedicationDetailPage = () => {
           </button>
         </div>
       </div>
-      
+
       <div className={styles.medicationCard}>
         <div className={styles.medicationHeader}>
           <h2>{medication.name}</h2>
@@ -152,7 +169,7 @@ const MedicationDetailPage = () => {
             {medication.dosage} {medication.unit}
           </div>
         </div>
-        
+
         <div className={styles.medicationDetails}>
           <div className={styles.detailItem}>
             <div className={styles.detailIcon}>
@@ -161,11 +178,14 @@ const MedicationDetailPage = () => {
             <div className={styles.detailContent}>
               <div className={styles.detailLabel}>Frequency</div>
               <div className={styles.detailValue}>
-                {formatFrequency(medication.frequency, medication.customFrequency)}
+                {formatFrequency(
+                  medication.frequency,
+                  medication.customFrequency,
+                )}
               </div>
             </div>
           </div>
-          
+
           {medication.instructions && (
             <div className={styles.detailItem}>
               <div className={styles.detailIcon}>
@@ -173,30 +193,35 @@ const MedicationDetailPage = () => {
               </div>
               <div className={styles.detailContent}>
                 <div className={styles.detailLabel}>Instructions</div>
-                <div className={styles.detailValue}>{medication.instructions}</div>
-              </div>
-            </div>
-          )}
-          
-          {medication.dosageSchedule && medication.dosageSchedule.length > 0 && (
-            <div className={styles.detailItem}>
-              <div className={styles.detailIcon}>
-                <FiClock />
-              </div>
-              <div className={styles.detailContent}>
-                <div className={styles.detailLabel}>Schedule</div>
                 <div className={styles.detailValue}>
-                  {medication.dosageSchedule.map((time, index) => (
-                    <span key={index} className={styles.scheduleTime}>
-                      {formatTime(time)}
-                      {index < medication.dosageSchedule.length - 1 ? ', ' : ''}
-                    </span>
-                  ))}
+                  {medication.instructions}
                 </div>
               </div>
             </div>
           )}
-          
+
+          {medication.dosageSchedule &&
+            medication.dosageSchedule.length > 0 && (
+              <div className={styles.detailItem}>
+                <div className={styles.detailIcon}>
+                  <FiClock />
+                </div>
+                <div className={styles.detailContent}>
+                  <div className={styles.detailLabel}>Schedule</div>
+                  <div className={styles.detailValue}>
+                    {medication.dosageSchedule.map((time, index) => (
+                      <span key={index} className={styles.scheduleTime}>
+                        {formatTime(time)}
+                        {index < medication.dosageSchedule.length - 1
+                          ? ', '
+                          : ''}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
           {medication.refillDate && (
             <div className={styles.detailItem}>
               <div className={styles.detailIcon}>
@@ -204,11 +229,13 @@ const MedicationDetailPage = () => {
               </div>
               <div className={styles.detailContent}>
                 <div className={styles.detailLabel}>Refill Date</div>
-                <div className={styles.detailValue}>{formatDate(medication.refillDate)}</div>
+                <div className={styles.detailValue}>
+                  {formatDate(medication.refillDate)}
+                </div>
               </div>
             </div>
           )}
-          
+
           {medication.prescribedBy && (
             <div className={styles.detailItem}>
               <div className={styles.detailIcon}>
@@ -216,11 +243,13 @@ const MedicationDetailPage = () => {
               </div>
               <div className={styles.detailContent}>
                 <div className={styles.detailLabel}>Prescribed By</div>
-                <div className={styles.detailValue}>{medication.prescribedBy}</div>
+                <div className={styles.detailValue}>
+                  {medication.prescribedBy}
+                </div>
               </div>
             </div>
           )}
-          
+
           {medication.pharmacy && (
             <div className={styles.detailItem}>
               <div className={styles.detailIcon}>
@@ -233,51 +262,60 @@ const MedicationDetailPage = () => {
             </div>
           )}
         </div>
-        
+
         {medication.notes && (
           <div className={styles.notesSection}>
             <h3>Notes</h3>
             <div className={styles.notesContent}>{medication.notes}</div>
           </div>
         )}
-        
+
         <div className={styles.statusSection}>
           <div className={styles.statusItem}>
             <div className={styles.statusLabel}>Status</div>
-            <div className={`${styles.statusBadge} ${medication.status === 'active' ? styles.activeBadge : styles.inactiveBadge}`}>
+            <div
+              className={`${styles.statusBadge} ${medication.status === 'active' ? styles.activeBadge : styles.inactiveBadge}`}
+            >
               {medication.status === 'active' ? 'Active' : 'Inactive'}
             </div>
           </div>
-          
+
           <div className={styles.statusItem}>
             <div className={styles.statusLabel}>Created</div>
-            <div className={styles.statusValue}>{formatDate(medication.createdAt)}</div>
+            <div className={styles.statusValue}>
+              {formatDate(medication.createdAt)}
+            </div>
           </div>
-          
+
           {medication.updatedAt && (
             <div className={styles.statusItem}>
               <div className={styles.statusLabel}>Last Updated</div>
-              <div className={styles.statusValue}>{formatDate(medication.updatedAt)}</div>
+              <div className={styles.statusValue}>
+                {formatDate(medication.updatedAt)}
+              </div>
             </div>
           )}
         </div>
       </div>
-      
+
       {/* Delete confirmation modal */}
       {showDeleteConfirm && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
             <h2>Delete Medication</h2>
-            <p>Are you sure you want to delete {medication.name}? This action cannot be undone.</p>
-            
+            <p>
+              Are you sure you want to delete {medication.name}? This action
+              cannot be undone.
+            </p>
+
             <div className={styles.modalActions}>
-              <button 
+              <button
                 className={styles.cancelButton}
                 onClick={() => setShowDeleteConfirm(false)}
               >
                 Cancel
               </button>
-              <button 
+              <button
                 className={styles.deleteConfirmButton}
                 onClick={handleDeleteMedication}
               >

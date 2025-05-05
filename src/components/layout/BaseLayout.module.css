@@ -61,11 +61,11 @@
     padding-bottom: 70px; /* Space for mobile navigation */
     width: 100%;
   }
-  
+
   .menuButton {
     display: flex;
   }
-  
+
   .contextHeader {
     flex-direction: column;
     align-items: flex-start;

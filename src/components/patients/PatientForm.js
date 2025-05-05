@@ -3,21 +3,21 @@ import { Link } from 'react-router-dom';
 import { FiAlertCircle } from 'react-icons/fi';
 import styles from './PatientForm.module.css';
 
-const PatientForm = ({ 
-  formData, 
-  handleChange, 
-  handleSubmit, 
-  loading, 
+const PatientForm = ({
+  formData,
+  handleChange,
+  handleSubmit,
+  loading,
   error,
   isEditMode = false,
   cancelUrl = '/patients',
   validationErrors = {},
-  submitButtonText = null
+  submitButtonText = null,
 }) => {
   const [touchedFields, setTouchedFields] = useState({});
   const [formattedDates, setFormattedDates] = useState({
     dateOfBirth: formData.dateOfBirth || '',
-    startDate: formData.startDate || ''
+    startDate: formData.startDate || '',
   });
 
   useEffect(() => {
@@ -30,15 +30,15 @@ const PatientForm = ({
           const year = date.getFullYear();
           const month = String(date.getMonth() + 1).padStart(2, '0');
           const day = String(date.getDate()).padStart(2, '0');
-          
-          setFormattedDates(prev => ({
+
+          setFormattedDates((prev) => ({
             ...prev,
-            dateOfBirth: `${year}-${month}-${day}`
+            dateOfBirth: `${year}-${month}-${day}`,
           }));
         } else {
-          setFormattedDates(prev => ({
+          setFormattedDates((prev) => ({
             ...prev,
-            dateOfBirth: formData.dateOfBirth
+            dateOfBirth: formData.dateOfBirth,
           }));
         }
       } catch (e) {
@@ -50,9 +50,9 @@ const PatientForm = ({
   // Handle blur events to track touched fields
   const handleBlur = (e) => {
     const { name } = e.target;
-    setTouchedFields(prev => ({ 
-      ...prev, 
-      [name]: true 
+    setTouchedFields((prev) => ({
+      ...prev,
+      [name]: true,
     }));
   };
 
@@ -69,14 +69,17 @@ const PatientForm = ({
           <span>{error}</span>
         </div>
       )}
-      
+
       <form onSubmit={handleSubmit} className={styles.patientForm}>
         <div className={styles.formSection}>
           <h2>Personal Information</h2>
-          
+
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
-              <label htmlFor="firstName" className={showError('firstName') ? styles.errorLabel : ''}>
+              <label
+                htmlFor="firstName"
+                className={showError('firstName') ? styles.errorLabel : ''}
+              >
                 First Name <span className={styles.requiredIndicator}>*</span>
               </label>
               <input
@@ -91,12 +94,17 @@ const PatientForm = ({
                 aria-required="true"
               />
               {showError('firstName') && (
-                <div className={styles.errorText}>{validationErrors.firstName}</div>
+                <div className={styles.errorText}>
+                  {validationErrors.firstName}
+                </div>
               )}
             </div>
-            
+
             <div className={styles.formGroup}>
-              <label htmlFor="lastName" className={showError('lastName') ? styles.errorLabel : ''}>
+              <label
+                htmlFor="lastName"
+                className={showError('lastName') ? styles.errorLabel : ''}
+              >
                 Last Name <span className={styles.requiredIndicator}>*</span>
               </label>
               <input
@@ -111,11 +119,13 @@ const PatientForm = ({
                 aria-required="true"
               />
               {showError('lastName') && (
-                <div className={styles.errorText}>{validationErrors.lastName}</div>
+                <div className={styles.errorText}>
+                  {validationErrors.lastName}
+                </div>
               )}
             </div>
           </div>
-          
+
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
               <label htmlFor="dateOfBirth">Date of Birth</label>
@@ -126,19 +136,21 @@ const PatientForm = ({
                 value={formattedDates.dateOfBirth}
                 onChange={(e) => {
                   handleChange(e);
-                  setFormattedDates(prev => ({ 
-                    ...prev, 
-                    dateOfBirth: e.target.value 
+                  setFormattedDates((prev) => ({
+                    ...prev,
+                    dateOfBirth: e.target.value,
                   }));
                 }}
                 onBlur={handleBlur}
                 max={new Date().toISOString().split('T')[0]} // Prevent future dates
               />
               {showError('dateOfBirth') && (
-                <div className={styles.errorText}>{validationErrors.dateOfBirth}</div>
+                <div className={styles.errorText}>
+                  {validationErrors.dateOfBirth}
+                </div>
               )}
             </div>
-            
+
             <div className={styles.formGroup}>
               <label htmlFor="gender">Gender</label>
               <select
@@ -155,18 +167,23 @@ const PatientForm = ({
                 <option value="prefer_not_to_say">Prefer not to say</option>
               </select>
               {showError('gender') && (
-                <div className={styles.errorText}>{validationErrors.gender}</div>
+                <div className={styles.errorText}>
+                  {validationErrors.gender}
+                </div>
               )}
             </div>
           </div>
         </div>
-        
+
         <div className={styles.formSection}>
           <h2>Contact Information</h2>
-          
+
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
-              <label htmlFor="email" className={showError('email') ? styles.errorLabel : ''}>
+              <label
+                htmlFor="email"
+                className={showError('email') ? styles.errorLabel : ''}
+              >
                 Email
               </label>
               <input
@@ -182,9 +199,12 @@ const PatientForm = ({
                 <div className={styles.errorText}>{validationErrors.email}</div>
               )}
             </div>
-            
+
             <div className={styles.formGroup}>
-              <label htmlFor="contactPhone" className={showError('contactPhone') ? styles.errorLabel : ''}>
+              <label
+                htmlFor="contactPhone"
+                className={showError('contactPhone') ? styles.errorLabel : ''}
+              >
                 Phone
               </label>
               <input
@@ -198,11 +218,13 @@ const PatientForm = ({
                 placeholder="(555) 555-5555"
               />
               {showError('contactPhone') && (
-                <div className={styles.errorText}>{validationErrors.contactPhone}</div>
+                <div className={styles.errorText}>
+                  {validationErrors.contactPhone}
+                </div>
               )}
             </div>
           </div>
-          
+
           <div className={styles.formGroup}>
             <label htmlFor="address">Address</label>
             <input
@@ -217,7 +239,7 @@ const PatientForm = ({
               <div className={styles.errorText}>{validationErrors.address}</div>
             )}
           </div>
-          
+
           <div className={styles.formGroup}>
             <label htmlFor="emergencyContact">Emergency Contact</label>
             <input
@@ -230,14 +252,16 @@ const PatientForm = ({
               placeholder="Name and phone number"
             />
             {showError('emergencyContact') && (
-              <div className={styles.errorText}>{validationErrors.emergencyContact}</div>
+              <div className={styles.errorText}>
+                {validationErrors.emergencyContact}
+              </div>
             )}
           </div>
         </div>
-        
+
         <div className={styles.formSection}>
           <h2>Medical Information</h2>
-          
+
           <div className={styles.formGroup}>
             <label htmlFor="healthId">Health ID / Insurance Number</label>
             <input
@@ -249,10 +273,12 @@ const PatientForm = ({
               onBlur={handleBlur}
             />
             {showError('healthId') && (
-              <div className={styles.errorText}>{validationErrors.healthId}</div>
+              <div className={styles.errorText}>
+                {validationErrors.healthId}
+              </div>
             )}
           </div>
-          
+
           <div className={styles.formGroup}>
             <label htmlFor="notes">Notes</label>
             <textarea
@@ -269,15 +295,25 @@ const PatientForm = ({
             )}
           </div>
         </div>
-        
+
         <div className={styles.formActions}>
           <Link to={cancelUrl} className={styles.cancelButton}>
             Cancel
           </Link>
-          <button type="submit" className={styles.submitButton} disabled={loading}>
-            {loading ? (isEditMode ? 'Updating...' : 'Adding...') : (
-              submitButtonText ? submitButtonText : (isEditMode ? 'Update Patient' : 'Save Patient')
-            )}
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={loading}
+          >
+            {loading
+              ? isEditMode
+                ? 'Updating...'
+                : 'Adding...'
+              : submitButtonText
+                ? submitButtonText
+                : isEditMode
+                  ? 'Update Patient'
+                  : 'Save Patient'}
           </button>
         </div>
       </form>

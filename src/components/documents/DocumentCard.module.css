@@ -10,12 +10,12 @@
   transition: all var(--transition-fast);
   position: relative;
 }
-  
+
 .documentCard:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
 }
-  
+
 .documentIcon {
   display: flex;
   align-items: center;
@@ -29,12 +29,12 @@
   font-size: var(--font-size-xl);
   flex-shrink: 0;
 }
-  
+
 .documentContent {
   flex-grow: 1;
   min-width: 0; /* Allows text truncation to work */
 }
-  
+
 .documentTitle {
   font-size: var(--font-size-lg);
   margin: 0 0 var(--spacing-xs) 0;
@@ -42,34 +42,34 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-  
+
 .documentMeta {
   display: flex;
   flex-wrap: wrap;
   color: var(--text-secondary);
   font-size: var(--font-size-sm);
 }
-  
+
 .documentType {
   font-weight: 500;
   margin-right: var(--spacing-sm);
 }
-  
+
 .documentProvider {
   margin-right: var(--spacing-sm);
 }
-  
+
 .documentDate {
   margin-right: var(--spacing-sm);
 }
-  
+
 .documentTags {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-xs);
   margin-top: var(--spacing-xs);
 }
-  
+
 .documentTag {
   background-color: var(--bg-tertiary);
   color: var(--text-secondary);
@@ -77,14 +77,14 @@
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: var(--border-radius-sm);
 }
-  
+
 .documentActions {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
   margin-left: var(--spacing-md);
 }
-  
+
 .actionButton {
   display: flex;
   align-items: center;
@@ -99,35 +99,35 @@
   text-decoration: none;
   border: none;
 }
-  
+
 .actionButton:hover {
   background-color: var(--primary);
   color: white;
 }
-  
+
 /* Responsive adjustments */
 @media (max-width: 576px) {
   .documentCard {
     flex-direction: column;
   }
-    
+
   .documentIcon {
     margin-right: 0;
     margin-bottom: var(--spacing-sm);
   }
-    
+
   .documentMeta {
     flex-direction: column;
     gap: var(--spacing-xs);
   }
-    
+
   .documentType,
   .documentProvider,
   .documentDate {
     margin-right: 0;
     margin-bottom: var(--spacing-xs);
   }
-    
+
   .documentActions {
     position: absolute;
     top: var(--spacing-md);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiSave, FiX, FiCalendar} from 'react-icons/fi';
+import { FiSave, FiX, FiCalendar } from 'react-icons/fi';
 import { useHealth } from '../../hooks/useHealth';
 import styles from './MetricInputForm.module.css';
 
@@ -7,19 +7,19 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
   const { targets } = useHealth();
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
-  
+
   // Set up initial form data based on metric type
   useEffect(() => {
     let initialData = {
-      timestamp: new Date().toISOString().slice(0, 16) // Format: YYYY-MM-DDTHH:MM
+      timestamp: new Date().toISOString().slice(0, 16), // Format: YYYY-MM-DDTHH:MM
     };
-    
+
     switch (metricType) {
       case 'weight':
         initialData = {
           ...initialData,
           value: '',
-          unit: 'kg'
+          unit: 'kg',
         };
         break;
       case 'bloodPressure':
@@ -27,7 +27,7 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
           ...initialData,
           systolic: '',
           diastolic: '',
-          unit: 'mmHg'
+          unit: 'mmHg',
         };
         break;
       case 'bloodGlucose':
@@ -35,7 +35,7 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
           ...initialData,
           value: '',
           unit: 'mg/dL',
-          context: 'fasting' // fasting, beforeMeal, afterMeal, bedtime
+          context: 'fasting', // fasting, beforeMeal, afterMeal, bedtime
         };
         break;
       case 'heartRate':
@@ -43,103 +43,115 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
           ...initialData,
           value: '',
           unit: 'bpm',
-          context: 'resting' // resting, active, sleeping
+          context: 'resting', // resting, active, sleeping
         };
         break;
       case 'sleep':
         initialData = {
           ...initialData,
           duration: '',
-          quality: 'good' // poor, fair, good, excellent
+          quality: 'good', // poor, fair, good, excellent
         };
         break;
       case 'steps':
         initialData = {
           ...initialData,
-          count: ''
+          count: '',
         };
         break;
       default:
         break;
     }
-    
+
     setFormData(initialData);
   }, [metricType]);
-  
+
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value, type } = e.target;
-    
+
     // Handle numeric inputs
     if (type === 'number') {
       // Allow empty values (for clearing)
       if (value === '') {
-        setFormData(prev => ({ ...prev, [name]: '' }));
+        setFormData((prev) => ({ ...prev, [name]: '' }));
         // Clear error if any
         if (errors[name]) {
-          setErrors(prev => ({ ...prev, [name]: '' }));
+          setErrors((prev) => ({ ...prev, [name]: '' }));
         }
         return;
       }
-      
+
       const numValue = parseFloat(value);
-      
+
       // Validate based on field
       if (name === 'systolic' && (numValue < 60 || numValue > 250)) {
-        setErrors(prev => ({ 
-          ...prev, 
-          [name]: 'Systolic should be between 60-250 mmHg' 
+        setErrors((prev) => ({
+          ...prev,
+          [name]: 'Systolic should be between 60-250 mmHg',
         }));
       } else if (name === 'diastolic' && (numValue < 40 || numValue > 150)) {
-        setErrors(prev => ({ 
-          ...prev, 
-          [name]: 'Diastolic should be between 40-150 mmHg' 
+        setErrors((prev) => ({
+          ...prev,
+          [name]: 'Diastolic should be between 40-150 mmHg',
         }));
-      } else if (name === 'value' && metricType === 'weight' && (numValue < 20 || numValue > 500)) {
-        setErrors(prev => ({ 
-          ...prev, 
-          [name]: 'Weight should be between 20-500 kg' 
+      } else if (
+        name === 'value' &&
+        metricType === 'weight' &&
+        (numValue < 20 || numValue > 500)
+      ) {
+        setErrors((prev) => ({
+          ...prev,
+          [name]: 'Weight should be between 20-500 kg',
         }));
-      } else if (name === 'value' && metricType === 'bloodGlucose' && (numValue < 30 || numValue > 600)) {
-        setErrors(prev => ({ 
-          ...prev, 
-          [name]: 'Blood glucose should be between 30-600 mg/dL' 
+      } else if (
+        name === 'value' &&
+        metricType === 'bloodGlucose' &&
+        (numValue < 30 || numValue > 600)
+      ) {
+        setErrors((prev) => ({
+          ...prev,
+          [name]: 'Blood glucose should be between 30-600 mg/dL',
         }));
-      } else if (name === 'value' && metricType === 'heartRate' && (numValue < 30 || numValue > 220)) {
-        setErrors(prev => ({ 
-          ...prev, 
-          [name]: 'Heart rate should be between 30-220 bpm' 
+      } else if (
+        name === 'value' &&
+        metricType === 'heartRate' &&
+        (numValue < 30 || numValue > 220)
+      ) {
+        setErrors((prev) => ({
+          ...prev,
+          [name]: 'Heart rate should be between 30-220 bpm',
         }));
       } else if (name === 'duration' && (numValue < 0 || numValue > 24)) {
-        setErrors(prev => ({ 
-          ...prev, 
-          [name]: 'Sleep duration should be between 0-24 hours' 
+        setErrors((prev) => ({
+          ...prev,
+          [name]: 'Sleep duration should be between 0-24 hours',
         }));
       } else if (name === 'count' && (numValue < 0 || numValue > 100000)) {
-        setErrors(prev => ({ 
-          ...prev, 
-          [name]: 'Step count should be between 0-100,000' 
+        setErrors((prev) => ({
+          ...prev,
+          [name]: 'Step count should be between 0-100,000',
         }));
       } else {
         // Clear error if valid
         if (errors[name]) {
-          setErrors(prev => ({ ...prev, [name]: '' }));
+          setErrors((prev) => ({ ...prev, [name]: '' }));
         }
       }
     }
-    
-    setFormData(prev => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  
+
   // Validate the form before submission
   const validateForm = () => {
     const newErrors = {};
-    
+
     // Common validation for timestamp
     if (!formData.timestamp) {
       newErrors.timestamp = 'Date and time are required';
     }
-    
+
     // Validate based on metric type
     switch (metricType) {
       case 'weight':
@@ -155,7 +167,7 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
         } else if (isNaN(parseFloat(formData.systolic))) {
           newErrors.systolic = 'Systolic must be a number';
         }
-        
+
         if (!formData.diastolic) {
           newErrors.diastolic = 'Diastolic pressure is required';
         } else if (isNaN(parseFloat(formData.diastolic))) {
@@ -193,28 +205,28 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
       default:
         break;
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
-    
+
     // Prepare data based on metric type
     let submissionData = {};
-    
+
     switch (metricType) {
       case 'weight':
         submissionData = {
           timestamp: formData.timestamp,
           value: parseFloat(formData.value),
-          unit: formData.unit
+          unit: formData.unit,
         };
         break;
       case 'bloodPressure':
@@ -222,7 +234,7 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
           timestamp: formData.timestamp,
           systolic: parseInt(formData.systolic, 10),
           diastolic: parseInt(formData.diastolic, 10),
-          unit: 'mmHg'
+          unit: 'mmHg',
         };
         break;
       case 'bloodGlucose':
@@ -230,7 +242,7 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
           timestamp: formData.timestamp,
           value: parseInt(formData.value, 10),
           unit: formData.unit,
-          context: formData.context
+          context: formData.context,
         };
         break;
       case 'heartRate':
@@ -238,30 +250,30 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
           timestamp: formData.timestamp,
           value: parseInt(formData.value, 10),
           unit: 'bpm',
-          context: formData.context
+          context: formData.context,
         };
         break;
       case 'sleep':
         submissionData = {
           timestamp: formData.timestamp,
           duration: parseFloat(formData.duration),
-          quality: formData.quality
+          quality: formData.quality,
         };
         break;
       case 'steps':
         submissionData = {
           timestamp: formData.timestamp,
-          count: parseInt(formData.count, 10)
+          count: parseInt(formData.count, 10),
         };
         break;
       default:
         break;
     }
-    
+
     // Call the onSave callback with the prepared data
     onSave(submissionData);
   };
-  
+
   // Get form fields based on metric type
   const renderFormFields = () => {
     switch (metricType) {
@@ -292,17 +304,20 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
                   <option value="lb">lb</option>
                 </select>
               </div>
-              {errors.value && <div className={styles.errorText}>{errors.value}</div>}
+              {errors.value && (
+                <div className={styles.errorText}>{errors.value}</div>
+              )}
               {targets?.weight && (
                 <div className={styles.targetHint}>
-                  Target range: {targets.weight.min && `${targets.weight.min} - `}
+                  Target range:{' '}
+                  {targets.weight.min && `${targets.weight.min} - `}
                   {targets.weight.max} {targets.weight.unit}
                 </div>
               )}
             </div>
           </>
         );
-        
+
       case 'bloodPressure':
         return (
           <>
@@ -319,14 +334,17 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
                   max="250"
                   placeholder="Systolic"
                 />
-                {errors.systolic && <div className={styles.errorText}>{errors.systolic}</div>}
+                {errors.systolic && (
+                  <div className={styles.errorText}>{errors.systolic}</div>
+                )}
                 {targets?.bloodPressure?.systolic && (
                   <div className={styles.targetHint}>
-                    Target: {targets.bloodPressure.systolic.min} - {targets.bloodPressure.systolic.max} mmHg
+                    Target: {targets.bloodPressure.systolic.min} -{' '}
+                    {targets.bloodPressure.systolic.max} mmHg
                   </div>
                 )}
               </div>
-              
+
               <div className={styles.formGroup}>
                 <label htmlFor="diastolic">Diastolic (mmHg)</label>
                 <input
@@ -339,17 +357,20 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
                   max="150"
                   placeholder="Diastolic"
                 />
-                {errors.diastolic && <div className={styles.errorText}>{errors.diastolic}</div>}
+                {errors.diastolic && (
+                  <div className={styles.errorText}>{errors.diastolic}</div>
+                )}
                 {targets?.bloodPressure?.diastolic && (
                   <div className={styles.targetHint}>
-                    Target: {targets.bloodPressure.diastolic.min} - {targets.bloodPressure.diastolic.max} mmHg
+                    Target: {targets.bloodPressure.diastolic.min} -{' '}
+                    {targets.bloodPressure.diastolic.max} mmHg
                   </div>
                 )}
               </div>
             </div>
           </>
         );
-        
+
       case 'bloodGlucose':
         return (
           <>
@@ -376,9 +397,11 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
                   <option value="mmol/L">mmol/L</option>
                 </select>
               </div>
-              {errors.value && <div className={styles.errorText}>{errors.value}</div>}
+              {errors.value && (
+                <div className={styles.errorText}>{errors.value}</div>
+              )}
             </div>
-            
+
             <div className={styles.formGroup}>
               <label htmlFor="context">Measurement Context</label>
               <select
@@ -392,21 +415,29 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
                 <option value="afterMeal">After Meal</option>
                 <option value="bedtime">Bedtime</option>
               </select>
-              {formData.context === 'fasting' && targets?.bloodGlucose?.fasting && (
-                <div className={styles.targetHint}>
-                  Target: {targets.bloodGlucose.fasting.min} - {targets.bloodGlucose.fasting.max} {targets.bloodGlucose.fasting.unit}
-                </div>
-              )}
-              {formData.context === 'afterMeal' && targets?.bloodGlucose?.afterMeal && (
-                <div className={styles.targetHint}>
-                  Target: {targets.bloodGlucose.afterMeal.min ? `${targets.bloodGlucose.afterMeal.min} - ` : 'Below '}
-                  {targets.bloodGlucose.afterMeal.max} {targets.bloodGlucose.afterMeal.unit}
-                </div>
-              )}
+              {formData.context === 'fasting' &&
+                targets?.bloodGlucose?.fasting && (
+                  <div className={styles.targetHint}>
+                    Target: {targets.bloodGlucose.fasting.min} -{' '}
+                    {targets.bloodGlucose.fasting.max}{' '}
+                    {targets.bloodGlucose.fasting.unit}
+                  </div>
+                )}
+              {formData.context === 'afterMeal' &&
+                targets?.bloodGlucose?.afterMeal && (
+                  <div className={styles.targetHint}>
+                    Target:{' '}
+                    {targets.bloodGlucose.afterMeal.min
+                      ? `${targets.bloodGlucose.afterMeal.min} - `
+                      : 'Below '}
+                    {targets.bloodGlucose.afterMeal.max}{' '}
+                    {targets.bloodGlucose.afterMeal.unit}
+                  </div>
+                )}
             </div>
           </>
         );
-        
+
       case 'heartRate':
         return (
           <>
@@ -422,14 +453,17 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
                 max="220"
                 placeholder="Enter heart rate"
               />
-              {errors.value && <div className={styles.errorText}>{errors.value}</div>}
+              {errors.value && (
+                <div className={styles.errorText}>{errors.value}</div>
+              )}
               {targets?.heartRate && (
                 <div className={styles.targetHint}>
-                  Target: {targets.heartRate.min} - {targets.heartRate.max} {targets.heartRate.unit}
+                  Target: {targets.heartRate.min} - {targets.heartRate.max}{' '}
+                  {targets.heartRate.unit}
                 </div>
               )}
             </div>
-            
+
             <div className={styles.formGroup}>
               <label htmlFor="context">Measurement Context</label>
               <select
@@ -445,7 +479,7 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
             </div>
           </>
         );
-        
+
       case 'sleep':
         return (
           <>
@@ -462,14 +496,17 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
                 max="24"
                 placeholder="Enter sleep duration"
               />
-              {errors.duration && <div className={styles.errorText}>{errors.duration}</div>}
+              {errors.duration && (
+                <div className={styles.errorText}>{errors.duration}</div>
+              )}
               {targets?.sleep && (
                 <div className={styles.targetHint}>
-                  Target: {targets.sleep.min} - {targets.sleep.max} {targets.sleep.unit}
+                  Target: {targets.sleep.min} - {targets.sleep.max}{' '}
+                  {targets.sleep.unit}
                 </div>
               )}
             </div>
-            
+
             <div className={styles.formGroup}>
               <label htmlFor="quality">Sleep Quality</label>
               <select
@@ -486,7 +523,7 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
             </div>
           </>
         );
-        
+
       case 'steps':
         return (
           <div className={styles.formGroup}>
@@ -501,29 +538,36 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
               max="100000"
               placeholder="Enter step count"
             />
-            {errors.count && <div className={styles.errorText}>{errors.count}</div>}
+            {errors.count && (
+              <div className={styles.errorText}>{errors.count}</div>
+            )}
             {targets?.steps && (
               <div className={styles.targetHint}>
-                Target: {targets.steps.min}{targets.steps.max ? ` - ${targets.steps.max}` : '+'} {targets.steps.unit}
+                Target: {targets.steps.min}
+                {targets.steps.max ? ` - ${targets.steps.max}` : '+'}{' '}
+                {targets.steps.unit}
               </div>
             )}
           </div>
         );
-        
+
       default:
         return null;
     }
   };
-  
+
   return (
     <form className={styles.metricForm} onSubmit={handleSubmit}>
       <div className={styles.formTitle}>
-        {metricType === 'bloodPressure' ? 'Blood Pressure' : 
-         metricType === 'bloodGlucose' ? 'Blood Glucose' :
-         metricType === 'heartRate' ? 'Heart Rate' :
-         metricType.charAt(0).toUpperCase() + metricType.slice(1)}
+        {metricType === 'bloodPressure'
+          ? 'Blood Pressure'
+          : metricType === 'bloodGlucose'
+            ? 'Blood Glucose'
+            : metricType === 'heartRate'
+              ? 'Heart Rate'
+              : metricType.charAt(0).toUpperCase() + metricType.slice(1)}
       </div>
-      
+
       <div className={styles.formGroup}>
         <label htmlFor="timestamp">Date and Time</label>
         <div className={styles.dateTimeWrapper}>
@@ -539,23 +583,22 @@ const MetricInputForm = ({ metricType, onSave, onCancel }) => {
             max={new Date().toISOString().slice(0, 16)}
           />
         </div>
-        {errors.timestamp && <div className={styles.errorText}>{errors.timestamp}</div>}
+        {errors.timestamp && (
+          <div className={styles.errorText}>{errors.timestamp}</div>
+        )}
       </div>
-      
+
       {renderFormFields()}
-      
+
       <div className={styles.formActions}>
-        <button 
-          type="button" 
+        <button
+          type="button"
           className={styles.cancelButton}
           onClick={onCancel}
         >
           <FiX /> Cancel
         </button>
-        <button 
-          type="submit" 
-          className={styles.saveButton}
-        >
+        <button type="submit" className={styles.saveButton}>
           <FiSave /> Save
         </button>
       </div>

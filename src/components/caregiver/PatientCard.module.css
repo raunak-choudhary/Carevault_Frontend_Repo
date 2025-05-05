@@ -166,18 +166,18 @@
     grid-template-columns: 1fr;
     gap: var(--spacing-sm);
   }
-  
+
   .patientHeader {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-xs);
   }
-  
+
   .patientAvatar {
     margin-right: 0;
     margin-bottom: var(--spacing-xs);
   }
-  
+
   .statusBadge {
     align-self: flex-start;
   }

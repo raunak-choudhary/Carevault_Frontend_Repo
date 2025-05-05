@@ -4,7 +4,12 @@ import { FiPlus, FiFileText, FiSearch, FiAlertCircle } from 'react-icons/fi';
 import DocumentCard from '../../components/documents/DocumentCard';
 import DocumentFilter from '../../components/documents/DocumentFilter';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
-import { getUserDocuments, searchDocuments, filterDocuments, deleteDocument } from '../../services/authService';
+import {
+  getUserDocuments,
+  searchDocuments,
+  filterDocuments,
+  deleteDocument,
+} from '../../services/authService';
 import styles from './DocumentsListPage.module.css';
 
 const DocumentsListPage = () => {
@@ -17,9 +22,9 @@ const DocumentsListPage = () => {
     type: '',
     provider: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
   });
-  
+
   // Fetch documents on component mount
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -35,33 +40,33 @@ const DocumentsListPage = () => {
         setLoading(false);
       }
     };
-    
+
     fetchDocuments();
   }, []);
-  
+
   // Handle search
   const handleSearch = async (query) => {
     setSearchQuery(query);
-    
+
     try {
       setLoading(true);
-      
+
       if (!query && !hasActiveFilters()) {
         // If no search query and no filters, show all documents
         setFilteredDocuments(documents);
       } else {
         // Otherwise, apply search and/or filters
         const results = await searchDocuments(query);
-        
+
         // Apply any active filters to search results
         if (hasActiveFilters()) {
           const filtered = await filterDocuments(activeFilters);
-          
+
           // Intersection of search results and filtered results
-          const intersection = results.filter(doc => 
-            filtered.some(filteredDoc => filteredDoc.id === doc.id)
+          const intersection = results.filter((doc) =>
+            filtered.some((filteredDoc) => filteredDoc.id === doc.id),
           );
-          
+
           setFilteredDocuments(intersection);
         } else {
           setFilteredDocuments(results);
@@ -74,29 +79,29 @@ const DocumentsListPage = () => {
       setLoading(false);
     }
   };
-  
+
   // Handle filter changes
   const handleFilterChange = async (filters) => {
     setActiveFilters(filters);
-    
+
     try {
       setLoading(true);
-      
+
       if (!hasActiveFilters(filters) && !searchQuery) {
         // If no filters and no search query, show all documents
         setFilteredDocuments(documents);
       } else {
         // Apply filters
         const filtered = await filterDocuments(filters);
-        
+
         // If there's also a search query, intersect with search results
         if (searchQuery) {
           const searchResults = await searchDocuments(searchQuery);
-          
-          const intersection = filtered.filter(doc => 
-            searchResults.some(searchDoc => searchDoc.id === doc.id)
+
+          const intersection = filtered.filter((doc) =>
+            searchResults.some((searchDoc) => searchDoc.id === doc.id),
           );
-          
+
           setFilteredDocuments(intersection);
         } else {
           setFilteredDocuments(filtered);
@@ -109,23 +114,22 @@ const DocumentsListPage = () => {
       setLoading(false);
     }
   };
-  
+
   // Check if any filters are active
   const hasActiveFilters = (filters = activeFilters) => {
-    return Object.values(filters).some(value => value !== '');
+    return Object.values(filters).some((value) => value !== '');
   };
-  
+
   // Handle document deletion
   const handleDocumentDelete = async (id) => {
     try {
       setLoading(true);
       await deleteDocument(id);
-      
+
       // Update both document lists
-      const updatedDocs = documents.filter(doc => doc.id !== id);
+      const updatedDocs = documents.filter((doc) => doc.id !== id);
       setDocuments(updatedDocs);
-      setFilteredDocuments(filteredDocuments.filter(doc => doc.id !== id));
-      
+      setFilteredDocuments(filteredDocuments.filter((doc) => doc.id !== id));
     } catch (err) {
       console.error('Error deleting document:', err);
       setError('Failed to delete document. Please try again.');
@@ -133,7 +137,7 @@ const DocumentsListPage = () => {
       setLoading(false);
     }
   };
-  
+
   return (
     <div className={styles.documentsPage}>
       <div className={styles.pageHeader}>
@@ -142,28 +146,28 @@ const DocumentsListPage = () => {
           <FiPlus /> Upload Document
         </Link>
       </div>
-      
+
       {error && (
         <div className={styles.errorMessage}>
           <FiAlertCircle /> {error}
         </div>
       )}
-      
-      <DocumentFilter 
-        onFilterChange={handleFilterChange} 
+
+      <DocumentFilter
+        onFilterChange={handleFilterChange}
         onSearch={handleSearch}
       />
-      
+
       {loading ? (
         <div className={styles.loadingContainer}>
           <LoadingSpinner size="large" />
         </div>
       ) : filteredDocuments.length > 0 ? (
         <div className={styles.documentsList}>
-          {filteredDocuments.map(doc => (
-            <DocumentCard 
-              key={doc.id} 
-              document={doc} 
+          {filteredDocuments.map((doc) => (
+            <DocumentCard
+              key={doc.id}
+              document={doc}
               onDelete={handleDocumentDelete}
             />
           ))}
@@ -174,8 +178,11 @@ const DocumentsListPage = () => {
             <div>
               <FiSearch size={48} />
               <h2>No documents found</h2>
-              <p>Try adjusting your search or filters to find what you're looking for.</p>
-              <button 
+              <p>
+                Try adjusting your search or filters to find what you're looking
+                for.
+              </p>
+              <button
                 className={styles.clearButton}
                 onClick={() => {
                   setSearchQuery('');
@@ -183,7 +190,7 @@ const DocumentsListPage = () => {
                     type: '',
                     provider: '',
                     startDate: '',
-                    endDate: ''
+                    endDate: '',
                   });
                   setFilteredDocuments(documents);
                 }}

@@ -11,24 +11,24 @@ const MedicationsListPage = () => {
   const { medications, loading, error } = useMedications();
   const [activeTab, setActiveTab] = useState('list'); // 'list' or 'schedule'
   const navigate = useNavigate();
-  
+
   // Handle medication click
   const handleMedicationClick = (medication) => {
     navigate(`/medications/view/${medication.id}`);
   };
-  
+
   // Handle marking a dose as taken
   const handleMarkTaken = (dose) => {
     // In a real app, this would update the medication tracking history
     console.log('Dose marked as taken:', dose);
   };
-  
+
   // Handle marking a dose as skipped
   const handleMarkSkipped = (dose) => {
     // In a real app, this would update the medication tracking history
     console.log('Dose marked as skipped:', dose);
   };
-  
+
   return (
     <div className={styles.medicationsPage}>
       <div className={styles.pageHeader}>
@@ -37,7 +37,7 @@ const MedicationsListPage = () => {
           <FiPlus /> Add Medication
         </Link>
       </div>
-      
+
       <div className={styles.tabNavigation}>
         <button
           className={`${styles.tabButton} ${activeTab === 'list' ? styles.activeTab : ''}`}
@@ -54,13 +54,9 @@ const MedicationsListPage = () => {
           Schedule & Reminders
         </button>
       </div>
-      
-      {error && (
-        <div className={styles.errorMessage}>
-          {error}
-        </div>
-      )}
-      
+
+      {error && <div className={styles.errorMessage}>{error}</div>}
+
       {loading ? (
         <div className={styles.loadingContainer}>
           <LoadingSpinner size="large" />
@@ -68,12 +64,12 @@ const MedicationsListPage = () => {
       ) : (
         <div className={styles.tabContent}>
           {activeTab === 'list' ? (
-            <MedicationList 
+            <MedicationList
               medications={medications}
               onMedicationClick={handleMedicationClick}
             />
           ) : (
-            <MedicationSchedule 
+            <MedicationSchedule
               medications={medications}
               onMarkTaken={handleMarkTaken}
               onMarkSkipped={handleMarkSkipped}

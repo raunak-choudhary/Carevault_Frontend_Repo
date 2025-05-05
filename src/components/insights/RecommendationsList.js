@@ -17,13 +17,13 @@ const RecommendationsList = ({ recommendations = [] }) => {
       </div>
     );
   }
-  
+
   return (
     <div className={styles.recommendationsCard}>
       <div className={styles.recommendationsHeader}>
         <h3>Recommendations</h3>
       </div>
-      
+
       <div className={styles.recommendationsContent}>
         <ul className={styles.recommendationsList}>
           {recommendations.map((recommendation, index) => (

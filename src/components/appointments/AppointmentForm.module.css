@@ -88,7 +88,8 @@
   position: relative;
 }
 
-.formInput, .formTextarea {
+.formInput,
+.formTextarea {
   width: 100%;
   padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 36px;
   border: 1px solid var(--border-color);
@@ -98,7 +99,8 @@
   color: var(--text-primary);
 }
 
-.formInput:focus, .formTextarea:focus {
+.formInput:focus,
+.formTextarea:focus {
   outline: none;
   border-color: var(--primary);
 }
@@ -135,7 +137,9 @@
   margin-top: var(--spacing-lg);
 }
 
-.backButton, .nextButton, .submitButton {
+.backButton,
+.nextButton,
+.submitButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,13 +160,15 @@
   background-color: var(--border-color);
 }
 
-.nextButton, .submitButton {
+.nextButton,
+.submitButton {
   background-color: var(--primary);
   color: white;
   border: none;
 }
 
-.nextButton:hover, .submitButton:hover {
+.nextButton:hover,
+.submitButton:hover {
   background-color: var(--primary-dark);
 }
 
@@ -334,20 +340,23 @@
 }
 
 /* Appointment summary */
-.appointmentSummary, .selectedProviderSummary {
+.appointmentSummary,
+.selectedProviderSummary {
   margin-top: var(--spacing-lg);
   padding: var(--spacing-md);
   background-color: var(--bg-secondary);
   border-radius: var(--border-radius-md);
 }
 
-.appointmentSummary h3, .selectedProviderSummary h3 {
+.appointmentSummary h3,
+.selectedProviderSummary h3 {
   margin-top: 0;
   margin-bottom: var(--spacing-md);
   font-size: var(--font-size-md);
 }
 
-.summaryDetail, .providerDetail {
+.summaryDetail,
+.providerDetail {
   display: flex;
   align-items: center;
   margin-bottom: var(--spacing-sm);
@@ -365,24 +374,26 @@
     flex-direction: column;
     gap: 0;
   }
-  
+
   .searchContainer {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .findProvidersButton {
     width: 100%;
     text-align: center;
     margin-top: var(--spacing-xs);
   }
-  
+
   .formActions {
     flex-direction: column;
     gap: var(--spacing-sm);
   }
-  
-  .backButton, .nextButton, .submitButton {
+
+  .backButton,
+  .nextButton,
+  .submitButton {
     width: 100%;
   }
 }

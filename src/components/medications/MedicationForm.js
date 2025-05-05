@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { FiSave, FiPlus, FiClock, FiCalendar, FiX } from 'react-icons/fi';
 import styles from './MedicationForm.module.css';
 
-const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) => {
+const MedicationForm = ({
+  initialData,
+  onSubmit,
+  onCancel,
+  isEditing = false,
+}) => {
   const defaultFormData = {
     name: '',
     dosage: '',
@@ -16,119 +21,119 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
     refillReminder: true,
     prescribedBy: '',
     pharmacy: '',
-    notes: ''
+    notes: '',
   };
-  
+
   const [formData, setFormData] = useState(initialData || defaultFormData);
   const [errors, setErrors] = useState({});
-  
+
   // Update form data if initialData changes
   useEffect(() => {
     if (initialData) {
       setFormData(initialData);
     }
   }, [initialData]);
-  
+
   // Handle input changes
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
-    setFormData(prevData => ({
+
+    setFormData((prevData) => ({
       ...prevData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? checked : value,
     }));
-    
+
     // Clear error for this field if any
     if (errors[name]) {
-      setErrors(prevErrors => ({
+      setErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: ''
+        [name]: '',
       }));
     }
   };
-  
+
   // Handle frequency change (special handling for custom frequency)
   const handleFrequencyChange = (e) => {
     const { value } = e.target;
-    
-    setFormData(prevData => ({
+
+    setFormData((prevData) => ({
       ...prevData,
       frequency: value,
       // Reset custom frequency if not selecting 'custom'
-      customFrequency: value !== 'custom' ? '' : prevData.customFrequency
+      customFrequency: value !== 'custom' ? '' : prevData.customFrequency,
     }));
   };
-  
+
   // Add a time slot to the dosage schedule
   const addTimeSlot = () => {
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      dosageSchedule: [...prevData.dosageSchedule, '12:00']
+      dosageSchedule: [...prevData.dosageSchedule, '12:00'],
     }));
   };
-  
+
   // Remove a time slot from the dosage schedule
   const removeTimeSlot = (index) => {
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      dosageSchedule: prevData.dosageSchedule.filter((_, i) => i !== index)
+      dosageSchedule: prevData.dosageSchedule.filter((_, i) => i !== index),
     }));
   };
-  
+
   // Update a specific time slot
   const updateTimeSlot = (index, value) => {
-    setFormData(prevData => {
+    setFormData((prevData) => {
       const updatedSchedule = [...prevData.dosageSchedule];
       updatedSchedule[index] = value;
       return {
         ...prevData,
-        dosageSchedule: updatedSchedule
+        dosageSchedule: updatedSchedule,
       };
     });
   };
-  
+
   // Validate the form
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'Medication name is required';
     }
-    
+
     if (!formData.dosage.trim()) {
       newErrors.dosage = 'Dosage is required';
     } else if (isNaN(parseFloat(formData.dosage))) {
       newErrors.dosage = 'Dosage must be a number';
     }
-    
+
     if (formData.frequency === 'custom' && !formData.customFrequency.trim()) {
       newErrors.customFrequency = 'Please specify the custom frequency';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
-    
+
     onSubmit(formData);
   };
-  
+
   return (
     <form className={styles.medicationForm} onSubmit={handleSubmit}>
       <div className={styles.formTitle}>
         {isEditing ? 'Edit Medication' : 'Add New Medication'}
       </div>
-      
+
       <div className={styles.formSection}>
         <h3 className={styles.sectionTitle}>Basic Information</h3>
-        
+
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
             <label htmlFor="name">Medication Name*</label>
@@ -141,9 +146,11 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
               placeholder="Enter medication name"
               className={errors.name ? styles.inputError : ''}
             />
-            {errors.name && <div className={styles.errorText}>{errors.name}</div>}
+            {errors.name && (
+              <div className={styles.errorText}>{errors.name}</div>
+            )}
           </div>
-          
+
           <div className={styles.formGroup}>
             <label htmlFor="dosage">Dosage*</label>
             <div className={styles.dosageInput}>
@@ -156,11 +163,7 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
                 placeholder="Enter dosage"
                 className={errors.dosage ? styles.inputError : ''}
               />
-              <select 
-                name="unit" 
-                value={formData.unit} 
-                onChange={handleChange}
-              >
+              <select name="unit" value={formData.unit} onChange={handleChange}>
                 <option value="mg">mg</option>
                 <option value="g">g</option>
                 <option value="ml">ml</option>
@@ -173,10 +176,12 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
                 <option value="drop">drop</option>
               </select>
             </div>
-            {errors.dosage && <div className={styles.errorText}>{errors.dosage}</div>}
+            {errors.dosage && (
+              <div className={styles.errorText}>{errors.dosage}</div>
+            )}
           </div>
         </div>
-        
+
         <div className={styles.formGroup}>
           <label htmlFor="instructions">Instructions</label>
           <input
@@ -189,10 +194,10 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
           />
         </div>
       </div>
-      
+
       <div className={styles.formSection}>
         <h3 className={styles.sectionTitle}>Schedule</h3>
-        
+
         <div className={styles.formGroup}>
           <label htmlFor="frequency">Frequency</label>
           <select
@@ -209,7 +214,7 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
             <option value="custom">Custom</option>
           </select>
         </div>
-        
+
         {formData.frequency === 'custom' && (
           <div className={styles.formGroup}>
             <label htmlFor="customFrequency">Specify Custom Frequency</label>
@@ -227,7 +232,7 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
             )}
           </div>
         )}
-        
+
         <div className={styles.formGroup}>
           <label>Dosage Schedule</label>
           <div className={styles.timeSlots}>
@@ -264,10 +269,10 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
           </div>
         </div>
       </div>
-      
+
       <div className={styles.formSection}>
         <h3 className={styles.sectionTitle}>Additional Information</h3>
-        
+
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
             <label htmlFor="status">Status</label>
@@ -281,7 +286,7 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
               <option value="inactive">Inactive</option>
             </select>
           </div>
-          
+
           <div className={styles.formGroup}>
             <label htmlFor="refillDate">Refill Date</label>
             <div className={styles.dateInput}>
@@ -296,7 +301,7 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
             </div>
           </div>
         </div>
-        
+
         <div className={styles.formGroup}>
           <div className={styles.checkboxGroup}>
             <input
@@ -306,10 +311,12 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
               checked={formData.refillReminder}
               onChange={handleChange}
             />
-            <label htmlFor="refillReminder">Remind me when it's time to refill</label>
+            <label htmlFor="refillReminder">
+              Remind me when it's time to refill
+            </label>
           </div>
         </div>
-        
+
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
             <label htmlFor="prescribedBy">Prescribed By</label>
@@ -322,7 +329,7 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
               placeholder="Doctor's name"
             />
           </div>
-          
+
           <div className={styles.formGroup}>
             <label htmlFor="pharmacy">Pharmacy</label>
             <input
@@ -335,7 +342,7 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
             />
           </div>
         </div>
-        
+
         <div className={styles.formGroup}>
           <label htmlFor="notes">Notes</label>
           <textarea
@@ -348,7 +355,7 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
           />
         </div>
       </div>
-      
+
       <div className={styles.formActions}>
         <button
           type="button"
@@ -357,10 +364,7 @@ const MedicationForm = ({ initialData, onSubmit, onCancel, isEditing = false }) 
         >
           <FiX /> Cancel
         </button>
-        <button
-          type="submit"
-          className={styles.saveButton}
-        >
+        <button type="submit" className={styles.saveButton}>
           <FiSave /> {isEditing ? 'Update' : 'Save'} Medication
         </button>
       </div>

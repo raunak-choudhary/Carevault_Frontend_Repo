@@ -14,7 +14,7 @@ const AppointmentsListPage = () => {
   const [viewMode, setViewMode] = useState('list'); // 'list' or 'calendar'
   const [filterStatus, setFilterStatus] = useState('upcoming'); // 'upcoming', 'completed', 'all'
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  
+
   // Fetch appointments on component mount and when filter changes
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -30,20 +30,20 @@ const AppointmentsListPage = () => {
         setLoading(false);
       }
     };
-    
+
     fetchAppointments();
   }, [filterStatus]);
-  
+
   // Handle filter change
   const handleFilterChange = (status) => {
     setFilterStatus(status);
   };
-  
+
   // Handle month change from Calendar component
   const handleMonthChange = (newMonth) => {
     setCurrentMonth(newMonth);
   };
-  
+
   return (
     <div className={styles.appointmentsPage}>
       <div className={styles.pageHeader}>
@@ -52,7 +52,7 @@ const AppointmentsListPage = () => {
           <FiPlus /> New Appointment
         </Link>
       </div>
-      
+
       <div className={styles.viewControls}>
         <div className={styles.viewToggle}>
           <button
@@ -68,7 +68,7 @@ const AppointmentsListPage = () => {
             Calendar View
           </button>
         </div>
-        
+
         <div className={styles.filterControls}>
           <FiFilter className={styles.filterIcon} />
           <select
@@ -83,13 +83,9 @@ const AppointmentsListPage = () => {
           </select>
         </div>
       </div>
-      
-      {error && (
-        <div className={styles.errorMessage}>
-          {error}
-        </div>
-      )}
-      
+
+      {error && <div className={styles.errorMessage}>{error}</div>}
+
       {loading ? (
         <div className={styles.loadingContainer}>
           <LoadingSpinner size="large" />
@@ -99,10 +95,10 @@ const AppointmentsListPage = () => {
           {viewMode === 'list' ? (
             <div className={styles.appointmentList}>
               {appointments.length > 0 ? (
-                appointments.map(appointment => (
-                  <AppointmentCard 
-                    key={appointment.id} 
-                    appointment={appointment} 
+                appointments.map((appointment) => (
+                  <AppointmentCard
+                    key={appointment.id}
+                    appointment={appointment}
                   />
                 ))
               ) : (
@@ -110,15 +106,18 @@ const AppointmentsListPage = () => {
                   <FiCalendar size={48} />
                   <h2>No appointments found</h2>
                   <p>
-                    {filterStatus === 'upcoming' 
-                      ? "You don't have any upcoming appointments." 
+                    {filterStatus === 'upcoming'
+                      ? "You don't have any upcoming appointments."
                       : filterStatus === 'completed'
                         ? "You don't have any past appointments."
                         : filterStatus === 'cancelled'
                           ? "You don't have any cancelled appointments."
                           : "You don't have any appointments."}
                   </p>
-                  <Link to="/appointments/create" className={styles.emptyStateButton}>
+                  <Link
+                    to="/appointments/create"
+                    className={styles.emptyStateButton}
+                  >
                     Schedule an Appointment
                   </Link>
                 </div>
@@ -126,8 +125,8 @@ const AppointmentsListPage = () => {
             </div>
           ) : (
             <div className={styles.calendarView}>
-              <Calendar 
-                appointments={appointments} 
+              <Calendar
+                appointments={appointments}
                 currentMonth={currentMonth}
                 onMonthChange={handleMonthChange}
               />

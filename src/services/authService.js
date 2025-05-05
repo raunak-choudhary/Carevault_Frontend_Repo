@@ -2,13 +2,13 @@
 // For now, we'll use localStorage for persistence
 
 // Helper function to simulate API delay
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Default user roles
 const USER_ROLES = {
   PATIENT: 'patient',
   CAREGIVER: 'caregiver',
-  ADMIN: 'admin'
+  ADMIN: 'admin',
 };
 
 // Mock health data for demo
@@ -24,7 +24,7 @@ const initialHealthData = {
       { value: 70.5, unit: 'kg', timestamp: '2024-04-12T08:15:00Z' },
     ],
     goal: 70.0,
-    unit: 'kg'
+    unit: 'kg',
   },
   bloodPressure: {
     data: [
@@ -36,33 +36,103 @@ const initialHealthData = {
       { systolic: 124, diastolic: 81, timestamp: '2024-04-05T08:30:00Z' },
       { systolic: 120, diastolic: 80, timestamp: '2024-04-12T08:15:00Z' },
     ],
-    goal: { systolic: 120, diastolic: 80 }
+    goal: { systolic: 120, diastolic: 80 },
   },
   heartRate: {
     data: [
-      { value: 78, unit: 'bpm', context: 'Resting', timestamp: '2024-03-01T08:30:00Z' },
-      { value: 76, unit: 'bpm', context: 'Resting', timestamp: '2024-03-08T08:15:00Z' },
-      { value: 75, unit: 'bpm', context: 'Resting', timestamp: '2024-03-15T08:45:00Z' },
-      { value: 74, unit: 'bpm', context: 'Resting', timestamp: '2024-03-22T08:20:00Z' },
-      { value: 74, unit: 'bpm', context: 'Resting', timestamp: '2024-03-29T08:10:00Z' },
-      { value: 73, unit: 'bpm', context: 'Resting', timestamp: '2024-04-05T08:30:00Z' },
-      { value: 72, unit: 'bpm', context: 'Resting', timestamp: '2024-04-12T08:15:00Z' },
+      {
+        value: 78,
+        unit: 'bpm',
+        context: 'Resting',
+        timestamp: '2024-03-01T08:30:00Z',
+      },
+      {
+        value: 76,
+        unit: 'bpm',
+        context: 'Resting',
+        timestamp: '2024-03-08T08:15:00Z',
+      },
+      {
+        value: 75,
+        unit: 'bpm',
+        context: 'Resting',
+        timestamp: '2024-03-15T08:45:00Z',
+      },
+      {
+        value: 74,
+        unit: 'bpm',
+        context: 'Resting',
+        timestamp: '2024-03-22T08:20:00Z',
+      },
+      {
+        value: 74,
+        unit: 'bpm',
+        context: 'Resting',
+        timestamp: '2024-03-29T08:10:00Z',
+      },
+      {
+        value: 73,
+        unit: 'bpm',
+        context: 'Resting',
+        timestamp: '2024-04-05T08:30:00Z',
+      },
+      {
+        value: 72,
+        unit: 'bpm',
+        context: 'Resting',
+        timestamp: '2024-04-12T08:15:00Z',
+      },
     ],
     goal: { min: 60, max: 100 },
-    unit: 'bpm'
+    unit: 'bpm',
   },
   bloodGlucose: {
     data: [
-      { value: 105, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-03-01T08:30:00Z' },
-      { value: 103, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-03-08T08:15:00Z' },
-      { value: 102, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-03-15T08:45:00Z' },
-      { value: 100, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-03-22T08:20:00Z' },
-      { value: 98, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-03-29T08:10:00Z' },
-      { value: 97, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-04-05T08:30:00Z' },
-      { value: 95, unit: 'mg/dL', context: 'Fasting', timestamp: '2024-04-12T08:15:00Z' },
+      {
+        value: 105,
+        unit: 'mg/dL',
+        context: 'Fasting',
+        timestamp: '2024-03-01T08:30:00Z',
+      },
+      {
+        value: 103,
+        unit: 'mg/dL',
+        context: 'Fasting',
+        timestamp: '2024-03-08T08:15:00Z',
+      },
+      {
+        value: 102,
+        unit: 'mg/dL',
+        context: 'Fasting',
+        timestamp: '2024-03-15T08:45:00Z',
+      },
+      {
+        value: 100,
+        unit: 'mg/dL',
+        context: 'Fasting',
+        timestamp: '2024-03-22T08:20:00Z',
+      },
+      {
+        value: 98,
+        unit: 'mg/dL',
+        context: 'Fasting',
+        timestamp: '2024-03-29T08:10:00Z',
+      },
+      {
+        value: 97,
+        unit: 'mg/dL',
+        context: 'Fasting',
+        timestamp: '2024-04-05T08:30:00Z',
+      },
+      {
+        value: 95,
+        unit: 'mg/dL',
+        context: 'Fasting',
+        timestamp: '2024-04-12T08:15:00Z',
+      },
     ],
     goal: { min: 70, max: 99 },
-    unit: 'mg/dL'
+    unit: 'mg/dL',
   },
   sleep: {
     data: [
@@ -70,12 +140,20 @@ const initialHealthData = {
       { duration: 6.8, quality: 'Good', timestamp: '2024-03-08T08:15:00Z' },
       { duration: 7, quality: 'Good', timestamp: '2024-03-15T08:45:00Z' },
       { duration: 7.2, quality: 'Good', timestamp: '2024-03-22T08:20:00Z' },
-      { duration: 7.5, quality: 'Very Good', timestamp: '2024-03-29T08:10:00Z' },
-      { duration: 7.8, quality: 'Very Good', timestamp: '2024-04-05T08:30:00Z' },
+      {
+        duration: 7.5,
+        quality: 'Very Good',
+        timestamp: '2024-03-29T08:10:00Z',
+      },
+      {
+        duration: 7.8,
+        quality: 'Very Good',
+        timestamp: '2024-04-05T08:30:00Z',
+      },
       { duration: 8, quality: 'Excellent', timestamp: '2024-04-12T08:15:00Z' },
     ],
     goal: 8,
-    unit: 'hours'
+    unit: 'hours',
   },
   steps: {
     data: [
@@ -87,38 +165,46 @@ const initialHealthData = {
       { count: 8200, timestamp: '2024-04-05T23:59:59Z' },
       { count: 8500, timestamp: '2024-04-12T23:59:59Z' },
     ],
-    goal: 10000
-  }
+    goal: 10000,
+  },
 };
+
+// const API_BASE_URL = 'http://localhost:1999/api';
 
 // Login user
 const login = async (credentials) => {
   // Simulate API call
   await delay(1000);
-  
+
   // In a real app, this would validate with a backend
   // Simple validation for demo
-  if (credentials.email === 'demo@carevault.com' && credentials.password === 'password') {
+  if (
+    credentials.email === 'demo@carevault.com' &&
+    credentials.password === 'password'
+  ) {
     const user = {
       id: '1',
       firstName: 'Demo',
       lastName: 'User',
       email: 'demo@carevault.com',
       role: USER_ROLES.PATIENT,
-      verified: true
+      verified: true,
     };
-    
+
     // Store in localStorage
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', 'demo-token-12345');
-    
+
     // Initialize health data for demo user if not already present
     if (!localStorage.getItem('healthData')) {
       localStorage.setItem('healthData', JSON.stringify(initialHealthData));
     }
-    
+
     return { user, token: 'demo-token-12345' };
-  } else if (credentials.email === 'caregiver@carevault.com' && credentials.password === 'password') {
+  } else if (
+    credentials.email === 'caregiver@carevault.com' &&
+    credentials.password === 'password'
+  ) {
     // Caregiver user for demo purposes
     const user = {
       id: '2',
@@ -126,16 +212,16 @@ const login = async (credentials) => {
       lastName: 'Giver',
       email: 'caregiver@carevault.com',
       role: USER_ROLES.CAREGIVER,
-      verified: true
+      verified: true,
     };
-    
+
     // Store in localStorage
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', 'caregiver-token-12345');
-    
+
     return { user, token: 'caregiver-token-12345' };
   }
-  
+
   // Simulate error response
   throw new Error('Invalid email or password');
 };
@@ -144,7 +230,7 @@ const login = async (credentials) => {
 const register = async (userData) => {
   // Simulate API call
   await delay(1000);
-  
+
   // In a real app, this would send data to a backend
   // Create a new user object
   const user = {
@@ -153,18 +239,18 @@ const register = async (userData) => {
     lastName: userData.lastName,
     email: userData.email,
     role: userData.role || USER_ROLES.PATIENT,
-    verified: false
+    verified: false,
   };
-  
+
   // Store in localStorage
   localStorage.setItem('user', JSON.stringify(user));
   localStorage.setItem('token', `user-token-${user.id}`);
-  
+
   // Initialize empty health data for new user
   if (user.role === USER_ROLES.PATIENT && !localStorage.getItem('healthData')) {
     localStorage.setItem('healthData', JSON.stringify(initialHealthData));
   }
-  
+
   return { user, token: `user-token-${user.id}` };
 };
 
@@ -172,15 +258,15 @@ const register = async (userData) => {
 const verifyAccount = async (code) => {
   // Simulate API call
   await delay(1000);
-  
+
   // Get current user
   const userJson = localStorage.getItem('user');
   if (!userJson) {
     throw new Error('No user found');
   }
-  
+
   const user = JSON.parse(userJson);
-  
+
   // Simulate verification code check
   if (code === '123456') {
     // Update verification status
@@ -188,7 +274,7 @@ const verifyAccount = async (code) => {
     localStorage.setItem('user', JSON.stringify(user));
     return user;
   }
-  
+
   throw new Error('Invalid verification code');
 };
 
@@ -214,13 +300,17 @@ const getCurrentUser = () => {
 const requestPasswordReset = async (email) => {
   // Simulate API call
   await delay(1000);
-  
+
   // In a real app, this would trigger an email with reset link
   // For now, simulate success
   if (email) {
-    return { success: true, message: 'If an account exists with that email, we have sent a password reset link' };
+    return {
+      success: true,
+      message:
+        'If an account exists with that email, we have sent a password reset link',
+    };
   }
-  
+
   throw new Error('Email is required');
 };
 
@@ -228,13 +318,13 @@ const requestPasswordReset = async (email) => {
 const resetPassword = async (token, newPassword) => {
   // Simulate API call
   await delay(1000);
-  
+
   // In a real app, this would validate token and update password
   // For now, simulate success if token not empty
   if (token && newPassword) {
     return { success: true, message: 'Password has been reset successfully' };
   }
-  
+
   throw new Error('Invalid token or password');
 };
 
@@ -242,19 +332,19 @@ const resetPassword = async (token, newPassword) => {
 const updateProfile = async (userData) => {
   // Simulate API call
   await delay(1000);
-  
+
   // Get current user
   const userJson = localStorage.getItem('user');
   if (!userJson) {
     throw new Error('No user found');
   }
-  
+
   const currentUser = JSON.parse(userJson);
-  
+
   // Update user data
   const updatedUser = { ...currentUser, ...userData };
   localStorage.setItem('user', JSON.stringify(updatedUser));
-  
+
   return updatedUser;
 };
 
@@ -264,7 +354,7 @@ const updateProfile = async (userData) => {
 // Helper function to save file data to localStorage
 const saveFileData = (file) => {
   if (!file) return null;
-  
+
   // For images, convert to data URL for persistent storage
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -279,31 +369,31 @@ const saveFileData = (file) => {
 const getUserDocuments = async (patientId = null) => {
   // Simulate API call
   await delay(1000);
-  
+
   // Get current user
   const user = getCurrentUser();
   if (!user) {
     throw new Error('User not authenticated');
   }
-  
+
   // Get documents from localStorage or return empty array
   const documentsJson = localStorage.getItem('documents');
   let documents = documentsJson ? JSON.parse(documentsJson) : [];
-  
+
   // If patientId is provided (for caregivers viewing patient data), filter for that patient
   if (patientId && user.role === USER_ROLES.CAREGIVER) {
-    return documents.filter(doc => doc.patientId === patientId);
+    return documents.filter((doc) => doc.patientId === patientId);
   }
-  
+
   // Otherwise, return the user's own documents
-  return documents.filter(doc => doc.userId === user.id);
+  return documents.filter((doc) => doc.userId === user.id);
 };
 
 // Upload a new document
 const uploadDocument = async (documentData, patientId = null) => {
   // Simulate API call
   await delay(1500);
-  
+
   // Get current user
   const user = getCurrentUser();
   if (!user) {
@@ -315,11 +405,11 @@ const uploadDocument = async (documentData, patientId = null) => {
   if (documentData.file && typeof documentData.file !== 'string') {
     fileUrl = await saveFileData(documentData.file);
   }
-  
+
   // Get existing documents
   const documentsJson = localStorage.getItem('documents');
   const existingDocuments = documentsJson ? JSON.parse(documentsJson) : [];
-  
+
   // Create new document with ID and timestamp
   const newDocument = {
     id: Date.now().toString(),
@@ -328,15 +418,15 @@ const uploadDocument = async (documentData, patientId = null) => {
     createdAt: new Date().toISOString(),
     status: 'processed', // In real app, this would initially be 'processing' until OCR is complete
     fileUrl: fileUrl, // Store data URL or original URL
-    ...documentData
+    ...documentData,
   };
-  
+
   // Add to documents array
   const updatedDocuments = [newDocument, ...existingDocuments];
-  
+
   // Save to localStorage
   localStorage.setItem('documents', JSON.stringify(updatedDocuments));
-  
+
   return newDocument;
 };
 
@@ -344,17 +434,17 @@ const uploadDocument = async (documentData, patientId = null) => {
 const getDocumentById = async (id, patientId = null) => {
   // Simulate API call
   await delay(800);
-  
+
   // Get documents
   const documents = await getUserDocuments(patientId);
-  
+
   // Find document with matching ID
-  const document = documents.find(doc => doc.id === id);
-  
+  const document = documents.find((doc) => doc.id === id);
+
   if (!document) {
     throw new Error('Document not found');
   }
-  
+
   return document;
 };
 
@@ -362,43 +452,47 @@ const getDocumentById = async (id, patientId = null) => {
 const updateDocument = async (id, updates, patientId = null) => {
   // Simulate API call
   await delay(1000);
-  
+
   // Get documents
   const documentsJson = localStorage.getItem('documents');
   const documents = documentsJson ? JSON.parse(documentsJson) : [];
-  
+
   // Get current user
   const user = getCurrentUser();
   if (!user) {
     throw new Error('User not authenticated');
   }
-  
+
   // Find document index
   let documentIndex = -1;
-  
+
   if (user.role === USER_ROLES.CAREGIVER && patientId) {
-    documentIndex = documents.findIndex(doc => doc.id === id && doc.patientId === patientId);
+    documentIndex = documents.findIndex(
+      (doc) => doc.id === id && doc.patientId === patientId,
+    );
   } else {
-    documentIndex = documents.findIndex(doc => doc.id === id && doc.userId === user.id);
+    documentIndex = documents.findIndex(
+      (doc) => doc.id === id && doc.userId === user.id,
+    );
   }
-  
+
   if (documentIndex === -1) {
     throw new Error('Document not found');
   }
-  
+
   // Update document
   const updatedDocument = {
     ...documents[documentIndex],
     ...updates,
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString(),
   };
-  
+
   // Replace in array
   documents[documentIndex] = updatedDocument;
-  
+
   // Save to localStorage
   localStorage.setItem('documents', JSON.stringify(documents));
-  
+
   return updatedDocument;
 };
 
@@ -406,34 +500,38 @@ const updateDocument = async (id, updates, patientId = null) => {
 const deleteDocument = async (id, patientId = null) => {
   // Simulate API call
   await delay(1000);
-  
+
   // Get documents
   const documentsJson = localStorage.getItem('documents');
   const documents = documentsJson ? JSON.parse(documentsJson) : [];
-  
+
   // Get current user
   const user = getCurrentUser();
   if (!user) {
     throw new Error('User not authenticated');
   }
-  
+
   // Filter out document with matching ID
   let updatedDocuments;
-  
+
   if (user.role === USER_ROLES.CAREGIVER && patientId) {
-    updatedDocuments = documents.filter(doc => !(doc.id === id && doc.patientId === patientId));
+    updatedDocuments = documents.filter(
+      (doc) => !(doc.id === id && doc.patientId === patientId),
+    );
   } else {
-    updatedDocuments = documents.filter(doc => !(doc.id === id && doc.userId === user.id));
+    updatedDocuments = documents.filter(
+      (doc) => !(doc.id === id && doc.userId === user.id),
+    );
   }
-  
+
   // If length is the same, document wasn't found
   if (updatedDocuments.length === documents.length) {
     throw new Error('Document not found');
   }
-  
+
   // Save to localStorage
   localStorage.setItem('documents', JSON.stringify(updatedDocuments));
-  
+
   return { success: true };
 };
 
@@ -441,12 +539,12 @@ const deleteDocument = async (id, patientId = null) => {
 const filterDocuments = async (filters, patientId = null) => {
   // Simulate API call
   await delay(800);
-  
+
   // Get all documents
   const documents = await getUserDocuments(patientId);
-  
+
   // Apply filters
-  return documents.filter(doc => {
+  return documents.filter((doc) => {
     // Match on all provided filters
     for (const key in filters) {
       if (filters[key]) {
@@ -460,7 +558,10 @@ const filterDocuments = async (filters, patientId = null) => {
           }
         } else if (key === 'type' && doc[key] !== filters[key]) {
           return false;
-        } else if (key === 'provider' && !doc[key]?.toLowerCase().includes(filters[key].toLowerCase())) {
+        } else if (
+          key === 'provider' &&
+          !doc[key]?.toLowerCase().includes(filters[key].toLowerCase())
+        ) {
           return false;
         }
       }
@@ -473,24 +574,25 @@ const filterDocuments = async (filters, patientId = null) => {
 const searchDocuments = async (query, patientId = null) => {
   // Simulate API call
   await delay(800);
-  
+
   if (!query) {
     return await getUserDocuments(patientId);
   }
-  
+
   // Get all documents
   const documents = await getUserDocuments(patientId);
   const lowerQuery = query.toLowerCase();
-  
+
   // Search in title, provider, type, notes, content and tags
-  return documents.filter(doc => {
+  return documents.filter((doc) => {
     return (
       (doc.title && doc.title.toLowerCase().includes(lowerQuery)) ||
       (doc.provider && doc.provider.toLowerCase().includes(lowerQuery)) ||
       (doc.type && doc.type.toLowerCase().includes(lowerQuery)) ||
       (doc.content && doc.content.toLowerCase().includes(lowerQuery)) ||
       (doc.notes && doc.notes.toLowerCase().includes(lowerQuery)) ||
-      (doc.tags && doc.tags.some(tag => tag.toLowerCase().includes(lowerQuery)))
+      (doc.tags &&
+        doc.tags.some((tag) => tag.toLowerCase().includes(lowerQuery)))
     );
   });
 };
@@ -499,24 +601,24 @@ const searchDocuments = async (query, patientId = null) => {
 const getHealthMetrics = async (patientId = null) => {
   // Simulate API call
   await delay(800);
-  
+
   // Get current user
   const user = getCurrentUser();
   if (!user) {
     throw new Error('User not authenticated');
   }
-  
+
   // Get health data from localStorage or return empty object
   const healthDataJson = localStorage.getItem('healthData');
   const healthData = healthDataJson ? JSON.parse(healthDataJson) : {};
-  
+
   // If patientId is provided and user is a caregiver, return that patient's data
   // In a real app, this would fetch the specific patient's data from the backend
   if (patientId && user.role === USER_ROLES.CAREGIVER) {
     // For demo purposes, we'll just return the same data
     return healthData;
   }
-  
+
   return healthData;
 };
 
@@ -524,41 +626,45 @@ const getHealthMetrics = async (patientId = null) => {
 const getHealthMetric = async (metricType, patientId = null) => {
   // Simulate API call
   await delay(600);
-  
+
   // Get all health metrics
   const healthData = await getHealthMetrics(patientId);
-  
+
   // Return specific metric or null if not found
   return healthData[metricType] || null;
 };
 
 // Add new health metric reading
-const addHealthMetricReading = async (metricType, reading, patientId = null) => {
+const addHealthMetricReading = async (
+  metricType,
+  reading,
+  patientId = null,
+) => {
   // Simulate API call
   await delay(800);
-  
+
   // Get current health data
   const healthData = await getHealthMetrics(patientId);
-  
+
   // If this metric doesn't exist yet, initialize it
   if (!healthData[metricType]) {
     healthData[metricType] = {
       data: [],
-      unit: reading.unit || ''
+      unit: reading.unit || '',
     };
   }
-  
+
   // Add timestamp if not provided
   if (!reading.timestamp) {
     reading.timestamp = new Date().toISOString();
   }
-  
+
   // Add reading to metric data
   healthData[metricType].data.unshift(reading);
-  
+
   // Save updated health data
   localStorage.setItem('healthData', JSON.stringify(healthData));
-  
+
   return healthData[metricType];
 };
 
@@ -566,20 +672,20 @@ const addHealthMetricReading = async (metricType, reading, patientId = null) => 
 const updateHealthMetricGoal = async (metricType, goal, patientId = null) => {
   // Simulate API call
   await delay(600);
-  
+
   // Get current health data
   const healthData = await getHealthMetrics(patientId);
-  
+
   // Update goal for specific metric
   if (healthData[metricType]) {
     healthData[metricType].goal = goal;
-    
+
     // Save updated health data
     localStorage.setItem('healthData', JSON.stringify(healthData));
-    
+
     return healthData[metricType];
   }
-  
+
   throw new Error(`Metric ${metricType} not found`);
 };
 
@@ -606,5 +712,5 @@ export {
   getHealthMetrics,
   getHealthMetric,
   addHealthMetricReading,
-  updateHealthMetricGoal
+  updateHealthMetricGoal,
 };

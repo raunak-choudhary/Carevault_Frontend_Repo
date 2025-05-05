@@ -6,7 +6,7 @@ import styles from './PatientsList.module.css';
 
 const PatientsList = ({ filteredPatients }) => {
   const { loading, error, patients } = usePatients();
-  
+
   return (
     <div className={styles.listContent}>
       {loading ? (
@@ -14,15 +14,10 @@ const PatientsList = ({ filteredPatients }) => {
           <LoadingSpinner size="medium" />
         </div>
       ) : error ? (
-        <div className={styles.errorState}>
-          {error}
-        </div>
+        <div className={styles.errorState}>{error}</div>
       ) : filteredPatients.length > 0 ? (
-        filteredPatients.map(patient => (
-          <PatientCard
-            key={patient.id}
-            patient={patient}
-          />
+        filteredPatients.map((patient) => (
+          <PatientCard key={patient.id} patient={patient} />
         ))
       ) : (
         <div className={styles.emptyState}>

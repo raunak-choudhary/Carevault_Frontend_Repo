@@ -44,7 +44,7 @@
 
 .bannerIcon {
   font-size: var(--font-size-xl);
-  color: #2196F3;
+  color: #2196f3;
   margin-right: var(--spacing-md);
 }
 
@@ -54,7 +54,7 @@
 
 .bannerContent h3 {
   margin: 0 0 var(--spacing-xs) 0;
-  color: #2196F3;
+  color: #2196f3;
 }
 
 .bannerContent p {
@@ -63,7 +63,7 @@
 }
 
 .permissionButton {
-  background-color: #2196F3;
+  background-color: #2196f3;
   color: white;
   border: none;
   padding: var(--spacing-sm) var(--spacing-lg);
@@ -73,7 +73,7 @@
 }
 
 .permissionButton:hover {
-  background-color: #1976D2;
+  background-color: #1976d2;
 }
 
 .reminderFilters {
@@ -231,30 +231,30 @@
     align-items: flex-start;
     gap: var(--spacing-sm);
   }
-  
+
   .filterButtons {
     width: 100%;
   }
-  
+
   .filterButton {
     flex: 1;
     text-align: center;
   }
-  
+
   .permissionBanner {
     flex-direction: column;
     text-align: center;
     gap: var(--spacing-md);
   }
-  
+
   .bannerIcon {
     margin-right: 0;
   }
-  
+
   .permissionButton {
     width: 100%;
   }
-  
+
   .modalContent {
     max-width: 90%;
   }

@@ -1,61 +1,61 @@
 :root {
-    /* Primary Colors */
-    --primary: #4CAF50;
-    --primary-light: #8BC34A;
-    --primary-dark: #388E3C;
-    
-    /* Secondary Colors */
-    --white: #FFFFFF;
-    --light-grey: #F5F5F5;
-    --medium-grey: #E0E0E0;
-    --dark-grey: #757575;
-    --black: #000000;
-    
-    /* Spacing */
-    --spacing-xs: 4px;
-    --spacing-sm: 8px;
-    --spacing-md: 16px;
-    --spacing-lg: 24px;
-    --spacing-xl: 32px;
-    
-    /* Border Radius */
-    --border-radius-sm: 4px;
-    --border-radius-md: 8px;
-    --border-radius-lg: 16px;
-    
-    /* Shadows */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.1);
-    
-    /* Transitions */
-    --transition-fast: 0.2s ease;
-    --transition-normal: 0.3s ease;
-    --transition-slow: 0.5s ease;
-    
-    /* Font sizes */
-    --font-size-xs: 12px;
-    --font-size-sm: 14px;
-    --font-size-md: 16px;
-    --font-size-lg: 18px;
-    --font-size-xl: 24px;
-    --font-size-xxl: 32px;
-    
-    /* Theme specific variables - will update with JS for dark mode */
-    --bg-primary: var(--white);
-    --bg-secondary: var(--light-grey);
-    --bg-tertiary: var(--medium-grey);
-    --text-primary: var(--black);
-    --text-secondary: var(--dark-grey);
-    --border-color: var(--medium-grey);
-  }
-  
-  /* Dark Theme Variables - Will be applied via JS when dark mode is enabled */
-  .dark-theme {
-    --bg-primary: #121212;
-    --bg-secondary: #1E1E1E;
-    --bg-tertiary: #2D2D2D;
-    --text-primary: #F5F5F5;
-    --text-secondary: #BDBDBD;
-    --border-color: #424242;
-  }
+  /* Primary Colors */
+  --primary: #4caf50;
+  --primary-light: #8bc34a;
+  --primary-dark: #388e3c;
+
+  /* Secondary Colors */
+  --white: #ffffff;
+  --light-grey: #f5f5f5;
+  --medium-grey: #e0e0e0;
+  --dark-grey: #757575;
+  --black: #000000;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Border Radius */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Font sizes */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-xxl: 32px;
+
+  /* Theme specific variables - will update with JS for dark mode */
+  --bg-primary: var(--white);
+  --bg-secondary: var(--light-grey);
+  --bg-tertiary: var(--medium-grey);
+  --text-primary: var(--black);
+  --text-secondary: var(--dark-grey);
+  --border-color: var(--medium-grey);
+}
+
+/* Dark Theme Variables - Will be applied via JS when dark mode is enabled */
+.dark-theme {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #2d2d2d;
+  --text-primary: #f5f5f5;
+  --text-secondary: #bdbdbd;
+  --border-color: #424242;
+}

@@ -2,7 +2,7 @@
 // For now, we'll use localStorage for persistence and simulate API behavior
 
 // Helper function to simulate API delay
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Generate a unique ID
 const generateId = () => {
@@ -12,36 +12,36 @@ const generateId = () => {
 // Helper function to ensure consistent date handling
 const formatDateForStorage = (dateString) => {
   if (!dateString) return null;
-  
+
   // For YYYY-MM-DD format dates (from date inputs)
   if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
     // Create a date object using the date parts
     const [year, month, day] = dateString.split('-').map(Number);
     const date = new Date(year, month - 1, day);
-    
+
     // Validate the date is valid before storing
     if (isNaN(date.getTime())) {
       return null; // Invalid date
     }
-    
+
     // Store the date as a simple string format that won't be affected by timezone
     return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
   }
-  
+
   return dateString;
 };
 
 // Helper function to parse stored date strings consistently
 const parseStoredDate = (dateString) => {
   if (!dateString) return null;
-  
+
   // For our custom YYYY-MM-DD format
   if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
     const [year, month, day] = dateString.split('-').map(Number);
     // Create date object with correct parts (month is 0-indexed in JS Date)
     return new Date(year, month - 1, day);
   }
-  
+
   return new Date(dateString);
 };
 
@@ -49,23 +49,23 @@ const parseStoredDate = (dateString) => {
 const getMedications = async () => {
   // Simulate API call
   await delay(800);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id) {
     throw new Error('User not authenticated');
   }
-  
+
   // Get medications from localStorage or return empty array
   const medicationsJson = localStorage.getItem('medications');
   let medications = medicationsJson ? JSON.parse(medicationsJson) : [];
-  
+
   // Filter medications by user
-  medications = medications.filter(med => med.userId === user.id);
-  
+  medications = medications.filter((med) => med.userId === user.id);
+
   // Sort by most recently added
   medications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  
+
   return medications;
 };
 
@@ -73,24 +73,26 @@ const getMedications = async () => {
 const getMedicationById = async (id) => {
   // Simulate API call
   await delay(500);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id) {
     throw new Error('User not authenticated');
   }
-  
+
   // Get medications from localStorage
   const medicationsJson = localStorage.getItem('medications');
   const medications = medicationsJson ? JSON.parse(medicationsJson) : [];
-  
+
   // Find medication with matching ID
-  const medication = medications.find(med => med.id === id && med.userId === user.id);
-  
+  const medication = medications.find(
+    (med) => med.id === id && med.userId === user.id,
+  );
+
   if (!medication) {
     throw new Error('Medication not found');
   }
-  
+
   return medication;
 };
 
@@ -98,23 +100,23 @@ const getMedicationById = async (id) => {
 const addMedication = async (medicationData) => {
   // Simulate API call
   await delay(1000);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id) {
     throw new Error('User not authenticated');
   }
-  
+
   // Get existing medications
   const medicationsJson = localStorage.getItem('medications');
   const medications = medicationsJson ? JSON.parse(medicationsJson) : [];
-  
+
   // Format date fields for consistent storage
   const formattedData = {
     ...medicationData,
-    refillDate: formatDateForStorage(medicationData.refillDate)
+    refillDate: formatDateForStorage(medicationData.refillDate),
   };
-  
+
   // Create new medication object
   const newMedication = {
     id: generateId(),
@@ -122,15 +124,15 @@ const addMedication = async (medicationData) => {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     status: 'active',
-    ...formattedData
+    ...formattedData,
   };
-  
+
   // Add to medications array
   medications.push(newMedication);
-  
+
   // Save to localStorage
   localStorage.setItem('medications', JSON.stringify(medications));
-  
+
   return newMedication;
 };
 
@@ -138,43 +140,45 @@ const addMedication = async (medicationData) => {
 const updateMedication = async (id, updates) => {
   // Simulate API call
   await delay(800);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id) {
     throw new Error('User not authenticated');
   }
-  
+
   // Get medications from localStorage
   const medicationsJson = localStorage.getItem('medications');
   const medications = medicationsJson ? JSON.parse(medicationsJson) : [];
-  
+
   // Find medication index
-  const medicationIndex = medications.findIndex(med => med.id === id && med.userId === user.id);
-  
+  const medicationIndex = medications.findIndex(
+    (med) => med.id === id && med.userId === user.id,
+  );
+
   if (medicationIndex === -1) {
     throw new Error('Medication not found');
   }
-  
+
   // Format date fields for consistent storage
   const formattedUpdates = {
     ...updates,
-    refillDate: formatDateForStorage(updates.refillDate)
+    refillDate: formatDateForStorage(updates.refillDate),
   };
-  
+
   // Update medication
   const updatedMedication = {
     ...medications[medicationIndex],
     ...formattedUpdates,
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString(),
   };
-  
+
   // Replace in array
   medications[medicationIndex] = updatedMedication;
-  
+
   // Save to localStorage
   localStorage.setItem('medications', JSON.stringify(medications));
-  
+
   return updatedMedication;
 };
 
@@ -182,27 +186,29 @@ const updateMedication = async (id, updates) => {
 const deleteMedication = async (id) => {
   // Simulate API call
   await delay(800);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id) {
     throw new Error('User not authenticated');
   }
-  
+
   // Get medications from localStorage
   const medicationsJson = localStorage.getItem('medications');
   const medications = medicationsJson ? JSON.parse(medicationsJson) : [];
-  
+
   // Filter out the medication to delete
-  const updatedMedications = medications.filter(med => !(med.id === id && med.userId === user.id));
-  
+  const updatedMedications = medications.filter(
+    (med) => !(med.id === id && med.userId === user.id),
+  );
+
   if (updatedMedications.length === medications.length) {
     throw new Error('Medication not found');
   }
-  
+
   // Save to localStorage
   localStorage.setItem('medications', JSON.stringify(updatedMedications));
-  
+
   return { success: true };
 };
 
@@ -210,23 +216,23 @@ const deleteMedication = async (id) => {
 const getMedicationReminders = async () => {
   // Simulate API call
   await delay(600);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id) {
     throw new Error('User not authenticated');
   }
-  
+
   // Get reminders from localStorage or return empty array
   const remindersJson = localStorage.getItem('medicationReminders');
   let reminders = remindersJson ? JSON.parse(remindersJson) : [];
-  
+
   // Filter reminders by user
-  reminders = reminders.filter(reminder => reminder.userId === user.id);
-  
+  reminders = reminders.filter((reminder) => reminder.userId === user.id);
+
   // Sort by next due time
   reminders.sort((a, b) => new Date(a.nextDue) - new Date(b.nextDue));
-  
+
   return reminders;
 };
 
@@ -234,32 +240,32 @@ const getMedicationReminders = async () => {
 const addMedicationReminder = async (reminderData) => {
   // Simulate API call
   await delay(800);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id) {
     throw new Error('User not authenticated');
   }
-  
+
   // Get existing reminders
   const remindersJson = localStorage.getItem('medicationReminders');
   const reminders = remindersJson ? JSON.parse(remindersJson) : [];
-  
+
   // Create new reminder object
   const newReminder = {
     id: generateId(),
     userId: user.id,
     createdAt: new Date().toISOString(),
     status: 'active',
-    ...reminderData
+    ...reminderData,
   };
-  
+
   // Add to reminders array
   reminders.push(newReminder);
-  
+
   // Save to localStorage
   localStorage.setItem('medicationReminders', JSON.stringify(reminders));
-  
+
   return newReminder;
 };
 
@@ -267,37 +273,39 @@ const addMedicationReminder = async (reminderData) => {
 const updateMedicationReminder = async (id, updates) => {
   // Simulate API call
   await delay(600);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id) {
     throw new Error('User not authenticated');
   }
-  
+
   // Get reminders from localStorage
   const remindersJson = localStorage.getItem('medicationReminders');
   const reminders = remindersJson ? JSON.parse(remindersJson) : [];
-  
+
   // Find reminder index
-  const reminderIndex = reminders.findIndex(reminder => reminder.id === id && reminder.userId === user.id);
-  
+  const reminderIndex = reminders.findIndex(
+    (reminder) => reminder.id === id && reminder.userId === user.id,
+  );
+
   if (reminderIndex === -1) {
     throw new Error('Reminder not found');
   }
-  
+
   // Update reminder
   const updatedReminder = {
     ...reminders[reminderIndex],
     ...updates,
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString(),
   };
-  
+
   // Replace in array
   reminders[reminderIndex] = updatedReminder;
-  
+
   // Save to localStorage
   localStorage.setItem('medicationReminders', JSON.stringify(reminders));
-  
+
   return updatedReminder;
 };
 
@@ -305,27 +313,29 @@ const updateMedicationReminder = async (id, updates) => {
 const deleteMedicationReminder = async (id) => {
   // Simulate API call
   await delay(600);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id) {
     throw new Error('User not authenticated');
   }
-  
+
   // Get reminders from localStorage
   const remindersJson = localStorage.getItem('medicationReminders');
   const reminders = remindersJson ? JSON.parse(remindersJson) : [];
-  
+
   // Filter out the reminder to delete
-  const updatedReminders = reminders.filter(reminder => !(reminder.id === id && reminder.userId === user.id));
-  
+  const updatedReminders = reminders.filter(
+    (reminder) => !(reminder.id === id && reminder.userId === user.id),
+  );
+
   if (updatedReminders.length === reminders.length) {
     throw new Error('Reminder not found');
   }
-  
+
   // Save to localStorage
   localStorage.setItem('medicationReminders', JSON.stringify(updatedReminders));
-  
+
   return { success: true };
 };
 
@@ -333,21 +343,22 @@ const deleteMedicationReminder = async (id) => {
 const searchMedications = async (query) => {
   // Simulate API call
   await delay(700);
-  
+
   // Get all medications
   const medications = await getMedications();
-  
+
   // If no query, return all medications
   if (!query) {
     return medications;
   }
-  
+
   // Search in name and notes
   const lowercaseQuery = query.toLowerCase();
-  return medications.filter(medication => {
+  return medications.filter((medication) => {
     return (
       medication.name.toLowerCase().includes(lowercaseQuery) ||
-      (medication.notes && medication.notes.toLowerCase().includes(lowercaseQuery))
+      (medication.notes &&
+        medication.notes.toLowerCase().includes(lowercaseQuery))
     );
   });
 };
@@ -363,5 +374,5 @@ export {
   updateMedicationReminder,
   deleteMedicationReminder,
   searchMedications,
-  parseStoredDate // Export this for use in display components
+  parseStoredDate, // Export this for use in display components
 };

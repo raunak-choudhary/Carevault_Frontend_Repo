@@ -197,16 +197,16 @@ button.dropdownItem {
   .menuButton {
     display: block;
   }
-  
+
   .userName {
     display: none;
   }
-  
+
   .returnButton {
     font-size: var(--font-size-xs);
     padding: var(--spacing-xs);
   }
-  
+
   .headerCenter {
     display: none;
   }

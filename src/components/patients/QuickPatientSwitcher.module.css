@@ -243,16 +243,16 @@
   .patientName {
     display: none;
   }
-  
+
   .dropdown {
     right: -100px;
     max-height: 60vh;
   }
-  
+
   .switcher {
     position: static;
   }
-  
+
   .dropdown {
     position: fixed;
     max-width: 250px;

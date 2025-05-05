@@ -80,15 +80,17 @@
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
   }
-  
+
   .breadcrumbs::-webkit-scrollbar {
     display: none; /* Chrome, Safari and Opera */
   }
-  
-  .breadcrumbItem a, .currentPage, .patientLink {
+
+  .breadcrumbItem a,
+  .currentPage,
+  .patientLink {
     max-width: none;
   }
-  
+
   .breadcrumbsList {
     flex-wrap: nowrap;
   }

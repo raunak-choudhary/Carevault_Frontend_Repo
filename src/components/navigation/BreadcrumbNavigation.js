@@ -10,7 +10,7 @@ const BreadcrumbNavigation = () => {
   const location = useLocation();
   const { activePatient } = usePatients();
   const { isCaregiver } = useAuth();
-  
+
   // Map routes to readable names
   const routeNames = {
     dashboard: 'Dashboard',
@@ -29,88 +29,103 @@ const BreadcrumbNavigation = () => {
     metric: 'Metric',
     input: 'Add Data',
     providers: 'Providers',
-    add: 'Add'
+    add: 'Add',
   };
-  
+
   // Split the path into segments, removing empty segments
-  const pathSegments = location.pathname.split('/').filter(segment => segment);
-  
+  const pathSegments = location.pathname
+    .split('/')
+    .filter((segment) => segment);
+
   // Generate breadcrumb items
   const generateBreadcrumbs = () => {
     let breadcrumbs = [];
     let currentPath = '';
-    
+
     // Don't show breadcrumbs on the patients list page for caregivers
-    if (isCaregiver() && pathSegments.length === 1 && pathSegments[0] === 'patients') {
+    if (
+      isCaregiver() &&
+      pathSegments.length === 1 &&
+      pathSegments[0] === 'patients'
+    ) {
       return [];
     }
-    
+
     // Always start with My Patients for caregivers
     if (isCaregiver()) {
       breadcrumbs.push({
         name: 'My Patients',
         path: '/patients',
         icon: <FiUsers />,
-        isHome: true
+        isHome: true,
       });
     }
-    
+
     // Add active patient if present
     if (activePatient) {
       breadcrumbs.push({
         name: `${activePatient.firstName} ${activePatient.lastName}`,
         path: `/patient/${activePatient.id}/dashboard`,
-        isPatient: true
+        isPatient: true,
       });
     }
-    
+
     // Add path segments
     pathSegments.forEach((segment, index) => {
       // Skip adding dashboard again if it's already added as home
       if (index === 0 && segment === 'dashboard') {
         return;
       }
-      
+
       // Skip adding patients again if it's already added
       if (index === 0 && segment === 'patients' && isCaregiver()) {
         return;
       }
-      
+
       // Handle patient ID in URL
       if (segment === 'patient' && index + 1 < pathSegments.length) {
         // Skip the patient ID segment as we've added the patient name already
         return;
       }
-      
+
       // Skip patient ID
       if (index > 0 && pathSegments[index - 1] === 'patient') {
         return;
       }
-      
+
       // Skip 'view', 'edit', etc. as standalone items
-      if (['view', 'edit', 'create', 'metric'].includes(segment) && index < pathSegments.length - 1) {
+      if (
+        ['view', 'edit', 'create', 'metric'].includes(segment) &&
+        index < pathSegments.length - 1
+      ) {
         return;
       }
-      
+
       // Skip likely IDs (assume numeric or alphanumeric with hyphens)
-      if (/^[a-zA-Z0-9-]+$/.test(segment) && segment.length > 8 && isNaN(Number(segment))) {
+      if (
+        /^[a-zA-Z0-9-]+$/.test(segment) &&
+        segment.length > 8 &&
+        isNaN(Number(segment))
+      ) {
         return;
       }
-      
+
       currentPath += `/${segment}`;
-      
+
       breadcrumbs.push({
-        name: routeNames[segment] || segment.charAt(0).toUpperCase() + segment.slice(1),
+        name:
+          routeNames[segment] ||
+          segment.charAt(0).toUpperCase() + segment.slice(1),
         path: currentPath,
-        isCurrent: index === pathSegments.length - 1
+        isCurrent: index === pathSegments.length - 1,
       });
     });
-    
+
     return breadcrumbs;
   };
-  
+
   const breadcrumbs = generateBreadcrumbs();
-  
+
   if (breadcrumbs.length === 0) {
     return null; // Don't show breadcrumbs if empty
   }
@@ -122,16 +137,26 @@ const BreadcrumbNavigation = () => {
           <li key={index} className={styles.breadcrumbItem}>
             {breadcrumb.isCurrent ? (
               <span className={styles.currentPage}>
-                {breadcrumb.icon && <span className={styles.icon}>{breadcrumb.icon}</span>}
+                {breadcrumb.icon && (
+                  <span className={styles.icon}>{breadcrumb.icon}</span>
+                )}
                 {breadcrumb.name}
               </span>
             ) : (
               <>
-                <Link 
+                <Link
                   to={breadcrumb.path}
-                  className={breadcrumb.isPatient ? styles.patientLink : (breadcrumb.isHome ? styles.homeLink : '')}
+                  className={
+                    breadcrumb.isPatient
+                      ? styles.patientLink
+                      : breadcrumb.isHome
+                        ? styles.homeLink
+                        : ''
+                  }
                 >
-                  {breadcrumb.icon && <span className={styles.icon}>{breadcrumb.icon}</span>}
+                  {breadcrumb.icon && (
+                    <span className={styles.icon}>{breadcrumb.icon}</span>
+                  )}
                   {breadcrumb.name}
                 </Link>
                 {index < breadcrumbs.length - 1 && (

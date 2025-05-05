@@ -9,7 +9,7 @@ import styles from './AddPatientPage.module.css';
 const AddPatientPage = () => {
   const { isCaregiver } = useAuth();
   const navigate = useNavigate();
-  
+
   // Form state
   const [formData, setFormData] = useState({
     firstName: '',
@@ -21,13 +21,13 @@ const AddPatientPage = () => {
     address: '',
     emergencyContact: '',
     healthId: '',
-    notes: ''
+    notes: '',
   });
-  
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [validationErrors, setValidationErrors] = useState({});
-  
+
   // Redirect if not a caregiver
   useEffect(() => {
     if (!isCaregiver()) {
@@ -35,64 +35,64 @@ const AddPatientPage = () => {
       console.warn('Non-caregiver attempting to access add patient page');
     }
   }, [isCaregiver]);
-  
+
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
-    
+
     // Clear validation error when user types
     if (validationErrors[name]) {
-      setValidationErrors(prev => ({
+      setValidationErrors((prev) => ({
         ...prev,
-        [name]: undefined
+        [name]: undefined,
       }));
     }
   };
-  
+
   // Validate form data
   const validateForm = () => {
     const errors = {};
-    
+
     if (!formData.firstName.trim()) {
       errors.firstName = 'First name is required';
     }
-    
+
     if (!formData.lastName.trim()) {
       errors.lastName = 'Last name is required';
     }
-    
+
     if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = 'Please enter a valid email address';
     }
-    
+
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
-  
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validate form
     if (!validateForm()) {
       return;
     }
-    
+
     try {
       setLoading(true);
       setError(null);
-      
+
       // Add patient
       // eslint-disable-next-line no-unused-vars
       const newPatient = await addPatient({
         ...formData,
-        status: 'active' // Default to active status
+        status: 'active', // Default to active status
       });
-      
+
       // Redirect to patients list on success
       navigate('/patients');
     } catch (err) {
@@ -102,7 +102,7 @@ const AddPatientPage = () => {
       setLoading(false);
     }
   };
-  
+
   if (!isCaregiver()) {
     return (
       <div className={styles.unauthorizedContainer}>
@@ -114,7 +114,7 @@ const AddPatientPage = () => {
       </div>
     );
   }
-  
+
   return (
     <div className={styles.addPatientPage}>
       <div className={styles.pageHeader}>
@@ -125,12 +125,12 @@ const AddPatientPage = () => {
           <h1>Add New Patient</h1>
         </div>
       </div>
-      
+
       <div className={styles.formWrapper}>
         <div className={styles.formIcon}>
           <FiUserPlus size={40} />
         </div>
-        
+
         <PatientForm
           formData={formData}
           handleChange={handleChange}

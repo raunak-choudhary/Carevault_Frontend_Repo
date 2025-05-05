@@ -128,7 +128,9 @@
   padding: var(--spacing-md);
   display: flex;
   flex-direction: column;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
   min-height: 200px;
   border: 1px solid var(--border-color);
 }

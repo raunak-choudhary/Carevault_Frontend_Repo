@@ -246,16 +246,16 @@
     max-height: 100%;
     border-radius: 0;
   }
-  
+
   .modalOverlay {
     padding: 0;
   }
-  
+
   .patientDetails {
     flex-direction: column;
     gap: var(--spacing-xs);
   }
-  
+
   .patientResults {
     -webkit-overflow-scrolling: touch;
   }

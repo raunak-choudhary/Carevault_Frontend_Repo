@@ -67,7 +67,9 @@
   box-shadow: var(--shadow-md);
   text-decoration: none;
   color: inherit;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .statCard:hover {
@@ -109,7 +111,8 @@
   gap: var(--spacing-md);
 }
 
-.uploadButton, .addButton {
+.uploadButton,
+.addButton {
   display: flex;
   align-items: center;
   padding: var(--spacing-xs) var(--spacing-md);
@@ -121,7 +124,8 @@
   transition: background-color var(--transition-fast);
 }
 
-.uploadButton:hover, .addButton:hover {
+.uploadButton:hover,
+.addButton:hover {
   background-color: var(--primary-dark);
   color: white;
 }
@@ -144,29 +148,39 @@
   gap: var(--spacing-md);
 }
 
-.documentCard, .appointmentCard, .medicationCard {
+.documentCard,
+.appointmentCard,
+.medicationCard {
   background-color: var(--bg-primary);
   border-radius: var(--border-radius-md);
   padding: var(--spacing-md);
   box-shadow: var(--shadow-md);
   text-decoration: none;
   color: var(--text-primary);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
-.documentCard:hover, .appointmentCard:hover, .medicationCard:hover {
+.documentCard:hover,
+.appointmentCard:hover,
+.medicationCard:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
 
-.documentCardHeader, .appointmentCardHeader, .medicationCardHeader {
+.documentCardHeader,
+.appointmentCardHeader,
+.medicationCardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-sm);
 }
 
-.documentType, .appointmentType, .medicationType {
+.documentType,
+.appointmentType,
+.medicationType {
   background-color: var(--bg-tertiary);
   color: var(--text-secondary);
   padding: var(--spacing-xs) var(--spacing-sm);
@@ -176,22 +190,29 @@
   align-items: center;
 }
 
-.documentDate, .appointmentDate, .medicationDate {
+.documentDate,
+.appointmentDate,
+.medicationDate {
   color: var(--text-secondary);
   font-size: var(--font-size-xs);
 }
 
-.documentTitle, .appointmentTitle, .medicationTitle {
+.documentTitle,
+.appointmentTitle,
+.medicationTitle {
   margin-bottom: var(--spacing-sm);
   color: var(--text-primary);
 }
 
-.documentProvider, .appointmentProvider, .medicationDetails {
+.documentProvider,
+.appointmentProvider,
+.medicationDetails {
   color: var(--text-secondary);
   font-size: var(--font-size-sm);
 }
 
-.appointmentTime, .medicationDosage {
+.appointmentTime,
+.medicationDosage {
   display: block;
   margin-top: var(--spacing-xs);
   color: var(--primary);
@@ -206,7 +227,8 @@
   box-shadow: var(--shadow-sm);
 }
 
-.uploadButtonLarge, .actionButtonLarge {
+.uploadButtonLarge,
+.actionButtonLarge {
   display: inline-flex;
   align-items: center;
   margin-top: var(--spacing-md);
@@ -218,7 +240,8 @@
   transition: background-color var(--transition-fast);
 }
 
-.uploadButtonLarge:hover, .actionButtonLarge:hover {
+.uploadButtonLarge:hover,
+.actionButtonLarge:hover {
   background-color: var(--primary-dark);
   color: white;
 }
@@ -230,7 +253,8 @@
   padding: var(--spacing-lg);
 }
 
-.healthInsightsOverview, .medicationsOverview {
+.healthInsightsOverview,
+.medicationsOverview {
   background-color: var(--bg-primary);
   border-radius: var(--border-radius-md);
   padding: var(--spacing-lg);
@@ -239,7 +263,8 @@
   grid-column: 1 / -1;
 }
 
-.viewInsightsButton, .viewMedicationsButton {
+.viewInsightsButton,
+.viewMedicationsButton {
   display: inline-flex;
   align-items: center;
   margin-top: var(--spacing-md);
@@ -251,7 +276,8 @@
   transition: background-color var(--transition-fast);
 }
 
-.viewInsightsButton:hover, .viewMedicationsButton:hover {
+.viewInsightsButton:hover,
+.viewMedicationsButton:hover {
   background-color: var(--primary-dark);
   color: white;
 }
@@ -283,7 +309,8 @@
   gap: var(--spacing-xs);
 }
 
-.reminderTakenButton, .reminderSkipButton {
+.reminderTakenButton,
+.reminderSkipButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -317,22 +344,22 @@
     flex-direction: column;
     gap: var(--spacing-md);
   }
-  
+
   .returnButton {
     width: 100%;
     justify-content: center;
   }
-  
+
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .sectionTitle {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-sm);
   }
-  
+
   .sectionActions {
     width: 100%;
     justify-content: space-between;
@@ -343,12 +370,12 @@
   .statsGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .reminderItem {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .reminderActions {
     align-self: flex-end;
     margin-top: var(--spacing-xs);

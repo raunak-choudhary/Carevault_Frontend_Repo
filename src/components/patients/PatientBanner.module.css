@@ -135,25 +135,25 @@
     align-items: flex-start;
     gap: var(--spacing-sm);
   }
-  
+
   .patientDetails h2 {
     white-space: normal;
   }
-  
+
   .patientMeta {
     flex-direction: column;
     gap: var(--spacing-xs);
   }
-  
+
   .metaItem::after {
     display: none;
   }
-  
+
   .quickActions {
     width: 100%;
     flex-wrap: wrap;
   }
-  
+
   .actionButton {
     flex: 1 0 calc(50% - var(--spacing-sm));
     justify-content: center;

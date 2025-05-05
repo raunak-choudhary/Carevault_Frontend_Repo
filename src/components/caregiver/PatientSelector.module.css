@@ -82,7 +82,8 @@
 
 .searchInput {
   width: 100%;
-  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) var(--spacing-xl);
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm)
+    var(--spacing-xl);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-md);
   background-color: var(--bg-primary);
@@ -252,7 +253,7 @@
     position: absolute;
     max-height: 60vh;
   }
-  
+
   .patientSelectorContainer {
     display: flex;
     justify-content: center;

@@ -7,7 +7,7 @@ const MedicationCard = ({ medication, showActions = true, onClick }) => {
   // Format date for display - fixed to handle the timezone issue
   const formatDate = (dateString) => {
     if (!dateString) return '';
-    
+
     // For YYYY-MM-DD format dates (from form inputs)
     if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
       const [year, month, day] = dateString.split('-').map(Number);
@@ -16,19 +16,22 @@ const MedicationCard = ({ medication, showActions = true, onClick }) => {
       const date = new Date(year, month - 1, day); // month is 0-based in JS Date
       return date.toLocaleDateString(undefined, options);
     }
-    
+
     // For ISO dates with time component
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
-  
+
   // Format time for display
   const formatTime = (timeString) => {
     if (!timeString) return '';
     const options = { hour: '2-digit', minute: '2-digit' };
-    return new Date(`2000-01-01T${timeString}`).toLocaleTimeString(undefined, options);
+    return new Date(`2000-01-01T${timeString}`).toLocaleTimeString(
+      undefined,
+      options,
+    );
   };
-  
+
   // Format frequency text
   const formatFrequency = (frequency, customFrequency) => {
     switch (frequency) {
@@ -48,30 +51,33 @@ const MedicationCard = ({ medication, showActions = true, onClick }) => {
         return 'Not specified';
     }
   };
-  
+
   // Check if medication has reminders
-  const hasReminders = medication.dosageSchedule && medication.dosageSchedule.length > 0;
-  
+  const hasReminders =
+    medication.dosageSchedule && medication.dosageSchedule.length > 0;
+
   return (
-    <div 
-      className={styles.medicationCard} 
-      onClick={onClick}
-    >
+    <div className={styles.medicationCard} onClick={onClick}>
       <div className={styles.medicationHeader}>
         <h3 className={styles.medicationName}>{medication.name}</h3>
         <div className={styles.medicationDosage}>
           {medication.dosage} {medication.unit}
         </div>
       </div>
-      
+
       <div className={styles.medicationDetails}>
         {medication.frequency && (
           <div className={styles.medicationFrequency}>
             <FiClock className={styles.icon} />
-            <span>{formatFrequency(medication.frequency, medication.customFrequency)}</span>
+            <span>
+              {formatFrequency(
+                medication.frequency,
+                medication.customFrequency,
+              )}
+            </span>
           </div>
         )}
-        
+
         {hasReminders && (
           <div className={styles.medicationSchedule}>
             <FiCalendar className={styles.icon} />
@@ -86,31 +92,31 @@ const MedicationCard = ({ medication, showActions = true, onClick }) => {
           </div>
         )}
       </div>
-      
+
       {medication.notes && (
-        <div className={styles.medicationNotes}>
-          {medication.notes}
-        </div>
+        <div className={styles.medicationNotes}>{medication.notes}</div>
       )}
-      
+
       <div className={styles.medicationMeta}>
         <div className={styles.medicationRefill}>
           {medication.refillDate && (
             <span>Refill: {formatDate(medication.refillDate)}</span>
           )}
         </div>
-        
+
         {medication.status === 'active' ? (
           <div className={styles.statusBadge}>Active</div>
         ) : (
-          <div className={`${styles.statusBadge} ${styles.inactiveBadge}`}>Inactive</div>
+          <div className={`${styles.statusBadge} ${styles.inactiveBadge}`}>
+            Inactive
+          </div>
         )}
       </div>
-      
+
       {showActions && (
         <div className={styles.medicationActions}>
-          <Link 
-            to={`/medications/view/${medication.id}`} 
+          <Link
+            to={`/medications/view/${medication.id}`}
             className={styles.viewLink}
             onClick={(e) => e.stopPropagation()}
           >

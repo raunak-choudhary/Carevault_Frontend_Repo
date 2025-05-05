@@ -1,139 +1,139 @@
 .detailsContainer {
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-lg);
-    box-shadow: var(--shadow-md);
-    height: 100%;
-  }
-  
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  height: 100%;
+}
+
+.detailsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.medicationName {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.medicationDosage {
+  background-color: var(--primary);
+  color: white;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.detailsContent {
+  margin-bottom: var(--spacing-lg);
+}
+
+.detailItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.detailIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--bg-tertiary);
+  border-radius: var(--border-radius-md);
+  color: var(--primary);
+  font-size: var(--font-size-lg);
+  flex-shrink: 0;
+}
+
+.detailContent {
+  flex: 1;
+}
+
+.detailLabel {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.detailValue {
+  font-weight: 500;
+}
+
+.scheduleTime {
+  display: inline-block;
+}
+
+.notesSection {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.notesSection h3 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-md);
+}
+
+.notesContent {
+  color: var(--text-secondary);
+  white-space: pre-line;
+}
+
+.statusSection {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+.activeBadge {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: var(--primary);
+}
+
+.inactiveBadge {
+  background-color: rgba(158, 158, 158, 0.1);
+  color: var(--text-secondary);
+}
+
+.detailsPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  color: var(--text-secondary);
+  font-style: italic;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .detailsHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-md);
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .medicationName {
-    margin: 0;
-    font-size: 1.5rem;
-  }
-  
-  .medicationDosage {
-    background-color: var(--primary);
-    color: white;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius-sm);
-    font-size: var(--font-size-sm);
-    font-weight: 500;
-  }
-  
-  .detailsContent {
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .detailItem {
-    display: flex;
+    flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
+    gap: var(--spacing-sm);
   }
-  
-  .detailIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: var(--bg-tertiary);
-    border-radius: var(--border-radius-md);
-    color: var(--primary);
-    font-size: var(--font-size-lg);
-    flex-shrink: 0;
+
+  .medicationDosage {
+    align-self: flex-start;
   }
-  
-  .detailContent {
-    flex: 1;
-  }
-  
-  .detailLabel {
-    color: var(--text-secondary);
-    font-size: var(--font-size-sm);
-    margin-bottom: var(--spacing-xs);
-  }
-  
-  .detailValue {
-    font-weight: 500;
-  }
-  
-  .scheduleTime {
-    display: inline-block;
-  }
-  
-  .notesSection {
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-md);
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .notesSection h3 {
-    margin-top: 0;
-    margin-bottom: var(--spacing-sm);
-    font-size: var(--font-size-md);
-  }
-  
-  .notesContent {
-    color: var(--text-secondary);
-    white-space: pre-line;
-  }
-  
-  .statusSection {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .statusBadge {
-    display: inline-block;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius-full);
-    font-size: var(--font-size-xs);
-    font-weight: 500;
-  }
-  
-  .activeBadge {
-    background-color: rgba(76, 175, 80, 0.1);
-    color: var(--primary);
-  }
-  
-  .inactiveBadge {
-    background-color: rgba(158, 158, 158, 0.1);
-    color: var(--text-secondary);
-  }
-  
-  .detailsPlaceholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-lg);
-    box-shadow: var(--shadow-md);
-    color: var(--text-secondary);
-    font-style: italic;
-    text-align: center;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .detailsHeader {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--spacing-sm);
-    }
-    
-    .medicationDosage {
-      align-self: flex-start;
-    }
-  }
+}

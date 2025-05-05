@@ -7,18 +7,18 @@ import styles from './ContextIndicator.module.css';
 const ContextIndicator = () => {
   const { user } = useAuth();
   const { activePatient } = usePatients();
-  
+
   if (!user) return null;
-  
+
   // Determine indicator type
   const isCaregiver = user.role === 'caregiver';
   const hasActivePatient = Boolean(activePatient);
-  
+
   // Get appropriate class and text
   let indicatorClass = styles.indicator;
   let indicatorText = 'Your Account';
   let indicatorIcon = <FiUser className={styles.icon} />;
-  
+
   if (isCaregiver && !hasActivePatient) {
     indicatorClass = `${styles.indicator} ${styles.caregiverMode}`;
     indicatorText = 'Caregiver Dashboard';
@@ -32,12 +32,10 @@ const ContextIndicator = () => {
     indicatorText = 'Patient Dashboard';
     indicatorIcon = <FiUser className={styles.icon} />;
   }
-  
+
   return (
     <div className={indicatorClass} role="status" aria-live="polite">
-      <div className={styles.iconContainer}>
-        {indicatorIcon}
-      </div>
+      <div className={styles.iconContainer}>{indicatorIcon}</div>
       <span className={styles.text}>{indicatorText}</span>
     </div>
   );

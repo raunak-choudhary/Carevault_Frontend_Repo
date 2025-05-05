@@ -11,7 +11,7 @@ const PatientsListPage = () => {
   const { patients } = usePatients();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all'); // 'all', 'active', 'inactive'
-  
+
   // Redirect if not a caregiver
   useEffect(() => {
     if (!isCaregiver()) {
@@ -19,36 +19,42 @@ const PatientsListPage = () => {
       console.warn('Non-caregiver attempting to access patients page');
     }
   }, [isCaregiver]);
-  
+
   // Handle search input change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
-  
+
   // Handle status filter change
   const handleStatusFilterChange = (e) => {
     setStatusFilter(e.target.value);
   };
-  
+
   // Clear all filters
   const clearFilters = () => {
     setSearchQuery('');
     setStatusFilter('all');
   };
-  
+
   // Filter patients based on search query and status filter
-  const filteredPatients = patients?.filter(patient => {
-    // Apply search filter
-    const matchesSearch = searchQuery === '' || 
-      `${patient.firstName} ${patient.lastName}`.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (patient.email && patient.email.toLowerCase().includes(searchQuery.toLowerCase()));
-    
-    // Apply status filter
-    const matchesStatus = statusFilter === 'all' || patient.status === statusFilter;
-    
-    return matchesSearch && matchesStatus;
-  }) || [];
-  
+  const filteredPatients =
+    patients?.filter((patient) => {
+      // Apply search filter
+      const matchesSearch =
+        searchQuery === '' ||
+        `${patient.firstName} ${patient.lastName}`
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+        (patient.email &&
+          patient.email.toLowerCase().includes(searchQuery.toLowerCase()));
+
+      // Apply status filter
+      const matchesStatus =
+        statusFilter === 'all' || patient.status === statusFilter;
+
+      return matchesSearch && matchesStatus;
+    }) || [];
+
   if (!isCaregiver()) {
     return (
       <div className={styles.unauthorizedContainer}>
@@ -60,7 +66,7 @@ const PatientsListPage = () => {
       </div>
     );
   }
-  
+
   return (
     <div className={styles.patientsListPage}>
       <div className={styles.pageHeader}>
@@ -69,7 +75,7 @@ const PatientsListPage = () => {
           <FiPlus /> Add Patient
         </Link>
       </div>
-      
+
       <div className={styles.filterBar}>
         <div className={styles.searchInput}>
           <FiSearch className={styles.searchIcon} />
@@ -80,7 +86,7 @@ const PatientsListPage = () => {
             onChange={handleSearchChange}
           />
           {searchQuery && (
-            <button 
+            <button
               className={styles.clearSearchButton}
               onClick={() => setSearchQuery('')}
               aria-label="Clear search"
@@ -89,29 +95,23 @@ const PatientsListPage = () => {
             </button>
           )}
         </div>
-        
+
         <div className={styles.filterDropdown}>
           <FiFilter className={styles.filterIcon} />
-          <select
-            value={statusFilter}
-            onChange={handleStatusFilterChange}
-          >
+          <select value={statusFilter} onChange={handleStatusFilterChange}>
             <option value="all">All Patients</option>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
           </select>
         </div>
-        
+
         {(searchQuery || statusFilter !== 'all') && (
-          <button 
-            className={styles.clearFiltersButton}
-            onClick={clearFilters}
-          >
+          <button className={styles.clearFiltersButton} onClick={clearFilters}>
             <FiX /> Clear Filters
           </button>
         )}
       </div>
-      
+
       <div className={styles.patientsList}>
         <PatientsList filteredPatients={filteredPatients} />
       </div>

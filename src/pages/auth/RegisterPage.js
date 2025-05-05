@@ -8,7 +8,7 @@ import styles from './RegisterPage.module.css';
 const RegisterPage = () => {
   const navigate = useNavigate();
   const { signIn } = useAuth();
-  
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -16,85 +16,85 @@ const RegisterPage = () => {
     password: '',
     confirmPassword: '',
     role: 'patient',
-    agreeToTerms: false
+    agreeToTerms: false,
   });
-  
+
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
   const [loading, setLoading] = useState(false);
-  
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? checked : value,
     }));
-    
+
     // Clear errors when typing
     if (errors[name]) {
-      setErrors(prevErrors => ({
+      setErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: ''
+        [name]: '',
       }));
     }
   };
-  
+
   const validate = () => {
     const newErrors = {};
-    
+
     if (!formData.firstName) {
       newErrors.firstName = 'First name is required';
     }
-    
+
     if (!formData.lastName) {
       newErrors.lastName = 'Last name is required';
     }
-    
+
     if (!formData.email) {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Email is invalid';
     }
-    
+
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (formData.password.length < 8) {
       newErrors.password = 'Password must be at least 8 characters';
     }
-    
+
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
-    
+
     if (!formData.agreeToTerms) {
       newErrors.agreeToTerms = 'You must agree to the terms and conditions';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Clear previous errors
     setApiError('');
-    
+
     // Validate form
     if (!validate()) {
       return;
     }
-    
+
     // Set loading state
     setLoading(true);
-    
+
     try {
       // Call register service
       const { user } = await register(formData);
-      
+
       // Update auth context
       signIn(user);
-      
+
       // Redirect to verification page if not verified
       if (!user.verified) {
         navigate('/verify-account');
@@ -113,26 +113,30 @@ const RegisterPage = () => {
       <div className={styles.registerCard}>
         <div className={styles.logo}>
           <div className={styles.logoImage}>
-            <img src={require('../../assets/images/carevault-logo.png')} alt="CareVault" className={styles.logoImage} />
+            <img
+              src={require('../../assets/images/carevault-logo.png')}
+              alt="CareVault"
+              className={styles.logoImage}
+            />
           </div>
           <div className={styles.logoText}>CareVault</div>
         </div>
-        
+
         <h1 className={styles.title}>Create an Account</h1>
-        <p className={styles.subtitle}>Join CareVault to manage your healthcare efficiently</p>
-        
-        {apiError && (
-          <div className={styles.errorAlert}>
-            {apiError}
-          </div>
-        )}
-        
+        <p className={styles.subtitle}>
+          Join CareVault to manage your healthcare efficiently
+        </p>
+
+        {apiError && <div className={styles.errorAlert}>{apiError}</div>}
+
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
               <label className={styles.label}>First Name</label>
               <div className={styles.inputWrapper}>
-                <span className={styles.inputIcon}><FiUser /></span>
+                <span className={styles.inputIcon}>
+                  <FiUser />
+                </span>
                 <input
                   type="text"
                   name="firstName"
@@ -143,13 +147,17 @@ const RegisterPage = () => {
                   required
                 />
               </div>
-              {errors.firstName && <div className={styles.errorText}>{errors.firstName}</div>}
+              {errors.firstName && (
+                <div className={styles.errorText}>{errors.firstName}</div>
+              )}
             </div>
-            
+
             <div className={styles.formGroup}>
               <label className={styles.label}>Last Name</label>
               <div className={styles.inputWrapper}>
-                <span className={styles.inputIcon}><FiUser /></span>
+                <span className={styles.inputIcon}>
+                  <FiUser />
+                </span>
                 <input
                   type="text"
                   name="lastName"
@@ -160,14 +168,18 @@ const RegisterPage = () => {
                   required
                 />
               </div>
-              {errors.lastName && <div className={styles.errorText}>{errors.lastName}</div>}
+              {errors.lastName && (
+                <div className={styles.errorText}>{errors.lastName}</div>
+              )}
             </div>
           </div>
-          
+
           <div className={styles.formGroup}>
             <label className={styles.label}>Email</label>
             <div className={styles.inputWrapper}>
-              <span className={styles.inputIcon}><FiMail /></span>
+              <span className={styles.inputIcon}>
+                <FiMail />
+              </span>
               <input
                 type="email"
                 name="email"
@@ -178,14 +190,18 @@ const RegisterPage = () => {
                 required
               />
             </div>
-            {errors.email && <div className={styles.errorText}>{errors.email}</div>}
+            {errors.email && (
+              <div className={styles.errorText}>{errors.email}</div>
+            )}
           </div>
-          
+
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
               <label className={styles.label}>Password</label>
               <div className={styles.inputWrapper}>
-                <span className={styles.inputIcon}><FiLock /></span>
+                <span className={styles.inputIcon}>
+                  <FiLock />
+                </span>
                 <input
                   type="password"
                   name="password"
@@ -196,14 +212,20 @@ const RegisterPage = () => {
                   required
                 />
               </div>
-              {errors.password && <div className={styles.errorText}>{errors.password}</div>}
-              <div className={styles.passwordHint}>Must be at least 8 characters</div>
+              {errors.password && (
+                <div className={styles.errorText}>{errors.password}</div>
+              )}
+              <div className={styles.passwordHint}>
+                Must be at least 8 characters
+              </div>
             </div>
-            
+
             <div className={styles.formGroup}>
               <label className={styles.label}>Confirm Password</label>
               <div className={styles.inputWrapper}>
-                <span className={styles.inputIcon}><FiLock /></span>
+                <span className={styles.inputIcon}>
+                  <FiLock />
+                </span>
                 <input
                   type="password"
                   name="confirmPassword"
@@ -214,10 +236,12 @@ const RegisterPage = () => {
                   required
                 />
               </div>
-              {errors.confirmPassword && <div className={styles.errorText}>{errors.confirmPassword}</div>}
+              {errors.confirmPassword && (
+                <div className={styles.errorText}>{errors.confirmPassword}</div>
+              )}
             </div>
           </div>
-          
+
           <div className={styles.formGroup}>
             <label className={styles.label}>I am a:</label>
             <div className={styles.radioGroup}>
@@ -232,7 +256,7 @@ const RegisterPage = () => {
                 />
                 Patient
               </label>
-              
+
               <label className={styles.radioLabel}>
                 <input
                   type="radio"
@@ -246,9 +270,11 @@ const RegisterPage = () => {
               </label>
             </div>
           </div>
-          
+
           <div className={styles.termsCheckbox}>
-            <label className={`${styles.checkboxLabel} ${errors.agreeToTerms ? styles.checkboxError : ''}`}>
+            <label
+              className={`${styles.checkboxLabel} ${errors.agreeToTerms ? styles.checkboxError : ''}`}
+            >
               <input
                 type="checkbox"
                 name="agreeToTerms"
@@ -259,10 +285,16 @@ const RegisterPage = () => {
               />
               I agree to the Terms of Service and Privacy Policy
             </label>
-            {errors.agreeToTerms && <div className={styles.errorText}>{errors.agreeToTerms}</div>}
+            {errors.agreeToTerms && (
+              <div className={styles.errorText}>{errors.agreeToTerms}</div>
+            )}
           </div>
-          
-          <button type="submit" className={styles.registerButton} disabled={loading}>
+
+          <button
+            type="submit"
+            className={styles.registerButton}
+            disabled={loading}
+          >
             {loading ? (
               <span className={styles.loadingSpinner}></span>
             ) : (
@@ -272,7 +304,7 @@ const RegisterPage = () => {
             )}
           </button>
         </form>
-        
+
         <div className={styles.loginLink}>
           Already have an account? <Link to="/login">Sign In</Link>
         </div>

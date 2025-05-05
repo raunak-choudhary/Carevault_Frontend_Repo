@@ -8,7 +8,7 @@ import styles from './DocumentUploadPage.module.css';
 
 const DocumentUploadPage = () => {
   const navigate = useNavigate();
-  
+
   const [file, setFile] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
@@ -16,13 +16,13 @@ const DocumentUploadPage = () => {
     provider: '',
     date: '',
     notes: '',
-    tags: []
+    tags: [],
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [tagInput, setTagInput] = useState('');
-  
+
   // Document type options
   const documentTypes = [
     { label: 'Prescription', value: 'prescription' },
@@ -30,95 +30,95 @@ const DocumentUploadPage = () => {
     { label: 'Imaging', value: 'imaging' },
     { label: 'Visit Summary', value: 'visit-summary' },
     { label: 'Insurance', value: 'insurance' },
-    { label: 'Other', value: 'other' }
+    { label: 'Other', value: 'other' },
   ];
-  
+
   // Handle file selection
   const handleFileSelect = (selectedFile) => {
     setFile(selectedFile);
-    
+
     // Auto-fill title with filename (without extension)
     if (selectedFile && !formData.title) {
-      const fileName = selectedFile.name.replace(/\.[^/.]+$/, "");
-      setFormData(prev => ({
+      const fileName = selectedFile.name.replace(/\.[^/.]+$/, '');
+      setFormData((prev) => ({
         ...prev,
-        title: fileName
+        title: fileName,
       }));
     }
   };
-  
+
   // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
-  
+
   // Handle tag input
   const handleTagInputChange = (e) => {
     setTagInput(e.target.value);
   };
-  
+
   // Add tag when Enter is pressed
   const handleTagKeyDown = (e) => {
     if (e.key === 'Enter' && tagInput.trim()) {
       e.preventDefault();
       // Add tag if it doesn't already exist
       if (!formData.tags.includes(tagInput.trim())) {
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
-          tags: [...prev.tags, tagInput.trim()]
+          tags: [...prev.tags, tagInput.trim()],
         }));
       }
       setTagInput('');
     }
   };
-  
+
   // Remove a tag
   const removeTag = (tagToRemove) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      tags: prev.tags.filter(tag => tag !== tagToRemove)
+      tags: prev.tags.filter((tag) => tag !== tagToRemove),
     }));
   };
-  
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validate form
     if (!file) {
       setError('Please select a file to upload');
       return;
     }
-    
+
     if (!formData.title) {
       setError('Please enter a title for the document');
       return;
     }
-    
+
     try {
       setLoading(true);
       setError(null);
-      
+
       // In a real app, we would upload the file to a server
       // For now, we'll simulate it by creating a document with a fake URL
       const fileUrl = URL.createObjectURL(file);
-      
+
       // Upload document with form data
       const document = await uploadDocument({
         ...formData,
         fileUrl,
         fileName: file.name,
         fileType: file.type,
-        fileSize: file.size
+        fileSize: file.size,
       });
-      
+
       // Show success message
       setSuccess(true);
-      
+
       // Redirect to the document view page after a delay
       setTimeout(() => {
         navigate(`/documents/view/${document.id}`);
@@ -130,7 +130,7 @@ const DocumentUploadPage = () => {
       setLoading(false);
     }
   };
-  
+
   return (
     <div className={styles.uploadPage}>
       <div className={styles.pageHeader}>
@@ -139,13 +139,9 @@ const DocumentUploadPage = () => {
         </Link>
         <h1>Upload Document</h1>
       </div>
-      
-      {error && (
-        <div className={styles.errorAlert}>
-          {error}
-        </div>
-      )}
-      
+
+      {error && <div className={styles.errorAlert}>{error}</div>}
+
       {success ? (
         <div className={styles.successContainer}>
           <div className={styles.successIcon}>
@@ -158,11 +154,11 @@ const DocumentUploadPage = () => {
       ) : (
         <div className={styles.uploadContainer}>
           <div className={styles.uploadForm}>
-            <FileUploader 
+            <FileUploader
               onFileSelect={handleFileSelect}
               acceptedFileTypes="image/*, application/pdf"
             />
-            
+
             <form onSubmit={handleSubmit}>
               <div className={styles.formGroup}>
                 <label>Document Title*</label>
@@ -176,7 +172,7 @@ const DocumentUploadPage = () => {
                   required
                 />
               </div>
-              
+
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label>Document Type</label>
@@ -194,7 +190,7 @@ const DocumentUploadPage = () => {
                     ))}
                   </select>
                 </div>
-                
+
                 <div className={styles.formGroup}>
                   <label>Healthcare Provider</label>
                   <input
@@ -207,7 +203,7 @@ const DocumentUploadPage = () => {
                   />
                 </div>
               </div>
-              
+
               <div className={styles.formGroup}>
                 <label>Document Date</label>
                 <input
@@ -218,7 +214,7 @@ const DocumentUploadPage = () => {
                   className={styles.inputField}
                 />
               </div>
-              
+
               <div className={styles.formGroup}>
                 <label>Notes</label>
                 <textarea
@@ -230,7 +226,7 @@ const DocumentUploadPage = () => {
                   rows={4}
                 ></textarea>
               </div>
-              
+
               <div className={styles.formGroup}>
                 <label>Tags</label>
                 <div className={styles.tagInputContainer}>
@@ -243,7 +239,7 @@ const DocumentUploadPage = () => {
                     placeholder="Add tags and press Enter"
                   />
                 </div>
-                
+
                 {formData.tags.length > 0 && (
                   <div className={styles.tagsContainer}>
                     {formData.tags.map((tag, index) => (
@@ -261,7 +257,7 @@ const DocumentUploadPage = () => {
                   </div>
                 )}
               </div>
-              
+
               <div className={styles.formActions}>
                 <Link to="/documents" className={styles.cancelButton}>
                   Cancel
@@ -282,14 +278,16 @@ const DocumentUploadPage = () => {
               </div>
             </form>
           </div>
-          
+
           <div className={styles.uploadInfo}>
             <h3>Tips for Document Upload</h3>
             <ul>
               <li>Ensure the document is clearly legible before uploading</li>
               <li>Supported formats: PDF, JPG, PNG, GIF</li>
               <li>Maximum file size: 10MB</li>
-              <li>Add relevant tags to make the document easier to find later</li>
+              <li>
+                Add relevant tags to make the document easier to find later
+              </li>
               <li>Include specific details in notes for future reference</li>
             </ul>
           </div>

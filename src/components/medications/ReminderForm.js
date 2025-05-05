@@ -14,63 +14,63 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
     vibrationEnabled: true,
     repeatNotification: false,
     repeatInterval: 5, // in minutes
-    maxRepeats: 3
+    maxRepeats: 3,
   };
-  
+
   const [formData, setFormData] = useState(initialData || defaultFormData);
   const [errors, setErrors] = useState({});
-  
+
   // Update form when medication or initialData changes
   useEffect(() => {
     if (initialData) {
       setFormData(initialData);
     } else if (medication) {
-      setFormData(prevData => ({
+      setFormData((prevData) => ({
         ...prevData,
-        medicationId: medication.id
+        medicationId: medication.id,
       }));
     }
   }, [medication, initialData]);
-  
+
   // Handle input changes
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
-    setFormData(prevData => ({
+
+    setFormData((prevData) => ({
       ...prevData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? checked : value,
     }));
-    
+
     // Clear error for this field if any
     if (errors[name]) {
-      setErrors(prevErrors => ({
+      setErrors((prevErrors) => ({
         ...prevErrors,
-        [name]: ''
+        [name]: '',
       }));
     }
   };
-  
+
   // Handle number input changes with validation
   const handleNumberChange = (e) => {
     const { name, value } = e.target;
-    
+
     // Allow empty string or valid numbers
     if (value === '' || !isNaN(Number(value))) {
-      setFormData(prevData => ({
+      setFormData((prevData) => ({
         ...prevData,
-        [name]: value === '' ? '' : Number(value)
+        [name]: value === '' ? '' : Number(value),
       }));
     }
   };
-  
+
   // Validate the form
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (formData.notificationTime === 'beforeTime' && !formData.minutesBefore) {
       newErrors.minutesBefore = 'Please specify how many minutes before';
     }
-    
+
     if (formData.repeatNotification) {
       if (!formData.repeatInterval) {
         newErrors.repeatInterval = 'Please specify repeat interval';
@@ -79,28 +79,28 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
         newErrors.maxRepeats = 'Please specify max repeats';
       }
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
-    
+
     onSubmit(formData);
   };
-  
+
   return (
     <form className={styles.reminderForm} onSubmit={handleSubmit}>
       <div className={styles.formTitle}>
         {initialData ? 'Edit Reminder' : 'Add Reminder'}
       </div>
-      
+
       <div className={styles.formSection}>
         <div className={styles.formGroup}>
           <div className={styles.switchGroup}>
@@ -117,11 +117,13 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
             </label>
           </div>
         </div>
-        
+
         <div className={styles.formGroup}>
           <label>Notification Type</label>
           <div className={styles.optionButtons}>
-            <label className={`${styles.optionButton} ${formData.notificationType === 'popup' ? styles.optionButtonSelected : ''}`}>
+            <label
+              className={`${styles.optionButton} ${formData.notificationType === 'popup' ? styles.optionButtonSelected : ''}`}
+            >
               <input
                 type="radio"
                 name="notificationType"
@@ -133,8 +135,10 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
               <FiBell className={styles.optionIcon} />
               <span>Popup</span>
             </label>
-            
-            <label className={`${styles.optionButton} ${formData.notificationType === 'sound' ? styles.optionButtonSelected : ''}`}>
+
+            <label
+              className={`${styles.optionButton} ${formData.notificationType === 'sound' ? styles.optionButtonSelected : ''}`}
+            >
               <input
                 type="radio"
                 name="notificationType"
@@ -146,8 +150,10 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
               <FiVolume2 className={styles.optionIcon} />
               <span>Sound</span>
             </label>
-            
-            <label className={`${styles.optionButton} ${formData.notificationType === 'both' ? styles.optionButtonSelected : ''}`}>
+
+            <label
+              className={`${styles.optionButton} ${formData.notificationType === 'both' ? styles.optionButtonSelected : ''}`}
+            >
               <input
                 type="radio"
                 name="notificationType"
@@ -164,11 +170,13 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
             </label>
           </div>
         </div>
-        
+
         <div className={styles.formGroup}>
           <label>Notification Timing</label>
           <div className={styles.optionButtons}>
-            <label className={`${styles.optionButton} ${formData.notificationTime === 'atTime' ? styles.optionButtonSelected : ''}`}>
+            <label
+              className={`${styles.optionButton} ${formData.notificationTime === 'atTime' ? styles.optionButtonSelected : ''}`}
+            >
               <input
                 type="radio"
                 name="notificationTime"
@@ -180,8 +188,10 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
               <FiClock className={styles.optionIcon} />
               <span>At scheduled time</span>
             </label>
-            
-            <label className={`${styles.optionButton} ${formData.notificationTime === 'beforeTime' ? styles.optionButtonSelected : ''}`}>
+
+            <label
+              className={`${styles.optionButton} ${formData.notificationTime === 'beforeTime' ? styles.optionButtonSelected : ''}`}
+            >
               <input
                 type="radio"
                 name="notificationTime"
@@ -195,7 +205,7 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
             </label>
           </div>
         </div>
-        
+
         {formData.notificationTime === 'beforeTime' && (
           <div className={styles.formGroup}>
             <label htmlFor="minutesBefore">Minutes Before</label>
@@ -209,11 +219,14 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
               max="120"
               className={errors.minutesBefore ? styles.inputError : ''}
             />
-            {errors.minutesBefore && <div className={styles.errorText}>{errors.minutesBefore}</div>}
+            {errors.minutesBefore && (
+              <div className={styles.errorText}>{errors.minutesBefore}</div>
+            )}
           </div>
         )}
-        
-        {(formData.notificationType === 'sound' || formData.notificationType === 'both') && (
+
+        {(formData.notificationType === 'sound' ||
+          formData.notificationType === 'both') && (
           <div className={styles.formGroup}>
             <label htmlFor="soundType">Sound Type</label>
             <select
@@ -230,7 +243,7 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
             </select>
           </div>
         )}
-        
+
         <div className={styles.formGroup}>
           <div className={styles.switchGroup}>
             <label htmlFor="vibrationEnabled">Enable Vibration</label>
@@ -247,7 +260,7 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
           </div>
         </div>
       </div>
-      
+
       <div className={styles.formSection}>
         <div className={styles.formGroup}>
           <div className={styles.switchGroup}>
@@ -264,7 +277,7 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
             </label>
           </div>
         </div>
-        
+
         {formData.repeatNotification && (
           <>
             <div className={styles.formGroup}>
@@ -279,9 +292,11 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
                 max="60"
                 className={errors.repeatInterval ? styles.inputError : ''}
               />
-              {errors.repeatInterval && <div className={styles.errorText}>{errors.repeatInterval}</div>}
+              {errors.repeatInterval && (
+                <div className={styles.errorText}>{errors.repeatInterval}</div>
+              )}
             </div>
-            
+
             <div className={styles.formGroup}>
               <label htmlFor="maxRepeats">Maximum Repeats</label>
               <input
@@ -294,12 +309,14 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
                 max="10"
                 className={errors.maxRepeats ? styles.inputError : ''}
               />
-              {errors.maxRepeats && <div className={styles.errorText}>{errors.maxRepeats}</div>}
+              {errors.maxRepeats && (
+                <div className={styles.errorText}>{errors.maxRepeats}</div>
+              )}
             </div>
           </>
         )}
       </div>
-      
+
       <div className={styles.formActions}>
         <button
           type="button"
@@ -308,10 +325,7 @@ const ReminderForm = ({ medication, initialData, onSubmit, onCancel }) => {
         >
           <FiX /> Cancel
         </button>
-        <button
-          type="submit"
-          className={styles.saveButton}
-        >
+        <button type="submit" className={styles.saveButton}>
           <FiSave /> {initialData ? 'Update' : 'Save'} Reminder
         </button>
       </div>

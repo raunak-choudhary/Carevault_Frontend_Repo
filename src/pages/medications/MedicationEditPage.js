@@ -10,13 +10,13 @@ const MedicationEditPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { getMedication, updateMedication } = useMedications();
-  
+
   const [medication, setMedication] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  
+
   // Fetch medication data
   useEffect(() => {
     const fetchMedication = async () => {
@@ -32,22 +32,22 @@ const MedicationEditPage = () => {
         setLoading(false);
       }
     };
-    
+
     fetchMedication();
   }, [id, getMedication]);
-  
+
   // Handle form submission
   const handleSubmit = async (medicationData) => {
     try {
       setSaving(true);
       setError(null);
-      
+
       // Update medication
       await updateMedication(id, medicationData);
-      
+
       // Set success state
       setSuccess(true);
-      
+
       // Redirect to medication details after a brief delay
       setTimeout(() => {
         navigate(`/medications/view/${id}`);
@@ -58,12 +58,12 @@ const MedicationEditPage = () => {
       setSaving(false);
     }
   };
-  
+
   // Handle form cancel
   const handleCancel = () => {
     navigate(`/medications/view/${id}`);
   };
-  
+
   if (loading) {
     return (
       <div className={styles.loadingContainer}>
@@ -71,7 +71,7 @@ const MedicationEditPage = () => {
       </div>
     );
   }
-  
+
   if (error && !medication) {
     return (
       <div className={styles.errorContainer}>
@@ -83,19 +83,22 @@ const MedicationEditPage = () => {
       </div>
     );
   }
-  
+
   if (!medication) {
     return (
       <div className={styles.notFoundContainer}>
         <h2>Medication Not Found</h2>
-        <p>The medication you are trying to edit does not exist or has been removed.</p>
+        <p>
+          The medication you are trying to edit does not exist or has been
+          removed.
+        </p>
         <Link to="/medications" className={styles.backButton}>
           <FiArrowLeft /> Back to Medications
         </Link>
       </div>
     );
   }
-  
+
   return (
     <div className={styles.editPage}>
       <div className={styles.pageHeader}>
@@ -104,13 +107,9 @@ const MedicationEditPage = () => {
         </Link>
         <h1>Edit Medication</h1>
       </div>
-      
-      {error && (
-        <div className={styles.errorMessage}>
-          {error}
-        </div>
-      )}
-      
+
+      {error && <div className={styles.errorMessage}>{error}</div>}
+
       {success ? (
         <div className={styles.successContainer}>
           <div className={styles.successIcon}>
@@ -119,13 +118,15 @@ const MedicationEditPage = () => {
           <h2>Medication Updated!</h2>
           <p>Your medication has been successfully updated.</p>
           <LoadingSpinner size="small" />
-          <p className={styles.redirectMessage}>Redirecting to medication details...</p>
+          <p className={styles.redirectMessage}>
+            Redirecting to medication details...
+          </p>
         </div>
       ) : (
         <div className={styles.formContainer}>
-          <MedicationForm 
+          <MedicationForm
             initialData={medication}
-            onSubmit={handleSubmit} 
+            onSubmit={handleSubmit}
             onCancel={handleCancel}
             isEditing={true}
             loading={saving} // Added the loading prop to pass the saving state

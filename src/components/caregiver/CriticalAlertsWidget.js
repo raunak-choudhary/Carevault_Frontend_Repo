@@ -1,7 +1,16 @@
 // CriticalAlertsWidget.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FiAlertTriangle, FiCalendar, FiCheckCircle, FiClock, FiActivity, FiChevronRight, FiFilter, FiAlertCircle } from 'react-icons/fi';
+import {
+  FiAlertTriangle,
+  FiCalendar,
+  FiCheckCircle,
+  FiClock,
+  FiActivity,
+  FiChevronRight,
+  FiFilter,
+  FiAlertCircle,
+} from 'react-icons/fi';
 import { usePatients } from '../../hooks/usePatients';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import styles from './CriticalAlertsWidget.module.css';
@@ -14,37 +23,38 @@ const CriticalAlertsWidget = () => {
   const [filter, setFilter] = useState('all'); // 'all', 'high', 'medium', 'low'
   const [isCollapsed, setIsCollapsed] = useState(false);
   const navigate = useNavigate();
-  
+
   // Simulate fetching alerts
   React.useEffect(() => {
     const fetchAlerts = async () => {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 800));
-        
+        await new Promise((resolve) => setTimeout(resolve, 800));
+
         // Generate sample alerts data
         const allAlerts = [];
-        
-        patients.forEach(patient => {
+
+        patients.forEach((patient) => {
           // Generate 0-3 random alerts per patient
           const alertCount = Math.floor(Math.random() * 4);
-          
+
           for (let i = 0; i < alertCount; i++) {
             // Random alert type
             const types = ['appointment', 'medication', 'health'];
             const type = types[Math.floor(Math.random() * types.length)];
-            
+
             // Random priority
             const priorities = ['high', 'medium', 'low'];
-            const priority = priorities[Math.floor(Math.random() * priorities.length)];
-            
+            const priority =
+              priorities[Math.floor(Math.random() * priorities.length)];
+
             // Create alert message based on type
             let message = '';
             let redirectPath = '';
-            
+
             if (type === 'appointment') {
               message = `Upcoming appointment in ${Math.floor(Math.random() * 5) + 1} days`;
               redirectPath = `/patient/${patient.id}/appointments`;
@@ -55,7 +65,7 @@ const CriticalAlertsWidget = () => {
               message = `Abnormal ${['blood pressure', 'blood glucose', 'heart rate'][Math.floor(Math.random() * 3)]} reading`;
               redirectPath = `/patient/${patient.id}/insights`;
             }
-            
+
             // Add alert
             allAlerts.push({
               id: `alert-${patient.id}-${i}`,
@@ -64,13 +74,16 @@ const CriticalAlertsWidget = () => {
               type,
               priority,
               message,
-              date: new Date(Date.now() - Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000).toISOString(),
+              date: new Date(
+                Date.now() -
+                  Math.floor(Math.random() * 7) * 24 * 60 * 60 * 1000,
+              ).toISOString(),
               redirectPath,
-              isResolved: false
+              isResolved: false,
             });
           }
         });
-        
+
         // Sort by priority and date
         allAlerts.sort((a, b) => {
           // Sort by priority first (high to low)
@@ -78,11 +91,11 @@ const CriticalAlertsWidget = () => {
           if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
             return priorityOrder[a.priority] - priorityOrder[b.priority];
           }
-          
+
           // Then sort by date (newest first)
           return new Date(b.date) - new Date(a.date);
         });
-        
+
         setAlerts(allAlerts);
       } catch (err) {
         console.error('Error fetching alerts:', err);
@@ -91,24 +104,24 @@ const CriticalAlertsWidget = () => {
         setLoading(false);
       }
     };
-    
+
     fetchAlerts();
   }, [patients]);
-  
+
   // Filter alerts
   const filteredAlerts = React.useMemo(() => {
     if (filter === 'all') return alerts;
-    return alerts.filter(alert => alert.priority === filter);
+    return alerts.filter((alert) => alert.priority === filter);
   }, [alerts, filter]);
-  
+
   // Format date for display
   const formatDate = (dateString) => {
     if (!dateString) return '';
-    
+
     const date = new Date(dateString);
     const now = new Date();
     const diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
-    
+
     if (diffDays === 0) {
       return 'Today';
     } else if (diffDays === 1) {
@@ -119,7 +132,7 @@ const CriticalAlertsWidget = () => {
       return date.toLocaleDateString();
     }
   };
-  
+
   // Get alert icon based on type
   const getAlertIcon = (type) => {
     switch (type) {
@@ -133,7 +146,7 @@ const CriticalAlertsWidget = () => {
         return <FiAlertTriangle className={styles.alertTypeIcon} />;
     }
   };
-  
+
   // Get action icon based on type
   const getActionIcon = (type) => {
     switch (type) {
@@ -147,7 +160,7 @@ const CriticalAlertsWidget = () => {
         return <FiAlertTriangle />;
     }
   };
-  
+
   // Handle view patient
   const handleViewPatient = async (patientId, redirectPath) => {
     try {
@@ -157,30 +170,35 @@ const CriticalAlertsWidget = () => {
       console.error('Error switching patient:', err);
     }
   };
-  
+
   // Handle resolving an alert
   const handleResolveAlert = (alertId, patientId, event) => {
     // Stop event propagation to prevent clicking the alert item
     event.stopPropagation();
-    
+
     // In a real app, this would call an API to resolve the alert
-    setAlerts(prevAlerts => 
-      prevAlerts.map(alert => 
-        alert.id === alertId ? { ...alert, isResolved: true } : alert
-      ).filter(alert => alert.id !== alertId) // Remove the resolved alert
+    setAlerts(
+      (prevAlerts) =>
+        prevAlerts
+          .map((alert) =>
+            alert.id === alertId ? { ...alert, isResolved: true } : alert,
+          )
+          .filter((alert) => alert.id !== alertId), // Remove the resolved alert
     );
   };
-  
+
   // Toggle collapse state
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
-  
+
   if (loading) {
     return (
       <div className={styles.alertsWidget}>
         <div className={styles.widgetHeader}>
-          <h2><FiAlertTriangle /> Critical Alerts</h2>
+          <h2>
+            <FiAlertTriangle /> Critical Alerts
+          </h2>
         </div>
         <div className={styles.loadingContainer}>
           <LoadingSpinner size="medium" />
@@ -188,12 +206,14 @@ const CriticalAlertsWidget = () => {
       </div>
     );
   }
-  
+
   if (error) {
     return (
       <div className={styles.alertsWidget}>
         <div className={styles.widgetHeader}>
-          <h2><FiAlertTriangle /> Critical Alerts</h2>
+          <h2>
+            <FiAlertTriangle /> Critical Alerts
+          </h2>
         </div>
         <div className={styles.errorContainer}>
           <FiAlertCircle className={styles.errorIcon} />
@@ -202,15 +222,17 @@ const CriticalAlertsWidget = () => {
       </div>
     );
   }
-  
+
   if (filteredAlerts.length === 0) {
     return (
       <div className={styles.alertsWidget}>
         <div className={styles.widgetHeader}>
-          <h2><FiAlertTriangle /> Critical Alerts</h2>
+          <h2>
+            <FiAlertTriangle /> Critical Alerts
+          </h2>
           <div className={styles.widgetControls}>
             <div className={styles.filterContainer}>
-              <select 
+              <select
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 className={styles.filterSelect}
@@ -231,18 +253,18 @@ const CriticalAlertsWidget = () => {
       </div>
     );
   }
-  
+
   return (
     <div className={styles.alertsWidget}>
       <div className={styles.widgetHeader}>
         <h2>
-          <FiAlertTriangle /> 
+          <FiAlertTriangle />
           Critical Alerts
           <span className={styles.alertCount}>{filteredAlerts.length}</span>
         </h2>
         <div className={styles.widgetControls}>
           <div className={styles.filterContainer}>
-            <select 
+            <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
               className={styles.filterSelect}
@@ -258,19 +280,25 @@ const CriticalAlertsWidget = () => {
           <button
             className={styles.collapseButton}
             onClick={toggleCollapse}
-            aria-label={isCollapsed ? "Expand alerts" : "Collapse alerts"}
+            aria-label={isCollapsed ? 'Expand alerts' : 'Collapse alerts'}
           >
-            <FiChevronRight className={`${styles.collapseIcon} ${isCollapsed ? styles.collapsed : ''}`} />
+            <FiChevronRight
+              className={`${styles.collapseIcon} ${isCollapsed ? styles.collapsed : ''}`}
+            />
           </button>
         </div>
       </div>
-      
-      <div className={`${styles.alertsContainer} ${isCollapsed ? styles.collapsed : ''}`}>
+
+      <div
+        className={`${styles.alertsContainer} ${isCollapsed ? styles.collapsed : ''}`}
+      >
         {filteredAlerts.slice(0, 5).map((alert, index) => (
-          <div 
-            key={alert.id} 
+          <div
+            key={alert.id}
             className={`${styles.alertItem} ${styles[alert.priority + 'Priority']}`}
-            onClick={() => handleViewPatient(alert.patientId, alert.redirectPath)}
+            onClick={() =>
+              handleViewPatient(alert.patientId, alert.redirectPath)
+            }
             role="button"
             tabIndex={0}
             onKeyDown={(e) => {
@@ -288,24 +316,26 @@ const CriticalAlertsWidget = () => {
                 </div>
                 <div className={styles.alertDate}>{formatDate(alert.date)}</div>
               </div>
-              
+
               <div className={styles.alertMessage}>{alert.message}</div>
-              
+
               <div className={styles.patientInfo}>
                 <span className={styles.patientName}>{alert.patientName}</span>
               </div>
             </div>
-            
+
             <div className={styles.alertActions}>
-              <button 
+              <button
                 className={styles.resolveButton}
-                onClick={(e) => handleResolveAlert(alert.id, alert.patientId, e)}
+                onClick={(e) =>
+                  handleResolveAlert(alert.id, alert.patientId, e)
+                }
                 title="Mark as resolved"
                 aria-label="Mark alert as resolved"
               >
                 <FiCheckCircle />
               </button>
-              
+
               <button
                 className={styles.viewButton}
                 onClick={(e) => {
@@ -320,7 +350,7 @@ const CriticalAlertsWidget = () => {
             </div>
           </div>
         ))}
-        
+
         {filteredAlerts.length > 5 && (
           <Link to="/patients" className={styles.viewAllButton}>
             View all {filteredAlerts.length} alerts

@@ -1,249 +1,253 @@
 .detailPage {
-    padding: var(--spacing-md);
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
-  .pageHeader {
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .backButton {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    color: var(--text-secondary);
-    text-decoration: none;
-    margin-bottom: var(--spacing-sm);
-    width: fit-content;
-  }
-  
-  .backButton:hover {
-    color: var(--primary);
-  }
-  
-  .pageHeader h1 {
-    margin: 0;
-  }
-  
-  .errorMessage {
-    background-color: rgba(244, 67, 54, 0.1);
-    color: #f44336;
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-md);
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .loadingContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: var(--spacing-xl);
-  }
-  
-  .providerContainer {
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-md);
-    padding: var(--spacing-lg);
-  }
-  
+  padding: var(--spacing-md);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: var(--spacing-lg);
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: var(--spacing-sm);
+  width: fit-content;
+}
+
+.backButton:hover {
+  color: var(--primary);
+}
+
+.pageHeader h1 {
+  margin: 0;
+}
+
+.errorMessage {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xl);
+}
+
+.providerContainer {
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+}
+
+.providerHeader {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.providerAvatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.providerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.providerInitial {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+}
+
+.providerInfo {
+  flex-grow: 1;
+}
+
+.providerName {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 1.8rem;
+}
+
+.providerSpecialty {
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+  font-size: 1.1rem;
+}
+
+.providerRating {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.ratingValue {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.ratingStars {
+  display: flex;
+  align-items: center;
+}
+
+.starFilled {
+  color: #ffc107;
+  fill: #ffc107;
+}
+
+.starHalf {
+  color: #ffc107;
+  fill: #ffc107;
+  opacity: 0.5;
+}
+
+.starEmpty {
+  color: var(--border-color);
+}
+
+.reviewCount {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.scheduleButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--primary);
+  color: white;
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.scheduleButton:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.buttonIcon {
+  font-size: 1.1rem;
+}
+
+.providerDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.detailsSection,
+.aboutSection,
+.locationSection {
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detailsSection h3,
+.aboutSection h3,
+.locationSection h3 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  color: var(--primary);
+}
+
+.detailItem {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.detailIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius-md);
+  color: var(--primary);
+}
+
+.detailContent {
+  flex-grow: 1;
+}
+
+.detailLabel {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.detailValue {
+  font-weight: 500;
+}
+
+.aboutText {
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.addressText {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-secondary);
+}
+
+.addressIcon {
+  color: var(--primary);
+}
+
+.mapContainer {
+  height: 300px;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+}
+
+.notFoundMessage {
+  text-align: center;
+  padding: var(--spacing-xl);
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .providerHeader {
-    display: flex;
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-lg);
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .providerAvatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    overflow: hidden;
-    flex-shrink: 0;
-    background-color: var(--primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .providerImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .providerInitial {
-    font-size: 3rem;
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
-  }
-  
-  .providerInfo {
-    flex-grow: 1;
-  }
-  
-  .providerName {
-    margin: 0 0 var(--spacing-xs) 0;
-    font-size: 1.8rem;
-  }
-  
-  .providerSpecialty {
-    color: var(--text-secondary);
-    margin-bottom: var(--spacing-md);
-    font-size: 1.1rem;
-  }
-  
-  .providerRating {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .ratingValue {
-    font-weight: 600;
-    color: var(--primary);
-  }
-  
-  .ratingStars {
-    display: flex;
-    align-items: center;
-  }
-  
-  .starFilled {
-    color: #FFC107;
-    fill: #FFC107;
-  }
-  
-  .starHalf {
-    color: #FFC107;
-    fill: #FFC107;
-    opacity: 0.5;
-  }
-  
-  .starEmpty {
-    color: var(--border-color);
-  }
-  
-  .reviewCount {
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-  }
-  
-  .scheduleButton {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    padding: var(--spacing-sm) var(--spacing-md);
-    background-color: var(--primary);
-    color: white;
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    transition: background-color var(--transition-fast);
-  }
-  
-  .scheduleButton:hover {
-    background-color: var(--primary-dark);
-    color: white;
-  }
-  
-  .buttonIcon {
-    font-size: 1.1rem;
-  }
-  
-  .providerDetails {
-    display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
-  }
-  
-  .detailsSection, .aboutSection, .locationSection {
-    padding-bottom: var(--spacing-md);
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .detailsSection h3, .aboutSection h3, .locationSection h3 {
-    margin-top: 0;
-    margin-bottom: var(--spacing-md);
-    color: var(--primary);
-  }
-  
-  .detailItem {
-    display: flex;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .detailIcon {
-    display: flex;
     align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: var(--bg-secondary);
-    border-radius: var(--border-radius-md);
-    color: var(--primary);
-  }
-  
-  .detailContent {
-    flex-grow: 1;
-  }
-  
-  .detailLabel {
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-    margin-bottom: var(--spacing-xs);
-  }
-  
-  .detailValue {
-    font-weight: 500;
-  }
-  
-  .aboutText {
-    line-height: 1.6;
-    color: var(--text-secondary);
-  }
-  
-  .addressText {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-md);
-    color: var(--text-secondary);
-  }
-  
-  .addressIcon {
-    color: var(--primary);
-  }
-  
-  .mapContainer {
-    height: 300px;
-    border-radius: var(--border-radius-md);
-    overflow: hidden;
-  }
-  
-  .notFoundMessage {
     text-align: center;
-    padding: var(--spacing-xl);
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-sm);
+    gap: var(--spacing-md);
   }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .providerHeader {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: var(--spacing-md);
-    }
-    
-    .scheduleButton {
-      width: 100%;
-      justify-content: center;
-    }
+
+  .scheduleButton {
+    width: 100%;
+    justify-content: center;
   }
+}

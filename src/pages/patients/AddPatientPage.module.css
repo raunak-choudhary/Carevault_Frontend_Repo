@@ -3,20 +3,20 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-  
+
 .pageHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-lg);
 }
-  
+
 .headerLeft {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
 }
-  
+
 .backLink {
   display: flex;
   align-items: center;
@@ -26,20 +26,20 @@
   font-size: var(--font-size-sm);
   transition: color var(--transition-fast);
 }
-  
+
 .backLink:hover {
   color: var(--primary);
 }
-  
+
 .pageHeader h1 {
   margin: 0;
 }
-  
+
 .formWrapper {
   position: relative;
   margin-top: var(--spacing-xl);
 }
-  
+
 .formIcon {
   display: flex;
   align-items: center;
@@ -56,7 +56,7 @@
   z-index: 1;
   box-shadow: var(--shadow-sm);
 }
-  
+
 .unauthorizedContainer {
   text-align: center;
   padding: var(--spacing-xl);
@@ -66,7 +66,7 @@
   margin: var(--spacing-xl) auto;
   max-width: 600px;
 }
-  
+
 .backButton {
   display: inline-block;
   margin-top: var(--spacing-lg);
@@ -77,12 +77,12 @@
   text-decoration: none;
   transition: background-color var(--transition-fast);
 }
-  
+
 .backButton:hover {
   background-color: var(--primary-dark);
   color: white;
 }
-  
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .pageHeader {
@@ -90,7 +90,7 @@
     align-items: flex-start;
     gap: var(--spacing-sm);
   }
-  
+
   .formIcon {
     width: 60px;
     height: 60px;

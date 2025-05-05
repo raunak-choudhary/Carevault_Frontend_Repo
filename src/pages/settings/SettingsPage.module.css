@@ -1,167 +1,167 @@
 /* src/pages/settings/SettingsPage.module.css */
 .settingsPage {
-    padding: var(--spacing-md);
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .settingsPage h1 {
-    margin-bottom: var(--spacing-lg);
-  }
-  
+  padding: var(--spacing-md);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.settingsPage h1 {
+  margin-bottom: var(--spacing-lg);
+}
+
+.settingsContainer {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: var(--spacing-lg);
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.settingsContent {
+  padding: var(--spacing-lg);
+}
+
+.settingsSection h2 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.settingsSection h3 {
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.formGroup {
+  margin-bottom: var(--spacing-md);
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: var(--font-size-md);
+}
+
+.hint {
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.saveButton {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.saveButton:hover {
+  background-color: var(--primary-dark);
+}
+
+.toggleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.toggleSwitch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.toggleSwitch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--border-color);
+  transition: var(--transition-fast);
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: var(--transition-fast);
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--primary);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.toggleLabel {
+  flex: 1;
+}
+
+.toggleLabel h4 {
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.toggleLabel p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
   .settingsContainer {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    gap: var(--spacing-lg);
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-md);
-    overflow: hidden;
+    grid-template-columns: 1fr;
   }
-  
+
   .settingsContent {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
   }
-  
-  .settingsSection h2 {
-    margin-top: 0;
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-sm);
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .settingsSection h3 {
-    margin-top: var(--spacing-lg);
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .formGroup {
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .formGroup label {
-    display: block;
-    margin-bottom: var(--spacing-xs);
-    color: var(--text-secondary);
-    font-weight: 500;
-  }
-  
-  .formGroup input,
-  .formGroup select,
-  .formGroup textarea {
-    width: 100%;
-    padding: var(--spacing-sm);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-size: var(--font-size-md);
-  }
-  
-  .hint {
-    margin-top: var(--spacing-xs);
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-  }
-  
-  .saveButton {
-    margin-top: var(--spacing-lg);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background-color: var(--primary);
-    color: white;
-    border: none;
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
-    transition: background-color var(--transition-fast);
-  }
-  
-  .saveButton:hover {
-    background-color: var(--primary-dark);
-  }
-  
-  .toggleGroup {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-  }
-  
-  .toggle {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--spacing-md);
-  }
-  
-  .toggleSwitch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
-    flex-shrink: 0;
-  }
-  
-  .toggleSwitch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--border-color);
-    transition: var(--transition-fast);
-    border-radius: 24px;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: var(--transition-fast);
-    border-radius: 50%;
-  }
-  
-  input:checked + .slider {
-    background-color: var(--primary);
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px var(--primary);
-  }
-  
-  input:checked + .slider:before {
-    transform: translateX(26px);
-  }
-  
-  .toggleLabel {
-    flex: 1;
-  }
-  
-  .toggleLabel h4 {
-    margin: 0 0 var(--spacing-xs) 0;
-  }
-  
-  .toggleLabel p {
-    margin: 0;
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-  }
-  
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .settingsContainer {
-      grid-template-columns: 1fr;
-    }
-    
-    .settingsContent {
-      padding: var(--spacing-md);
-    }
-  }
+}

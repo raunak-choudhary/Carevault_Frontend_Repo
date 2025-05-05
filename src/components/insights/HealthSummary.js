@@ -6,7 +6,7 @@ const HealthSummary = ({ metricType, summary, trend }) => {
   // Get appropriate title based on metric type
   const getTitle = () => {
     const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-    
+
     switch (metricType) {
       case 'weight':
         return 'Weight Analysis';
@@ -24,7 +24,7 @@ const HealthSummary = ({ metricType, summary, trend }) => {
         return `${capitalize(metricType)} Analysis`;
     }
   };
-  
+
   // Get appropriate icon based on metric type
   const getIcon = () => {
     switch (metricType) {
@@ -44,16 +44,14 @@ const HealthSummary = ({ metricType, summary, trend }) => {
         return <FiInfo />;
     }
   };
-  
+
   return (
     <div className={styles.summaryCard}>
       <div className={styles.summaryHeader}>
-        <div className={styles.headerIcon}>
-          {getIcon()}
-        </div>
+        <div className={styles.headerIcon}>{getIcon()}</div>
         <h3>{getTitle()}</h3>
       </div>
-      
+
       <div className={styles.summaryContent}>
         {summary ? (
           <>
@@ -62,10 +60,11 @@ const HealthSummary = ({ metricType, summary, trend }) => {
           </>
         ) : (
           <p className={styles.noDataMessage}>
-            Not enough data to generate a summary yet. Continue tracking your {metricType} to get personalized insights.
+            Not enough data to generate a summary yet. Continue tracking your{' '}
+            {metricType} to get personalized insights.
           </p>
         )}
-        
+
         {trend && (
           <div className={styles.trendSection}>
             <h4>Trend Analysis</h4>

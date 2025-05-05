@@ -9,23 +9,23 @@ import styles from './MedicationAddPage.module.css';
 const MedicationAddPage = () => {
   const navigate = useNavigate();
   const { addMedication } = useMedications();
-  
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  
+
   // Handle form submission
   const handleSubmit = async (medicationData) => {
     try {
       setLoading(true);
       setError(null);
-      
+
       // Call the add medication function from the medication context
       await addMedication(medicationData);
-      
+
       // Set success state
       setSuccess(true);
-      
+
       // Redirect to medications list after a brief delay
       setTimeout(() => {
         navigate('/medications');
@@ -36,12 +36,12 @@ const MedicationAddPage = () => {
       setLoading(false);
     }
   };
-  
+
   // Handle form cancel
   const handleCancel = () => {
     navigate('/medications');
   };
-  
+
   return (
     <div className={styles.addPage}>
       <div className={styles.pageHeader}>
@@ -50,13 +50,9 @@ const MedicationAddPage = () => {
         </Link>
         <h1>Add New Medication</h1>
       </div>
-      
-      {error && (
-        <div className={styles.errorMessage}>
-          {error}
-        </div>
-      )}
-      
+
+      {error && <div className={styles.errorMessage}>{error}</div>}
+
       {success ? (
         <div className={styles.successContainer}>
           <div className={styles.successIcon}>
@@ -65,12 +61,14 @@ const MedicationAddPage = () => {
           <h2>Medication Added!</h2>
           <p>Your medication has been successfully added.</p>
           <LoadingSpinner size="small" />
-          <p className={styles.redirectMessage}>Redirecting to medications page...</p>
+          <p className={styles.redirectMessage}>
+            Redirecting to medications page...
+          </p>
         </div>
       ) : (
         <div className={styles.formContainer}>
-          <MedicationForm 
-            onSubmit={handleSubmit} 
+          <MedicationForm
+            onSubmit={handleSubmit}
             onCancel={handleCancel}
             isEditing={false}
             loading={loading} // Added the loading prop to pass to the form

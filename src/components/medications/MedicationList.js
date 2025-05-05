@@ -4,39 +4,46 @@ import { FiSearch, FiPlus, FiFilter, FiX } from 'react-icons/fi';
 import MedicationCard from './MedicationCard';
 import styles from './MedicationList.module.css';
 
-const MedicationList = ({ medications = [], loading = false, onMedicationClick }) => {
+const MedicationList = ({
+  medications = [],
+  loading = false,
+  onMedicationClick,
+}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all'); // 'all', 'active', 'inactive'
-  
+
   // Handle search input change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
-  
+
   // Handle status filter change
   const handleStatusFilterChange = (e) => {
     setStatusFilter(e.target.value);
   };
-  
+
   // Clear all filters
   const clearFilters = () => {
     setSearchQuery('');
     setStatusFilter('all');
   };
-  
+
   // Filter medications based on search query and status filter
-  const filteredMedications = medications.filter(medication => {
+  const filteredMedications = medications.filter((medication) => {
     // Apply search filter
-    const matchesSearch = searchQuery === '' || 
+    const matchesSearch =
+      searchQuery === '' ||
       medication.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (medication.notes && medication.notes.toLowerCase().includes(searchQuery.toLowerCase()));
-    
+      (medication.notes &&
+        medication.notes.toLowerCase().includes(searchQuery.toLowerCase()));
+
     // Apply status filter
-    const matchesStatus = statusFilter === 'all' || medication.status === statusFilter;
-    
+    const matchesStatus =
+      statusFilter === 'all' || medication.status === statusFilter;
+
     return matchesSearch && matchesStatus;
   });
-  
+
   return (
     <div className={styles.medicationList}>
       <div className={styles.listHeader}>
@@ -50,7 +57,7 @@ const MedicationList = ({ medications = [], loading = false, onMedicationClick }
               onChange={handleSearchChange}
             />
             {searchQuery && (
-              <button 
+              <button
                 className={styles.clearSearchButton}
                 onClick={() => setSearchQuery('')}
               >
@@ -58,21 +65,18 @@ const MedicationList = ({ medications = [], loading = false, onMedicationClick }
               </button>
             )}
           </div>
-          
+
           <div className={styles.filterDropdown}>
             <FiFilter className={styles.filterIcon} />
-            <select
-              value={statusFilter}
-              onChange={handleStatusFilterChange}
-            >
+            <select value={statusFilter} onChange={handleStatusFilterChange}>
               <option value="all">All</option>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
           </div>
-          
+
           {(searchQuery || statusFilter !== 'all') && (
-            <button 
+            <button
               className={styles.clearFiltersButton}
               onClick={clearFilters}
             >
@@ -80,19 +84,17 @@ const MedicationList = ({ medications = [], loading = false, onMedicationClick }
             </button>
           )}
         </div>
-        
+
         <Link to="/medications/add" className={styles.addButton}>
           <FiPlus /> Add Medication
         </Link>
       </div>
-      
+
       <div className={styles.listContent}>
         {loading ? (
-          <div className={styles.loadingState}>
-            Loading medications...
-          </div>
+          <div className={styles.loadingState}>Loading medications...</div>
         ) : filteredMedications.length > 0 ? (
-          filteredMedications.map(medication => (
+          filteredMedications.map((medication) => (
             <MedicationCard
               key={medication.id}
               medication={medication}

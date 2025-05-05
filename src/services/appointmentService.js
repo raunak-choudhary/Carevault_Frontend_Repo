@@ -2,7 +2,7 @@
 // For now, we'll use localStorage for persistence and simulate API behavior
 
 // Helper function to simulate API delay
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Generate a unique ID
 const generateId = () => {
@@ -14,52 +14,52 @@ const generateId = () => {
 const getAppointments = async (status = 'all') => {
   // Simulate API call
   await delay(800);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id) {
     throw new Error('User not authenticated');
   }
-  
+
   // Get appointments from localStorage or return empty array
   const appointmentsJson = localStorage.getItem('appointments');
   let appointments = appointmentsJson ? JSON.parse(appointmentsJson) : [];
-  
+
   // Filter appointments by user
-  appointments = appointments.filter(appt => appt.userId === user.id);
-  
+  appointments = appointments.filter((appt) => appt.userId === user.id);
+
   // Apply status filter
   if (status !== 'all') {
     const now = new Date();
-    
+
     if (status === 'upcoming') {
       // Filter for appointments in the future and not cancelled
-      appointments = appointments.filter(appt => 
-        new Date(appt.startTime) > now && appt.status !== 'cancelled'
+      appointments = appointments.filter(
+        (appt) => new Date(appt.startTime) > now && appt.status !== 'cancelled',
       );
     } else if (status === 'completed') {
       // Filter for appointments in the past or with status 'completed'
-      appointments = appointments.filter(appt => 
-        new Date(appt.startTime) < now || appt.status === 'completed'
+      appointments = appointments.filter(
+        (appt) => new Date(appt.startTime) < now || appt.status === 'completed',
       );
     } else if (status === 'cancelled') {
       // Filter for cancelled appointments
-      appointments = appointments.filter(appt => appt.status === 'cancelled');
+      appointments = appointments.filter((appt) => appt.status === 'cancelled');
     }
   }
-  
+
   // Sort by date (most recent first for past, soonest first for upcoming)
   appointments.sort((a, b) => {
     const dateA = new Date(a.startTime);
     const dateB = new Date(b.startTime);
-    
+
     if (status === 'completed' || status === 'cancelled') {
       return dateB - dateA; // Most recent first for completed/cancelled
     }
-    
+
     return dateA - dateB; // Soonest first for upcoming
   });
-  
+
   return appointments;
 };
 
@@ -67,18 +67,18 @@ const getAppointments = async (status = 'all') => {
 const getAppointmentById = async (id) => {
   // Simulate API call
   await delay(500);
-  
+
   // Get appointments from localStorage
   const appointmentsJson = localStorage.getItem('appointments');
   const appointments = appointmentsJson ? JSON.parse(appointmentsJson) : [];
-  
+
   // Find appointment with matching ID
-  const appointment = appointments.find(appt => appt.id === id);
-  
+  const appointment = appointments.find((appt) => appt.id === id);
+
   if (!appointment) {
     throw new Error('Appointment not found');
   }
-  
+
   return appointment;
 };
 
@@ -86,17 +86,17 @@ const getAppointmentById = async (id) => {
 const createAppointment = async (appointmentData) => {
   // Simulate API call
   await delay(1000);
-  
+
   // Get user from local storage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (!user.id) {
     throw new Error('User not authenticated');
   }
-  
+
   // Get existing appointments
   const appointmentsJson = localStorage.getItem('appointments');
   const appointments = appointmentsJson ? JSON.parse(appointmentsJson) : [];
-  
+
   // Create new appointment object
   const newAppointment = {
     id: generateId(),
@@ -108,13 +108,13 @@ const createAppointment = async (appointmentData) => {
     startTime: `${appointmentData.date}T${appointmentData.startTime}`,
     endTime: `${appointmentData.date}T${appointmentData.endTime}`,
   };
-  
+
   // Add to appointments array
   appointments.push(newAppointment);
-  
+
   // Save to localStorage
   localStorage.setItem('appointments', JSON.stringify(appointments));
-  
+
   return newAppointment;
 };
 
@@ -122,41 +122,45 @@ const createAppointment = async (appointmentData) => {
 const updateAppointment = async (id, updates) => {
   // Simulate API call
   await delay(800);
-  
+
   // Get appointments from localStorage
   const appointmentsJson = localStorage.getItem('appointments');
   const appointments = appointmentsJson ? JSON.parse(appointmentsJson) : [];
-  
+
   // Find appointment index
-  const appointmentIndex = appointments.findIndex(appt => appt.id === id);
-  
+  const appointmentIndex = appointments.findIndex((appt) => appt.id === id);
+
   if (appointmentIndex === -1) {
     throw new Error('Appointment not found');
   }
-  
+
   // Handle date and time updates
   if (updates.date || updates.startTime || updates.endTime) {
-    const date = updates.date || appointments[appointmentIndex].startTime.split('T')[0];
-    const startTime = updates.startTime || appointments[appointmentIndex].startTime.split('T')[1];
-    const endTime = updates.endTime || appointments[appointmentIndex].endTime.split('T')[1];
-    
+    const date =
+      updates.date || appointments[appointmentIndex].startTime.split('T')[0];
+    const startTime =
+      updates.startTime ||
+      appointments[appointmentIndex].startTime.split('T')[1];
+    const endTime =
+      updates.endTime || appointments[appointmentIndex].endTime.split('T')[1];
+
     updates.startTime = `${date}T${startTime}`;
     updates.endTime = `${date}T${endTime}`;
   }
-  
+
   // Update appointment
   const updatedAppointment = {
     ...appointments[appointmentIndex],
     ...updates,
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString(),
   };
-  
+
   // Replace in array
   appointments[appointmentIndex] = updatedAppointment;
-  
+
   // Save to localStorage
   localStorage.setItem('appointments', JSON.stringify(appointments));
-  
+
   return updatedAppointment;
 };
 
@@ -164,14 +168,14 @@ const updateAppointment = async (id, updates) => {
 const cancelAppointment = async (id, reason) => {
   // Simulate API call
   await delay(800);
-  
+
   // Update appointment with cancelled status
   const updatedAppointment = await updateAppointment(id, {
     status: 'cancelled',
     cancellationReason: reason || 'Cancelled by user',
-    cancelledAt: new Date().toISOString()
+    cancelledAt: new Date().toISOString(),
   });
-  
+
   return updatedAppointment;
 };
 
@@ -179,36 +183,38 @@ const cancelAppointment = async (id, reason) => {
 const getAvailableTimeSlots = async (date, providerId) => {
   // Simulate API call
   await delay(800);
-  
+
   // In a real app, this would query the backend for the provider's availability
   // For now, we'll generate some random time slots
-  
+
   // Set the base hours (9 AM to 6 PM)
   const baseHours = Array.from({ length: 10 }, (_, i) => i + 9);
-  
+
   // Generate slots for every hour
-  const timeSlots = baseHours.map(hour => {
-    // Create 30-minute slots
-    const slot1 = {
-      startTime: `${hour.toString().padStart(2, '0')}:00`,
-      endTime: `${hour.toString().padStart(2, '0')}:30`
-    };
-    
-    const slot2 = {
-      startTime: `${hour.toString().padStart(2, '0')}:30`,
-      endTime: `${(hour + 1).toString().padStart(2, '0')}:00`
-    };
-    
-    return [slot1, slot2];
-  }).flat();
-  
+  const timeSlots = baseHours
+    .map((hour) => {
+      // Create 30-minute slots
+      const slot1 = {
+        startTime: `${hour.toString().padStart(2, '0')}:00`,
+        endTime: `${hour.toString().padStart(2, '0')}:30`,
+      };
+
+      const slot2 = {
+        startTime: `${hour.toString().padStart(2, '0')}:30`,
+        endTime: `${(hour + 1).toString().padStart(2, '0')}:00`,
+      };
+
+      return [slot1, slot2];
+    })
+    .flat();
+
   // Randomly remove some slots to simulate unavailability
   const randomIndex = parseInt(providerId.charAt(0), 16) % 10; // Use provider ID to seed pseudo-randomness
   const availableSlots = timeSlots.filter((_, index) => {
     // Remove ~30% of slots randomly
     return (index + randomIndex) % 3 !== 0;
   });
-  
+
   return availableSlots;
 };
 
@@ -218,5 +224,5 @@ export {
   createAppointment,
   updateAppointment,
   cancelAppointment,
-  getAvailableTimeSlots
+  getAvailableTimeSlots,
 };

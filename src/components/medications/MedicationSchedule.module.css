@@ -1,193 +1,194 @@
 .scheduleContainer {
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-md);
-    overflow: hidden;
-  }
-  
-  .scheduleHeader {
-    padding: var(--spacing-md);
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .daySelector {
-    display: flex;
-    gap: var(--spacing-xs);
-  }
-  
-  .daySelectorButton {
-    flex: 1;
-    background-color: var(--bg-tertiary);
-    color: var(--text-secondary);
-    border: none;
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-sm);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    font-size: var(--font-size-sm);
-  }
-  
-  .daySelectorButton:hover {
-    background-color: var(--border-color);
-  }
-  
-  .daySelectorButtonActive {
-    background-color: var(--primary);
-    color: white;
-  }
-  
-  .daySelectorButtonActive:hover {
-    background-color: var(--primary-dark);
-  }
-  
-  .scheduleContent {
-    padding: var(--spacing-md);
-  }
-  
-  .scheduleDay + .scheduleDay {
-    margin-top: var(--spacing-lg);
-    padding-top: var(--spacing-lg);
-    border-top: 1px dashed var(--border-color);
-  }
-  
-  .scheduleDate {
-    font-weight: 600;
-    margin-bottom: var(--spacing-sm);
-    color: var(--primary);
-  }
-  
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.scheduleHeader {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.daySelector {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.daySelectorButton {
+  flex: 1;
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: none;
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-sm);
+}
+
+.daySelectorButton:hover {
+  background-color: var(--border-color);
+}
+
+.daySelectorButtonActive {
+  background-color: var(--primary);
+  color: white;
+}
+
+.daySelectorButtonActive:hover {
+  background-color: var(--primary-dark);
+}
+
+.scheduleContent {
+  padding: var(--spacing-md);
+}
+
+.scheduleDay + .scheduleDay {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px dashed var(--border-color);
+}
+
+.scheduleDate {
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  color: var(--primary);
+}
+
+.doseItem {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-sm);
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-sm);
+  transition: all var(--transition-fast);
+}
+
+.doseItem:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.doseTaken {
+  background-color: rgba(76, 175, 80, 0.1);
+  border-left: 3px solid var(--primary);
+}
+
+.doseSkipped {
+  background-color: rgba(158, 158, 158, 0.1);
+  border-left: 3px solid var(--text-secondary);
+  opacity: 0.7;
+}
+
+.doseTime {
+  display: flex;
+  align-items: center;
+  min-width: 80px;
+  font-weight: 600;
+}
+
+.doseTimeIcon {
+  margin-right: var(--spacing-xs);
+  color: var(--primary);
+}
+
+.doseInfo {
+  flex: 1;
+  margin: 0 var(--spacing-md);
+}
+
+.doseName {
+  font-weight: 500;
+}
+
+.doseDosage {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.doseInstructions {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-top: var(--spacing-xs);
+}
+
+.doseActions {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.takenButton,
+.skipButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.takenButton {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: var(--primary);
+}
+
+.takenButton:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.skipButton {
+  background-color: rgba(158, 158, 158, 0.1);
+  color: var(--text-secondary);
+}
+
+.skipButton:hover {
+  background-color: var(--text-secondary);
+  color: white;
+}
+
+.doseStatus {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.noDoses {
+  padding: var(--spacing-md);
+  color: var(--text-secondary);
+  font-style: italic;
+  text-align: center;
+}
+
+.emptyState {
+  text-align: center;
+  padding: var(--spacing-lg);
+  color: var(--text-secondary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .doseItem {
-    display: flex;
-    align-items: center;
-    padding: var(--spacing-sm);
-    background-color: var(--bg-secondary);
-    border-radius: var(--border-radius-md);
-    margin-bottom: var(--spacing-sm);
-    transition: all var(--transition-fast);
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .doseItem:hover {
-    background-color: var(--bg-tertiary);
-  }
-  
-  .doseTaken {
-    background-color: rgba(76, 175, 80, 0.1);
-    border-left: 3px solid var(--primary);
-  }
-  
-  .doseSkipped {
-    background-color: rgba(158, 158, 158, 0.1);
-    border-left: 3px solid var(--text-secondary);
-    opacity: 0.7;
-  }
-  
+
   .doseTime {
-    display: flex;
-    align-items: center;
-    min-width: 80px;
-    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
   }
-  
-  .doseTimeIcon {
-    margin-right: var(--spacing-xs);
-    color: var(--primary);
-  }
-  
+
   .doseInfo {
-    flex: 1;
-    margin: 0 var(--spacing-md);
+    margin: var(--spacing-xs) 0;
+    width: 100%;
   }
-  
-  .doseName {
-    font-weight: 500;
-  }
-  
-  .doseDosage {
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-  }
-  
-  .doseInstructions {
-    font-size: var(--font-size-xs);
-    color: var(--text-secondary);
-    font-style: italic;
+
+  .doseActions {
+    width: 100%;
+    justify-content: flex-end;
     margin-top: var(--spacing-xs);
   }
-  
-  .doseActions {
-    display: flex;
-    gap: var(--spacing-xs);
-  }
-  
-  .takenButton, .skipButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-  }
-  
-  .takenButton {
-    background-color: rgba(76, 175, 80, 0.1);
-    color: var(--primary);
-  }
-  
-  .takenButton:hover {
-    background-color: var(--primary);
-    color: white;
-  }
-  
-  .skipButton {
-    background-color: rgba(158, 158, 158, 0.1);
-    color: var(--text-secondary);
-  }
-  
-  .skipButton:hover {
-    background-color: var(--text-secondary);
-    color: white;
-  }
-  
-  .doseStatus {
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-  }
-  
-  .noDoses {
-    padding: var(--spacing-md);
-    color: var(--text-secondary);
-    font-style: italic;
-    text-align: center;
-  }
-  
-  .emptyState {
-    text-align: center;
-    padding: var(--spacing-lg);
-    color: var(--text-secondary);
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .doseItem {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    
-    .doseTime {
-      margin-bottom: var(--spacing-xs);
-    }
-    
-    .doseInfo {
-      margin: var(--spacing-xs) 0;
-      width: 100%;
-    }
-    
-    .doseActions {
-      width: 100%;
-      justify-content: flex-end;
-      margin-top: var(--spacing-xs);
-    }
-  }
+}

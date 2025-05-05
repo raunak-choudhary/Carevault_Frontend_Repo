@@ -1,144 +1,144 @@
 .medicationsPage {
-    padding: var(--spacing-md);
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
+  padding: var(--spacing-md);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.pageHeader h1 {
+  margin: 0;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background-color: var(--primary);
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.addButton:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.tabNavigation {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tabButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: none;
+  border: none;
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-md);
+  border-bottom: 3px solid transparent;
+}
+
+.tabButton:hover {
+  color: var(--primary);
+}
+
+.activeTab {
+  color: var(--primary);
+  border-bottom: 3px solid var(--primary);
+}
+
+.tabIcon {
+  font-size: var(--font-size-lg);
+}
+
+.errorMessage {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xl);
+}
+
+.tabContent {
+  min-height: 400px;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-xl);
+  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.addEmptyButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--primary);
+  color: white;
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.addEmptyButton:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .pageHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .pageHeader h1 {
-    margin: 0;
-  }
-  
-  .addButton {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    background-color: var(--primary);
-    color: white;
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    transition: background-color var(--transition-fast);
-  }
-  
-  .addButton:hover {
-    background-color: var(--primary-dark);
-    color: white;
-  }
-  
-  .tabNavigation {
-    display: flex;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .tabButton {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    background: none;
-    border: none;
-    padding: var(--spacing-md) var(--spacing-lg);
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    font-size: var(--font-size-md);
-    border-bottom: 3px solid transparent;
-  }
-  
-  .tabButton:hover {
-    color: var(--primary);
-  }
-  
-  .activeTab {
-    color: var(--primary);
-    border-bottom: 3px solid var(--primary);
-  }
-  
-  .tabIcon {
-    font-size: var(--font-size-lg);
-  }
-  
-  .errorMessage {
-    background-color: rgba(244, 67, 54, 0.1);
-    color: #f44336;
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-md);
-    margin-bottom: var(--spacing-md);
-  }
-  
-  .loadingContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: var(--spacing-xl);
-  }
-  
-  .tabContent {
-    min-height: 400px;
-  }
-  
-  .emptyState {
-    display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .addButton {
+    align-self: flex-start;
+  }
+
+  .tabNavigation {
+    width: 100%;
+    gap: 0;
+  }
+
+  .tabButton {
+    flex: 1;
+    padding: var(--spacing-sm);
     justify-content: center;
-    text-align: center;
-    padding: var(--spacing-xl);
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-sm);
   }
-  
-  .addEmptyButton {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    margin-top: var(--spacing-md);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    background-color: var(--primary);
-    color: white;
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    transition: background-color var(--transition-fast);
+
+  .tabIcon {
+    margin-right: 0;
   }
-  
-  .addEmptyButton:hover {
-    background-color: var(--primary-dark);
-    color: white;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .pageHeader {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--spacing-sm);
-    }
-    
-    .addButton {
-      align-self: flex-start;
-    }
-    
-    .tabNavigation {
-      width: 100%;
-      gap: 0;
-    }
-    
-    .tabButton {
-      flex: 1;
-      padding: var(--spacing-sm);
-      justify-content: center;
-    }
-    
-    .tabIcon {
-      margin-right: 0;
-    }
-  }
+}

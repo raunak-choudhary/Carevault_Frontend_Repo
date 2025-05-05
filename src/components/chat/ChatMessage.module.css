@@ -1,105 +1,105 @@
 .message {
-    display: flex;
-    flex-direction: column;
-    max-width: 80%;
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--border-radius-md);
-    position: relative;
-    word-break: break-word;
-    margin-bottom: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  position: relative;
+  word-break: break-word;
+  margin-bottom: var(--spacing-md);
+}
+
+.userMessage {
+  align-self: flex-end;
+  background-color: var(--primary);
+  color: white;
+  border-bottom-right-radius: 0;
+}
+
+.aiMessage {
+  align-self: flex-start;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-bottom-left-radius: 0;
+}
+
+.errorMessage {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #f44336;
+}
+
+.messageContent {
+  margin-bottom: var(--spacing-xs);
+}
+
+.messageContent p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.messageTime {
+  align-self: flex-end;
+  font-size: var(--font-size-xs);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.aiMessage .messageTime {
+  color: var(--text-secondary);
+}
+
+.attachment {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.userMessage .attachment {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.aiMessage .attachment {
+  background-color: var(--bg-secondary);
+}
+
+.attachmentName {
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.referencedDocuments {
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+}
+
+.referencedTitle {
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+  display: block;
+}
+
+.referencedItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+}
+
+@media (max-width: 768px) {
+  .message {
+    max-width: 90%;
   }
-  
-  .userMessage {
-    align-self: flex-end;
-    background-color: var(--primary);
-    color: white;
-    border-bottom-right-radius: 0;
-  }
-  
-  .aiMessage {
-    align-self: flex-start;
-    background-color: var(--bg-tertiary);
-    color: var(--text-primary);
-    border-bottom-left-radius: 0;
-  }
-  
-  .errorMessage {
-    background-color: rgba(244, 67, 54, 0.1);
-    color: #f44336;
-  }
-  
-  .messageContent {
-    margin-bottom: var(--spacing-xs);
-  }
-  
-  .messageContent p {
-    margin: 0;
-    line-height: 1.5;
-  }
-  
-  .messageTime {
-    align-self: flex-end;
-    font-size: var(--font-size-xs);
-    color: rgba(255, 255, 255, 0.7);
-  }
-  
-  .aiMessage .messageTime {
-    color: var(--text-secondary);
-  }
-  
-  .attachment {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius-sm);
-    margin-top: var(--spacing-sm);
-  }
-  
-  .userMessage .attachment {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-  
-  .aiMessage .attachment {
-    background-color: var(--bg-secondary);
-  }
-  
+
   .attachmentName {
-    font-size: var(--font-size-sm);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px;
+    max-width: 150px;
   }
-  
-  .referencedDocuments {
-    margin-top: var(--spacing-sm);
-    font-size: var(--font-size-sm);
-    background-color: rgba(0, 0, 0, 0.05);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius-sm);
-  }
-  
-  .referencedTitle {
-    font-weight: 500;
-    margin-bottom: var(--spacing-xs);
-    display: block;
-  }
-  
-  .referencedItem {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    margin-top: var(--spacing-xs);
-  }
-  
-  @media (max-width: 768px) {
-    .message {
-      max-width: 90%;
-    }
-    
-    .attachmentName {
-      max-width: 150px;
-    }
-  }
+}

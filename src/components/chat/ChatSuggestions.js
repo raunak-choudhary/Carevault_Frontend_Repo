@@ -1,11 +1,15 @@
 import React from 'react';
 import styles from './ChatSuggestions.module.css';
 
-const ChatSuggestions = ({ suggestions = [], onSuggestionClick, isVisible = true }) => {
+const ChatSuggestions = ({
+  suggestions = [],
+  onSuggestionClick,
+  isVisible = true,
+}) => {
   if (!isVisible || !suggestions.length) {
     return null;
   }
-  
+
   return (
     <div className={styles.suggestionsContainer}>
       <div className={styles.suggestionsLabel}>Suggested questions:</div>

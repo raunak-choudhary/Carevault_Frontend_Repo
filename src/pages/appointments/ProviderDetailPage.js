@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { FiArrowLeft, FiMapPin, FiPhone, FiClock, FiStar, FiCalendar } from 'react-icons/fi';
+import {
+  FiArrowLeft,
+  FiMapPin,
+  FiPhone,
+  FiClock,
+  FiStar,
+  FiCalendar,
+} from 'react-icons/fi';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import MapView from '../../components/appointments/MapView';
 import { getProviderById } from '../../services/providerService';
@@ -11,7 +18,7 @@ const ProviderDetailPage = () => {
   const [provider, setProvider] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   useEffect(() => {
     const fetchProvider = async () => {
       try {
@@ -26,35 +33,37 @@ const ProviderDetailPage = () => {
         setLoading(false);
       }
     };
-    
+
     fetchProvider();
   }, [id]);
-  
+
   // Format rating to include decimal point only if needed
   const formatRating = (rating) => {
     return rating % 1 === 0 ? rating.toFixed(0) : rating.toFixed(1);
   };
-  
+
   // Add stars for rating
   const renderRatingStars = (rating) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
-    
+
     return (
       <div className={styles.ratingStars}>
         {Array.from({ length: fullStars }).map((_, index) => (
           <FiStar key={index} className={styles.starFilled} />
         ))}
-        
+
         {hasHalfStar && <FiStar className={styles.starHalf} />}
-        
-        {Array.from({ length: 5 - fullStars - (hasHalfStar ? 1 : 0) }).map((_, index) => (
-          <FiStar key={`empty-${index}`} className={styles.starEmpty} />
-        ))}
+
+        {Array.from({ length: 5 - fullStars - (hasHalfStar ? 1 : 0) }).map(
+          (_, index) => (
+            <FiStar key={`empty-${index}`} className={styles.starEmpty} />
+          ),
+        )}
       </div>
     );
   };
-  
+
   return (
     <div className={styles.detailPage}>
       <div className={styles.pageHeader}>
@@ -63,11 +72,9 @@ const ProviderDetailPage = () => {
         </Link>
         <h1>Provider Details</h1>
       </div>
-      
-      {error && (
-        <div className={styles.errorMessage}>{error}</div>
-      )}
-      
+
+      {error && <div className={styles.errorMessage}>{error}</div>}
+
       {loading ? (
         <div className={styles.loadingContainer}>
           <LoadingSpinner size="large" />
@@ -77,30 +84,40 @@ const ProviderDetailPage = () => {
           <div className={styles.providerHeader}>
             <div className={styles.providerAvatar}>
               {provider.imageUrl ? (
-                <img src={provider.imageUrl} alt={provider.name} className={styles.providerImage} />
+                <img
+                  src={provider.imageUrl}
+                  alt={provider.name}
+                  className={styles.providerImage}
+                />
               ) : (
                 <div className={styles.providerInitial}>
                   {provider.name.charAt(0)}
                 </div>
               )}
             </div>
-            
+
             <div className={styles.providerInfo}>
               <h2 className={styles.providerName}>{provider.name}</h2>
-              <p className={styles.providerSpecialty}>{provider.specialization}</p>
-              
+              <p className={styles.providerSpecialty}>
+                {provider.specialization}
+              </p>
+
               {provider.rating && (
                 <div className={styles.providerRating}>
-                  <span className={styles.ratingValue}>{formatRating(provider.rating)}</span>
+                  <span className={styles.ratingValue}>
+                    {formatRating(provider.rating)}
+                  </span>
                   {renderRatingStars(provider.rating)}
                   {provider.reviewCount && (
-                    <span className={styles.reviewCount}>({provider.reviewCount} reviews)</span>
+                    <span className={styles.reviewCount}>
+                      ({provider.reviewCount} reviews)
+                    </span>
                   )}
                 </div>
               )}
-              
-              <Link 
-                to={`/appointments/create?providerId=${provider.id}`} 
+
+              <Link
+                to={`/appointments/create?providerId=${provider.id}`}
                 className={styles.scheduleButton}
               >
                 <FiCalendar className={styles.buttonIcon} />
@@ -108,7 +125,7 @@ const ProviderDetailPage = () => {
               </Link>
             </div>
           </div>
-          
+
           <div className={styles.providerDetails}>
             <div className={styles.detailsSection}>
               <h3>Contact Information</h3>
@@ -123,7 +140,7 @@ const ProviderDetailPage = () => {
                   </div>
                 </div>
               )}
-              
+
               {provider.hours && (
                 <div className={styles.detailItem}>
                   <div className={styles.detailIcon}>
@@ -136,21 +153,21 @@ const ProviderDetailPage = () => {
                 </div>
               )}
             </div>
-            
+
             {provider.about && (
               <div className={styles.aboutSection}>
                 <h3>About</h3>
                 <p className={styles.aboutText}>{provider.about}</p>
               </div>
             )}
-            
+
             {provider.address && (
               <div className={styles.locationSection}>
                 <h3>Location</h3>
                 <div className={styles.addressText}>
                   <FiMapPin className={styles.addressIcon} /> {provider.address}
                 </div>
-                
+
                 <div className={styles.mapContainer}>
                   <MapView address={provider.address} />
                 </div>
@@ -159,9 +176,7 @@ const ProviderDetailPage = () => {
           </div>
         </div>
       ) : (
-        <div className={styles.notFoundMessage}>
-          Provider not found
-        </div>
+        <div className={styles.notFoundMessage}>Provider not found</div>
       )}
     </div>
   );

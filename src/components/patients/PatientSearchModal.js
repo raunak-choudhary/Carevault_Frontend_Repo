@@ -10,29 +10,30 @@ const PatientSearchModal = ({ isOpen, onClose, onSelectPatient }) => {
   const modalRef = useRef(null);
   const searchInputRef = useRef(null);
   const resultsRef = useRef(null);
-  
+
   // Filter patients when search term changes
   useEffect(() => {
     if (!searchTerm.trim()) {
       setFilteredPatients(patients.slice(0, 5)); // Show first 5 patients when no search
     } else {
-      const filtered = patients.filter(patient => {
-        const fullName = `${patient.firstName || ''} ${patient.lastName || ''}`.toLowerCase();
+      const filtered = patients.filter((patient) => {
+        const fullName =
+          `${patient.firstName || ''} ${patient.lastName || ''}`.toLowerCase();
         const email = (patient.email || '').toLowerCase();
         const phone = (patient.contactPhone || '').toLowerCase();
         const searchLower = searchTerm.toLowerCase();
-        
+
         return (
           fullName.includes(searchLower) ||
           email.includes(searchLower) ||
           phone.includes(searchLower)
         );
       });
-      
+
       setFilteredPatients(filtered);
     }
   }, [searchTerm, patients]);
-  
+
   // Focus search input when modal opens
   useEffect(() => {
     if (isOpen && searchInputRef.current) {
@@ -41,7 +42,7 @@ const PatientSearchModal = ({ isOpen, onClose, onSelectPatient }) => {
       }, 100);
     }
   }, [isOpen]);
-  
+
   // Close modal on escape key
   useEffect(() => {
     const handleEscape = (e) => {
@@ -49,16 +50,16 @@ const PatientSearchModal = ({ isOpen, onClose, onSelectPatient }) => {
         onClose();
       }
     };
-    
+
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
     }
-    
+
     return () => {
       document.removeEventListener('keydown', handleEscape);
     };
   }, [isOpen, onClose]);
-  
+
   // Handle click outside to close modal
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -66,31 +67,31 @@ const PatientSearchModal = ({ isOpen, onClose, onSelectPatient }) => {
         onClose();
       }
     };
-    
+
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
-    
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen, onClose]);
-  
+
   // Reset search term when modal closes
   useEffect(() => {
     if (!isOpen) {
       setSearchTerm('');
     }
   }, [isOpen]);
-  
+
   if (!isOpen) return null;
-  
+
   // Enhanced patient selection with complete patient object
   const handleSelectPatient = (patient) => {
     // Ensure we pass the entire patient object for proper handling
     onSelectPatient(patient);
   };
-  
+
   // Handle search input change
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -99,19 +100,24 @@ const PatientSearchModal = ({ isOpen, onClose, onSelectPatient }) => {
       resultsRef.current.scrollTop = 0;
     }
   };
-  
+
   // Clear search input
   const handleClearSearch = () => {
     setSearchTerm('');
     searchInputRef.current.focus();
   };
-  
+
   return (
-    <div className={styles.modalOverlay} role="dialog" aria-modal="true" aria-label="Find Patient">
+    <div
+      className={styles.modalOverlay}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Find Patient"
+    >
       <div className={styles.modal} ref={modalRef}>
         <div className={styles.modalHeader}>
           <h2>Find Patient</h2>
-          <button 
+          <button
             className={styles.closeButton}
             onClick={onClose}
             aria-label="Close modal"
@@ -119,7 +125,7 @@ const PatientSearchModal = ({ isOpen, onClose, onSelectPatient }) => {
             <FiX />
           </button>
         </div>
-        
+
         <div className={styles.searchContainer}>
           <FiSearch className={styles.searchIcon} />
           <input
@@ -132,7 +138,7 @@ const PatientSearchModal = ({ isOpen, onClose, onSelectPatient }) => {
             aria-label="Search patients"
           />
           {searchTerm && (
-            <button 
+            <button
               className={styles.clearButton}
               onClick={handleClearSearch}
               aria-label="Clear search"
@@ -141,11 +147,11 @@ const PatientSearchModal = ({ isOpen, onClose, onSelectPatient }) => {
             </button>
           )}
         </div>
-        
+
         <div className={styles.patientResults} ref={resultsRef}>
           {filteredPatients.length > 0 ? (
             <ul className={styles.patientList}>
-              {filteredPatients.map(patient => (
+              {filteredPatients.map((patient) => (
                 <li key={patient.id}>
                   <button
                     className={styles.patientItem}
@@ -154,9 +160,9 @@ const PatientSearchModal = ({ isOpen, onClose, onSelectPatient }) => {
                   >
                     <div className={styles.patientAvatar}>
                       {patient.avatar ? (
-                        <img 
-                          src={patient.avatar} 
-                          alt={`${patient.firstName} ${patient.lastName}`} 
+                        <img
+                          src={patient.avatar}
+                          alt={`${patient.firstName} ${patient.lastName}`}
                         />
                       ) : (
                         <FiUser className={styles.avatarIcon} />
@@ -187,7 +193,9 @@ const PatientSearchModal = ({ isOpen, onClose, onSelectPatient }) => {
             </ul>
           ) : (
             <div className={styles.noResults}>
-              {searchTerm ? 'No patients found matching your search' : 'No patients available'}
+              {searchTerm
+                ? 'No patients found matching your search'
+                : 'No patients available'}
             </div>
           )}
         </div>

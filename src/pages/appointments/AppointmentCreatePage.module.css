@@ -130,7 +130,7 @@
   .createContainer {
     grid-template-columns: 1fr;
   }
-  
+
   .createInfoSidebar {
     order: -1;
     margin-bottom: var(--spacing-md);

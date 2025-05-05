@@ -25,7 +25,7 @@ const PatientProfilePage = () => {
         setLoading(true);
         const patientData = await getPatientById(id);
         setPatient(patientData);
-        
+
         // Convert data for form fields
         setFormData({
           firstName: patientData.firstName || '',
@@ -37,9 +37,9 @@ const PatientProfilePage = () => {
           address: patientData.address || '',
           emergencyContact: patientData.emergencyContact || '',
           healthId: patientData.healthId || '',
-          notes: patientData.notes || ''
+          notes: patientData.notes || '',
         });
-        
+
         setError(null);
       } catch (err) {
         console.error('Error fetching patient:', err);
@@ -59,14 +59,14 @@ const PatientProfilePage = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
-    
+
     // Clear validation error when user types
     if (validationErrors[name]) {
-      setValidationErrors(prev => ({
+      setValidationErrors((prev) => ({
         ...prev,
-        [name]: undefined
+        [name]: undefined,
       }));
     }
   };
@@ -74,19 +74,19 @@ const PatientProfilePage = () => {
   // Validate form data
   const validateForm = () => {
     const errors = {};
-    
+
     if (!formData.firstName.trim()) {
       errors.firstName = 'First name is required';
     }
-    
+
     if (!formData.lastName.trim()) {
       errors.lastName = 'Last name is required';
     }
-    
+
     if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = 'Please enter a valid email address';
     }
-    
+
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -94,16 +94,16 @@ const PatientProfilePage = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validate form
     if (!validateForm()) {
       return;
     }
-    
+
     try {
       setSaving(true);
       setError(null);
-      
+
       // Update patient
       await updatePatient(id, {
         firstName: formData.firstName,
@@ -115,12 +115,12 @@ const PatientProfilePage = () => {
         address: formData.address,
         emergencyContact: formData.emergencyContact,
         healthId: formData.healthId,
-        notes: formData.notes
+        notes: formData.notes,
       });
-      
+
       // Refresh patient data in context to update UI everywhere
       await refreshActivePatient();
-      
+
       // Redirect to patients list on success
       navigate('/patients');
     } catch (err) {
@@ -161,12 +161,12 @@ const PatientProfilePage = () => {
           <h1>Edit Patient Profile</h1>
         </div>
       </div>
-      
+
       <div className={styles.formWrapper}>
         <div className={styles.formIcon}>
           <FiUser size={40} />
         </div>
-        
+
         <PatientForm
           formData={formData}
           handleChange={handleChange}

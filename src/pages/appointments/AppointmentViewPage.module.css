@@ -99,7 +99,8 @@
   gap: var(--spacing-sm);
 }
 
-.editButton, .cancelButton {
+.editButton,
+.cancelButton {
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
@@ -175,13 +176,17 @@
   font-weight: 500;
 }
 
-.locationSection, .notesSection, .cancellationSection {
+.locationSection,
+.notesSection,
+.cancellationSection {
   margin-top: var(--spacing-md);
   padding-top: var(--spacing-md);
   border-top: 1px solid var(--border-color);
 }
 
-.locationSection h3, .notesSection h3, .cancellationSection h3 {
+.locationSection h3,
+.notesSection h3,
+.cancellationSection h3 {
   display: flex;
   align-items: center;
   margin-top: 0;
@@ -292,7 +297,8 @@
   gap: var(--spacing-md);
 }
 
-.modalCancelButton, .modalConfirmButton {
+.modalCancelButton,
+.modalConfirmButton {
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
@@ -333,26 +339,27 @@
     flex-direction: column;
     gap: var(--spacing-md);
   }
-  
+
   .appointmentTitle {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-xs);
   }
-  
+
   .detailsSection {
     grid-template-columns: 1fr;
   }
-  
+
   .modalContent {
     max-width: 90%;
   }
-  
+
   .modalActions {
     flex-direction: column;
   }
-  
-  .modalCancelButton, .modalConfirmButton {
+
+  .modalCancelButton,
+  .modalConfirmButton {
     width: 100%;
     justify-content: center;
   }
