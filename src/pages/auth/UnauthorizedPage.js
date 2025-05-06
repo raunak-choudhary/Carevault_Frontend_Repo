@@ -10,14 +10,13 @@ const UnauthorizedPage = () => {
         <div className={styles.iconContainer}>
           <FiAlertTriangle className={styles.icon} />
         </div>
-
+        
         <h1 className={styles.title}>Access Denied</h1>
-
+        
         <p className={styles.message}>
-          You don't have permission to access this page. Please contact your
-          administrator if you believe this is an error.
+          You don't have permission to access this page. Please contact your administrator if you believe this is an error.
         </p>
-
+        
         <div className={styles.actions}>
           <Link to="/dashboard" className={styles.backButton}>
             <FiArrowLeft className={styles.buttonIcon} />
