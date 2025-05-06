@@ -1,9 +1,11 @@
 // ProblemStatement.js
 import React, { useRef, useEffect, useState } from 'react';
-import { FiAlertCircle, FiHelpCircle, FiSearch, FiCheckCircle } from 'react-icons/fi';
+import { FiAlertCircle, FiHelpCircle, FiSearch, FiCheckCircle, FiLayers } from 'react-icons/fi';
 import styles from './ProblemStatement.module.css';
 // Import the logo
 import carevaultLogo from '../../assets/images/carevault-logo.png';
+// Import architecture diagram
+import architectureDiagram from '../../assets/images/carevault_arch.png';
 
 const ProblemStatement = ({ problemData }) => {
   const [activeTab, setActiveTab] = useState('problem');
@@ -14,7 +16,8 @@ const ProblemStatement = ({ problemData }) => {
     { id: 'problem', label: 'Problem', icon: <FiAlertCircle /> },
     { id: 'subproblems', label: 'Sub-Problems', icon: <FiHelpCircle /> },
     { id: 'investigation', label: 'Investigation', icon: <FiSearch /> },
-    { id: 'importance', label: 'Importance', icon: <FiCheckCircle /> }
+    { id: 'importance', label: 'Importance', icon: <FiCheckCircle /> },
+    { id: 'architecture', label: 'Architecture', icon: <FiLayers /> }
   ];
 
   // Handle tab changes
@@ -228,6 +231,84 @@ const ProblemStatement = ({ problemData }) => {
                 <div className={styles.impactMetric}>
                   <div className={styles.metricValue}>3.8<span>hrs</span></div>
                   <div className={styles.metricLabel}>Average time saved weekly with integrated healthcare tools</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {activeTab === 'architecture' && (
+          <div className={styles.tabPanel} id="architecture-panel" role="tabpanel" aria-labelledby="architecture-tab">
+            <h3 className={styles.tabTitle}>Technical Architecture</h3>
+            
+            <p className={styles.architectureIntro}>
+              CareVault implements a modern, scalable architecture designed for security, performance, and extensibility. The system combines dedicated frontend components with robust backend services and AI integration.
+            </p>
+            
+            <div className={styles.architectureDiagramContainer}>
+              <img 
+                src={architectureDiagram} 
+                alt="CareVault Architecture Diagram" 
+                className={styles.architectureDiagram} 
+              />
+            </div>
+            
+            <div className={styles.architectureDetails}>
+              <div className={styles.architectureFeatures}>
+                <div className={styles.architectureFeature}>
+                  <div className={styles.featureIcon}>
+                    <FiLayers />
+                  </div>
+                  <div className={styles.featureContent}>
+                    <h4>Layered Architecture</h4>
+                    <p>Clearly separated presentation, business logic, and data layers ensure maintainability and testability.</p>
+                  </div>
+                </div>
+                
+                <div className={styles.architectureFeature}>
+                  <div className={styles.featureIcon}>
+                    <FiAlertCircle />
+                  </div>
+                  <div className={styles.featureContent}>
+                    <h4>Security First</h4>
+                    <p>HIPAA-compliant data management with end-to-end encryption for all patient information.</p>
+                  </div>
+                </div>
+                
+                <div className={styles.architectureFeature}>
+                  <div className={styles.featureIcon}>
+                    <FiSearch />
+                  </div>
+                  <div className={styles.featureContent}>
+                    <h4>AI Integration</h4>
+                    <p>Secure LLM integration with RAG architecture for advanced document processing and intelligent insights.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className={styles.techStackContainer}>
+                <h4 className={styles.techStackTitle}>Technology Stack</h4>
+                <div className={styles.techStack}>
+                  <div className={styles.techItem}>
+                    <span className={styles.techLabel}>Frontend</span>
+                    <span className={styles.techValue}>React, CSS Modules</span>
+                  </div>
+                  <div className={styles.techItem}>
+                    <span className={styles.techLabel}>Backend</span>
+                    <span className={styles.techValue}>Node.js, Express</span>
+                  </div>
+                  <div className={styles.techItem}>
+                    <span className={styles.techLabel}>Database</span>
+                    <span className={styles.techValue}>PostgreSQL</span>
+                  </div>
+                  <div className={styles.techItem}>
+                    <span className={styles.techLabel}>AI Services</span>
+                    <span className={styles.techValue}>LangChain, OpenAI</span>
+                  </div>
+                  <div className={styles.techItem}>
+                    <span className={styles.techLabel}>Authentication</span>
+                    <span className={styles.techValue}>JWT, OAuth 2.0</span>
+                  </div>
                 </div>
               </div>
             </div>

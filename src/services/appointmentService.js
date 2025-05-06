@@ -39,38 +39,15 @@ const getAppointmentById = async (id) => {
 
 // Create a new appointment
 const createAppointment = async (appointmentData) => {
-  // Simulate API call
-  await delay(1000);
+  console.log(appointmentData);
 
-  // Get user from local storage
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  if (!user.id) {
-    throw new Error('User not authenticated');
-  }
-
-  // Get existing appointments
-  const appointmentsJson = localStorage.getItem('appointments');
-  const appointments = appointmentsJson ? JSON.parse(appointmentsJson) : [];
-
-  // Create new appointment object
-  const newAppointment = {
-    id: generateId(),
-    userId: user.id,
-    createdAt: new Date().toISOString(),
-    status: 'scheduled',
+  const response = await apiClient.post('/appointments/', {
     ...appointmentData,
-    // Combine date and time for start/end times
-    startTime: `${appointmentData.date}T${appointmentData.startTime}`,
-    endTime: `${appointmentData.date}T${appointmentData.endTime}`,
-  };
+  });
+  const data = response.data;
+  const appointment = data?.data || null;
 
-  // Add to appointments array
-  appointments.push(newAppointment);
-
-  // Save to localStorage
-  localStorage.setItem('appointments', JSON.stringify(appointments));
-
-  return newAppointment;
+  return appointment;
 };
 
 // Update an appointment

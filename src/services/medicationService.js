@@ -86,42 +86,48 @@ const getMedicationById = async (id) => {
 
 // Add a new medication
 const addMedication = async (medicationData) => {
-  // Simulate API call
-  await delay(1000);
-
-  // Get user from local storage
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  if (!user.id) {
-    throw new Error('User not authenticated');
-  }
-
-  // Get existing medications
-  const medicationsJson = localStorage.getItem('medications');
-  const medications = medicationsJson ? JSON.parse(medicationsJson) : [];
-
-  // Format date fields for consistent storage
-  const formattedData = {
+  
+  const response = await apiClient.post('/medications/', {
     ...medicationData,
-    refillDate: formatDateForStorage(medicationData.refillDate),
-  };
+  });
 
-  // Create new medication object
-  const newMedication = {
-    id: generateId(),
-    userId: user.id,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    status: 'active',
-    ...formattedData,
-  };
+  const data = response.data;
 
-  // Add to medications array
-  medications.push(newMedication);
+  const medication = data?.data || null;
 
-  // Save to localStorage
-  localStorage.setItem('medications', JSON.stringify(medications));
+  // // Get user from local storage
+  // const user = JSON.parse(localStorage.getItem('user') || '{}');
+  // if (!user.id) {
+  //   throw new Error('User not authenticated');
+  // }
 
-  return newMedication;
+  // // Get existing medications
+  // const medicationsJson = localStorage.getItem('medications');
+  // const medications = medicationsJson ? JSON.parse(medicationsJson) : [];
+
+  // // Format date fields for consistent storage
+  // const formattedData = {
+  //   ...medicationData,
+  //   refillDate: formatDateForStorage(medicationData.refillDate),
+  // };
+
+  // // Create new medication object
+  // const newMedication = {
+  //   id: generateId(),
+  //   userId: user.id,
+  //   createdAt: new Date().toISOString(),
+  //   updatedAt: new Date().toISOString(),
+  //   status: 'active',
+  //   ...formattedData,
+  // };
+
+  // // Add to medications array
+  // medications.push(newMedication);
+
+  // // Save to localStorage
+  // localStorage.setItem('medications', JSON.stringify(medications));
+
+  return medication;
 };
 
 // Update an existing medication

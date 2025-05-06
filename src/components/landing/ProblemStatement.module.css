@@ -1,658 +1,843 @@
 /* ProblemStatement.module.css */
 .problemStatement {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  background-color: var(--bg-primary);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.problemStatement.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.problemTabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.problemTabs::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.tabButton {
+  padding: 1.25rem 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  flex: 1;
+  justify-content: center;
+  max-width: 180px;
+}
+
+.tabButton:hover {
+  color: var(--primary);
+  background-color: rgba(76, 175, 80, 0.05);
+}
+
+.activeTab {
+  color: var(--primary);
+  background-color: var(--bg-primary);
+}
+
+.activeTab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--primary);
+}
+
+.tabIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.tabContent {
+  padding: 2.5rem;
+  min-height: 400px;
+}
+
+.tabPanel {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-    background-color: var(--bg-primary);
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    margin-bottom: 2rem;
+    transform: translateY(10px);
   }
-  
-  .problemStatement.visible {
+  to {
     opacity: 1;
     transform: translateY(0);
   }
-  
-  .problemTabs {
-    display: flex;
-    border-bottom: 1px solid var(--border-color);
-    background-color: var(--bg-secondary);
-    overflow-x: auto;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-  }
-  
-  .problemTabs::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-  }
-  
-  .tabButton {
-    padding: 1.25rem 1.5rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--text-secondary);
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    position: relative;
-    white-space: nowrap;
-    transition: all 0.3s ease;
-    flex: 1;
-    justify-content: center;
-    max-width: 180px;
-  }
-  
-  .tabButton:hover {
-    color: var(--primary);
-    background-color: rgba(76, 175, 80, 0.05);
-  }
-  
-  .activeTab {
-    color: var(--primary);
-    background-color: var(--bg-primary);
-  }
-  
-  .activeTab::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background-color: var(--primary);
-  }
-  
-  .tabIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-  }
-  
+}
+
+.tabTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.tabTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: var(--primary);
+  border-radius: 3px;
+}
+
+.mainProblem {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  line-height: 1.4;
+  position: relative;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--primary);
+}
+
+.impactList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.impactItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.impactItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.impactIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #F44336;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+
+.impactText {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.illustration {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.illustrationInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 600px;
+  width: 100%;
+}
+
+.persona {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.personaAvatar {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-tertiary);
+  border-radius: 50%;
+  font-size: 2rem;
+}
+
+.personaLabel {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.connector {
+  flex: 1;
+  height: 2px;
+  background-color: var(--border-color);
+  position: relative;
+}
+
+.connector::before, .connector::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.connector::before {
+  left: 0;
+}
+
+.connector::after {
+  right: 0;
+}
+
+.personaAction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.actionIcon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-tertiary);
+  border-radius: 12px;
+  font-size: 1.5rem;
+}
+
+.actionText {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  max-width: 120px;
+}
+
+/* Subproblems tab styling */
+.subproblemGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.subproblemCard {
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.subproblemCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.subproblemNumber {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.subproblemText {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.problemIllustration {
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.fragmentedSystem {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 300px;
+}
+
+.systemComponent {
+  background-color: var(--bg-tertiary);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.systemComponent:hover {
+  transform: scale(1.05);
+}
+
+.componentIcon {
+  font-size: 1.5rem;
+}
+
+.componentLabel {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.versus {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-secondary);
+  position: relative;
+}
+
+.versus::before, .versus::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  height: 20px;
+  background-color: var(--border-color);
+}
+
+.versus::before {
+  top: -30px;
+}
+
+.versus::after {
+  bottom: -30px;
+}
+
+.integratedSystem {
+  background-color: var(--bg-tertiary);
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.integratedSystem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(76, 175, 80, 0.2);
+}
+
+.integratedIcon {
+  width: 80px;
+  height: 80px;
+}
+
+.carevaultLogo {
+  width: 100%;
+  height: 100%;
+}
+
+.integratedLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Investigation tab styling */
+.processList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.processItem {
+  display: flex;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.processItem:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 60px;
+  left: 25px;
+  width: 2px;
+  height: calc(100% - 30px);
+  background-color: var(--border-color);
+}
+
+.processStep {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.processContent {
+  flex: 1;
+  padding-top: 0.5rem;
+}
+
+.processContent h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+
+.processContent p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Importance tab styling */
+.importanceWrapper {
+  display: flex;
+  gap: 3rem;
+}
+
+.importanceContent {
+  flex: 1;
+}
+
+.importanceIntro {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  padding-left: 1rem;
+  border-left: 3px solid var(--primary);
+}
+
+.importanceList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.importanceItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.importanceItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.importanceCheck {
+  display: flex;
+  color: var(--primary);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.importanceVisual {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.impactMetric {
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.impactMetric:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.metricValue {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.metricValue span {
+  font-size: 1.2rem;
+  vertical-align: top;
+}
+
+.metricLabel {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Architecture tab styling */
+.architectureIntro {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  padding-left: 1rem;
+  border-left: 3px solid var(--primary);
+}
+
+.architectureDiagramContainer {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.architectureDiagramContainer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.architectureDiagram {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.architectureDiagramContainer:hover .architectureDiagram {
+  transform: scale(1.02);
+}
+
+.architectureDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.architectureFeatures {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.architectureFeature {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.architectureFeature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.featureIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(76, 175, 80, 0.1);
+  color: var(--primary);
+  flex-shrink: 0;
+  font-size: 1.2rem;
+}
+
+.featureContent {
+  flex: 1;
+}
+
+.featureContent h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.featureContent p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.techStackContainer {
+  padding: 1.5rem;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.techStackContainer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.techStackTitle {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.techStackTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background-color: var(--primary);
+  border-radius: 2px;
+}
+
+.techStack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.techItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.techItem:last-child {
+  border-bottom: none;
+}
+
+.techLabel {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.techValue {
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 992px) {
   .tabContent {
-    padding: 2.5rem;
-    min-height: 400px;
-  }
-  
-  .tabPanel {
-    animation: fadeIn 0.5s ease;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .tabTitle {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    color: var(--text-primary);
-    position: relative;
-    padding-bottom: 0.75rem;
-  }
-  
-  .tabTitle::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 3px;
-    background-color: var(--primary);
-    border-radius: 3px;
-  }
-  
-  .mainProblem {
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: var(--text-primary);
-    margin-bottom: 2rem;
-    line-height: 1.4;
-    position: relative;
-    padding-left: 1.5rem;
-    border-left: 3px solid var(--primary);
-  }
-  
-  .impactList {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .impactItem {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 1rem;
-    background-color: var(--bg-secondary);
-    border-radius: 12px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .impactItem:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  }
-  
-  .impactIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: rgba(244, 67, 54, 0.1);
-    color: #F44336;
-    flex-shrink: 0;
-    font-size: 1.1rem;
-  }
-  
-  .impactText {
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-  
-  .illustration {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .illustrationInner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    max-width: 600px;
-    width: 100%;
-  }
-  
-  .persona {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .personaAvatar {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--bg-tertiary);
-    border-radius: 50%;
-    font-size: 2rem;
-  }
-  
-  .personaLabel {
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-  
-  .connector {
-    flex: 1;
-    height: 2px;
-    background-color: var(--border-color);
-    position: relative;
-  }
-  
-  .connector::before, .connector::after {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: var(--primary);
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  .connector::before {
-    left: 0;
-  }
-  
-  .connector::after {
-    right: 0;
-  }
-  
-  .personaAction {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .actionIcon {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--bg-tertiary);
-    border-radius: 12px;
-    font-size: 1.5rem;
-  }
-  
-  .actionText {
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-align: center;
-    max-width: 120px;
-  }
-  
-  /* Subproblems tab styling */
-  .subproblemGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-  
-  .subproblemCard {
-    background-color: var(--bg-secondary);
-    border-radius: 12px;
-    padding: 1.5rem;
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .subproblemCard:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-  }
-  
-  .subproblemNumber {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: var(--primary);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    flex-shrink: 0;
-  }
-  
-  .subproblemText {
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-  
-  .problemIllustration {
-    margin-top: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-  }
-  
-  .fragmentedSystem {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    max-width: 300px;
-  }
-  
-  .systemComponent {
-    background-color: var(--bg-tertiary);
-    border-radius: 12px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    transition: transform 0.3s ease;
-  }
-  
-  .systemComponent:hover {
-    transform: scale(1.05);
-  }
-  
-  .componentIcon {
-    font-size: 1.5rem;
-  }
-  
-  .componentLabel {
-    font-size: 0.8rem;
-    font-weight: 500;
-    text-align: center;
-  }
-  
-  .versus {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--text-secondary);
-    position: relative;
-  }
-  
-  .versus::before, .versus::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    width: 1px;
-    height: 20px;
-    background-color: var(--border-color);
-  }
-  
-  .versus::before {
-    top: -30px;
-  }
-  
-  .versus::after {
-    bottom: -30px;
-  }
-  
-  .integratedSystem {
-    background-color: var(--bg-tertiary);
-    border-radius: 12px;
     padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    max-width: 300px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  .integratedSystem:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(76, 175, 80, 0.2);
-  }
-  
-  .integratedIcon {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .carevaultLogo {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .integratedLabel {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--primary);
-  }
-  
-  /* Investigation tab styling */
-  .processList {
-    display: flex;
+  .importanceWrapper {
     flex-direction: column;
     gap: 2rem;
   }
   
-  .processItem {
-    display: flex;
-    gap: 1.5rem;
-    position: relative;
+  .importanceVisual {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
   
-  .processItem:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 60px;
-    left: 25px;
-    width: 2px;
-    height: calc(100% - 30px);
-    background-color: var(--border-color);
-  }
-  
-  .processStep {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: var(--primary);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
-  }
-  
-  .processContent {
-    flex: 1;
-    padding-top: 0.5rem;
-  }
-  
-  .processContent h4 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.2rem;
-    color: var(--text-primary);
-  }
-  
-  .processContent p {
-    margin: 0;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-  
-  /* Importance tab styling */
-  .importanceWrapper {
-    display: flex;
-    gap: 3rem;
-  }
-  
-  .importanceContent {
-    flex: 1;
-  }
-  
-  .importanceIntro {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--text-primary);
-    margin-bottom: 2rem;
-    line-height: 1.5;
-    padding-left: 1rem;
-    border-left: 3px solid var(--primary);
-  }
-  
-  .importanceList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
+  .problemIllustration {
     flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .versus {
+    transform: rotate(90deg);
+  }
+  
+  .versus::before {
+    left: -30px;
+    top: 50%;
+    width: 20px;
+    height: 1px;
+  }
+  
+  .versus::after {
+    right: -30px;
+    left: auto;
+    top: 50%;
+    width: 20px;
+    height: 1px;
+  }
+  
+  .fragmentedSystem, .integratedSystem {
+    max-width: 100%;
+  }
+  
+  .architectureDetails {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .tabButton {
+    padding: 1rem;
+    max-width: none;
+  }
+  
+  .tabContent {
+    padding: 1.5rem;
+  }
+  
+  .processItem {
     gap: 1rem;
   }
   
-  .importanceItem {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
+  .subproblemGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .illustrationInner {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .connector {
+    width: 2px;
+    height: 40px;
+    flex: 0;
+  }
+  
+  .connector::before, .connector::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .connector::before {
+    top: 0;
+  }
+  
+  .connector::after {
+    top: auto;
+    bottom: 0;
+  }
+  
+  .architectureDiagramContainer {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tabLabel {
+    display: none;
+  }
+  
+  .tabButton {
+    padding: 0.75rem;
+  }
+  
+  .mainProblem {
+    font-size: 1.2rem;
+    padding-left: 1rem;
+  }
+  
+  .tabTitle {
+    font-size: 1.3rem;
+  }
+  
+  .processStep {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .processItem:not(:last-child)::after {
+    top: 40px;
+    left: 20px;
+  }
+  
+  .architectureIntro {
+    font-size: 1.1rem;
+    padding-left: 0.75rem;
+  }
+  
+  .architectureFeature {
     padding: 1rem;
-    background-color: var(--bg-secondary);
-    border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  .importanceItem:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  .featureIcon {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
   }
   
-  .importanceCheck {
-    display: flex;
-    color: var(--primary);
-    font-size: 1.2rem;
-    flex-shrink: 0;
+  .techStackContainer {
+    padding: 1rem;
   }
-  
-  .importanceVisual {
-    max-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  
-  .impactMetric {
-    background-color: var(--bg-secondary);
-    border-radius: 12px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .impactMetric:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-  }
-  
-  .metricValue {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--primary);
-  }
-  
-  .metricValue span {
-    font-size: 1.2rem;
-    vertical-align: top;
-  }
-  
-  .metricLabel {
-    font-size: 0.9rem;
-    font-weight: 400;
-    color: var(--text-secondary);
-    line-height: 1.4;
-  }
-  
-  /* Media queries for responsiveness */
-  @media (max-width: 992px) {
-    .tabContent {
-      padding: 2rem;
-    }
-    
-    .importanceWrapper {
-      flex-direction: column;
-      gap: 2rem;
-    }
-    
-    .importanceVisual {
-      max-width: 100%;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
-    
-    .problemIllustration {
-      flex-direction: column;
-      gap: 2rem;
-    }
-    
-    .versus {
-      transform: rotate(90deg);
-    }
-    
-    .versus::before {
-      left: -30px;
-      top: 50%;
-      width: 20px;
-      height: 1px;
-    }
-    
-    .versus::after {
-      right: -30px;
-      left: auto;
-      top: 50%;
-      width: 20px;
-      height: 1px;
-    }
-    
-    .fragmentedSystem, .integratedSystem {
-      max-width: 100%;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .tabButton {
-      padding: 1rem;
-      max-width: none;
-    }
-    
-    .tabContent {
-      padding: 1.5rem;
-    }
-    
-    .processItem {
-      gap: 1rem;
-    }
-    
-    .subproblemGrid {
-      grid-template-columns: 1fr;
-    }
-    
-    .illustrationInner {
-      flex-direction: column;
-      gap: 2rem;
-    }
-    
-    .connector {
-      width: 2px;
-      height: 40px;
-      flex: 0;
-    }
-    
-    .connector::before, .connector::after {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    
-    .connector::before {
-      top: 0;
-    }
-    
-    .connector::after {
-      top: auto;
-      bottom: 0;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .tabLabel {
-      display: none;
-    }
-    
-    .tabButton {
-      padding: 0.75rem;
-    }
-    
-    .mainProblem {
-      font-size: 1.2rem;
-      padding-left: 1rem;
-    }
-    
-    .tabTitle {
-      font-size: 1.3rem;
-    }
-    
-    .processStep {
-      width: 40px;
-      height: 40px;
-      font-size: 1rem;
-    }
-    
-    .processItem:not(:last-child)::after {
-      top: 40px;
-      left: 20px;
-    }
-  }
+}
