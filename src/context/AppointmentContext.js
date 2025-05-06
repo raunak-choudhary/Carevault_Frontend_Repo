@@ -7,10 +7,14 @@ import {
   cancelAppointment,
 } from '../services/appointmentService';
 
+import { useAuth } from '../hooks/useAuth';
+
 // Create context
 export const AppointmentContext = createContext();
 
 export const AppointmentProvider = ({ children }) => {
+  const { user } = useAuth();
+
   const [appointments, setAppointments] = useState([]);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [pastAppointments, setPastAppointments] = useState([]);
@@ -20,12 +24,16 @@ export const AppointmentProvider = ({ children }) => {
   // Fetch appointments
   const fetchAppointments = useCallback(async () => {
     try {
+      if (!user) return;
+
       setLoading(true);
       setError(null);
 
       const allAppointments = await getAppointments('all');
       const upcoming = await getAppointments('upcoming');
       const past = await getAppointments('completed');
+
+      console.log(upcoming);
 
       setAppointments(allAppointments);
       setUpcomingAppointments(upcoming);

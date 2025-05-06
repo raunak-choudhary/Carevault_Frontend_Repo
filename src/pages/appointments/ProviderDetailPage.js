@@ -98,9 +98,7 @@ const ProviderDetailPage = () => {
 
             <div className={styles.providerInfo}>
               <h2 className={styles.providerName}>{provider.name}</h2>
-              <p className={styles.providerSpecialty}>
-                {provider.specialization}
-              </p>
+              <p className={styles.providerSpecialty}>{provider.specialty}</p>
 
               {provider.rating && (
                 <div className={styles.providerRating}>
@@ -108,9 +106,9 @@ const ProviderDetailPage = () => {
                     {formatRating(provider.rating)}
                   </span>
                   {renderRatingStars(provider.rating)}
-                  {provider.reviewCount && (
+                  {provider.review_count && (
                     <span className={styles.reviewCount}>
-                      ({provider.reviewCount} reviews)
+                      ({provider.review_count} reviews)
                     </span>
                   )}
                 </div>
@@ -129,14 +127,16 @@ const ProviderDetailPage = () => {
           <div className={styles.providerDetails}>
             <div className={styles.detailsSection}>
               <h3>Contact Information</h3>
-              {provider.phone && (
+              {provider.contact_phone && (
                 <div className={styles.detailItem}>
                   <div className={styles.detailIcon}>
                     <FiPhone />
                   </div>
                   <div className={styles.detailContent}>
                     <div className={styles.detailLabel}>Phone</div>
-                    <div className={styles.detailValue}>{provider.phone}</div>
+                    <div className={styles.detailValue}>
+                      {provider.contact_phone}
+                    </div>
                   </div>
                 </div>
               )}

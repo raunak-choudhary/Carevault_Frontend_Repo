@@ -1,3 +1,5 @@
+import { apiClient, handleApiError } from '../utils/apiClient';
+
 // This service would normally make API calls to a backend server
 // For now, we'll use localStorage for persistence
 
@@ -169,61 +171,109 @@ const initialHealthData = {
   },
 };
 
-// const API_BASE_URL = 'http://localhost:1999/api';
-
 // Login user
+// const login = async (credentials) => {
+//   // Simulate API call
+//   await delay(1000);
+
+//   // In a real app, this would validate with a backend
+//   // Simple validation for demo
+//   if (
+//     credentials.email === 'demo@carevault.com' &&
+//     credentials.password === 'password'
+//   ) {
+//     const user = {
+//       id: '1',
+//       firstName: 'Demo',
+//       lastName: 'User',
+//       email: 'demo@carevault.com',
+//       role: USER_ROLES.PATIENT,
+//       verified: true,
+//     };
+
+//     // Store in localStorage
+//     localStorage.setItem('user', JSON.stringify(user));
+//     localStorage.setItem('token', 'demo-token-12345');
+
+//     // Initialize health data for demo user if not already present
+//     if (!localStorage.getItem('healthData')) {
+//       localStorage.setItem('healthData', JSON.stringify(initialHealthData));
+//     }
+
+//     return { user, token: 'demo-token-12345' };
+//   } else if (
+//     credentials.email === 'caregiver@carevault.com' &&
+//     credentials.password === 'password'
+//   ) {
+//     // Caregiver user for demo purposes
+//     const user = {
+//       id: '2',
+//       firstName: 'Care',
+//       lastName: 'Giver',
+//       email: 'caregiver@carevault.com',
+//       role: USER_ROLES.CAREGIVER,
+//       verified: true,
+//     };
+
+//     // Store in localStorage
+//     localStorage.setItem('user', JSON.stringify(user));
+//     localStorage.setItem('token', 'caregiver-token-12345');
+
+//     return { user, token: 'caregiver-token-12345' };
+//   }
+
+//   // Simulate error response
+//   throw new Error('Invalid email or password');
+// };
+
+/**
+ * Logs in a user via the API.
+ * @param {object} credentials - User login credentials (email, password).
+ * @returns {Promise<{user: object, token: string}>} - The logged-in user object and auth token.
+ */
+
 const login = async (credentials) => {
-  // Simulate API call
-  await delay(1000);
-
-  // In a real app, this would validate with a backend
-  // Simple validation for demo
-  if (
-    credentials.email === 'demo@carevault.com' &&
-    credentials.password === 'password'
-  ) {
-    const user = {
-      id: '1',
-      firstName: 'Demo',
-      lastName: 'User',
-      email: 'demo@carevault.com',
-      role: USER_ROLES.PATIENT,
-      verified: true,
-    };
-
-    // Store in localStorage
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', 'demo-token-12345');
-
-    // Initialize health data for demo user if not already present
-    if (!localStorage.getItem('healthData')) {
-      localStorage.setItem('healthData', JSON.stringify(initialHealthData));
+  try {
+    console.log(`Inside here login`);
+    // Make POST request to the login endpoint
+    const formData = new URLSearchParams();
+    for (const key in credentials) {
+      formData.append(key, credentials[key]);
     }
+    const response = await apiClient.post('/auth/login', formData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
 
-    return { user, token: 'demo-token-12345' };
-  } else if (
-    credentials.email === 'caregiver@carevault.com' &&
-    credentials.password === 'password'
-  ) {
-    // Caregiver user for demo purposes
-    const user = {
-      id: '2',
-      firstName: 'Care',
-      lastName: 'Giver',
-      email: 'caregiver@carevault.com',
-      role: USER_ROLES.CAREGIVER,
-      verified: true,
-    };
+    // console.log(response)
 
-    // Store in localStorage
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', 'caregiver-token-12345');
+    // Assuming the API returns { user: {...}, token: '...' }
+    const { user, access_token, refresh_token } = response.data;
 
-    return { user, token: 'caregiver-token-12345' };
+    // Store token and user data locally
+    if (access_token) {
+      localStorage.setItem('access_token', access_token);
+      localStorage.setItem('refresh_token', refresh_token);
+
+      // Call the /me API to get user details
+      const userResponse = await apiClient.get('/auth/me');
+      const userData = userResponse.data;
+
+      console.log(userData);
+
+      localStorage.setItem('user', JSON.stringify(userData));
+
+      return { userData, access_token };
+    }
+    // if (user) {
+    //   // Store user object for session persistence (optional, but used by getCurrentUser)
+    //   localStorage.setItem('user', JSON.stringify(user));
+    // }
+  } catch (error) {
+    // Throw a new error with a processed message
+    throw new Error(handleApiError(error));
   }
-
-  // Simulate error response
-  throw new Error('Invalid email or password');
 };
 
 // Register new user
@@ -281,7 +331,8 @@ const verifyAccount = async (code) => {
 // Logout
 const logout = () => {
   localStorage.removeItem('user');
-  localStorage.removeItem('token');
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
   localStorage.removeItem('documents'); // Clear documents on logout
   localStorage.removeItem('currentPatientId'); // Clear current patient ID on logout
   // Note: We're not clearing health data on logout for demo purposes
@@ -367,8 +418,12 @@ const saveFileData = (file) => {
 
 // Get all user documents
 const getUserDocuments = async (patientId = null) => {
-  // Simulate API call
-  await delay(1000);
+  const response = await apiClient.get('/documents/');
+  const data = response.data;
+
+  console.log(data);
+
+  const documents = data?.documents || [];
 
   // Get current user
   const user = getCurrentUser();
@@ -376,9 +431,9 @@ const getUserDocuments = async (patientId = null) => {
     throw new Error('User not authenticated');
   }
 
-  // Get documents from localStorage or return empty array
-  const documentsJson = localStorage.getItem('documents');
-  let documents = documentsJson ? JSON.parse(documentsJson) : [];
+  // // Get documents from localStorage or return empty array
+  // const documentsJson = localStorage.getItem('documents');
+  // let documents = documentsJson ? JSON.parse(documentsJson) : [];
 
   // If patientId is provided (for caregivers viewing patient data), filter for that patient
   if (patientId && user.role === USER_ROLES.CAREGIVER) {

@@ -215,6 +215,8 @@ const DashboardPage = () => {
   // Get the most recent documents (up to 3)
   const recentDocuments = documents.slice(0, 3);
 
+  console.log(upcomingAppointments);
+
   // Get most recent upcoming appointments (up to 2)
   const recentAppointments = upcomingAppointments.slice(0, 2);
 

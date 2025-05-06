@@ -70,14 +70,17 @@ const LoginPage = () => {
 
     try {
       // Call login service
-      const { user, token } = await login(formData);
+      const { userData, access_token } = await login(formData);
+
+      console.log(userData);
 
       // Update auth context
-      signIn(user);
+      signIn(userData);
 
       // Redirect to intended destination
       navigate(from, { replace: true });
     } catch (error) {
+      console.log(error);
       setApiError(error.message || 'Failed to login');
     } finally {
       setLoading(false);

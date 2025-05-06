@@ -1,3 +1,5 @@
+import { apiClient, handleApiError } from '../utils/apiClient';
+
 // This service would handle API calls related to medications
 // For now, we'll use localStorage for persistence and simulate API behavior
 
@@ -47,24 +49,10 @@ const parseStoredDate = (dateString) => {
 
 // Get all medications
 const getMedications = async () => {
-  // Simulate API call
-  await delay(800);
+  const response = await apiClient.get('/medications/');
+  const data = response.data;
 
-  // Get user from local storage
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  if (!user.id) {
-    throw new Error('User not authenticated');
-  }
-
-  // Get medications from localStorage or return empty array
-  const medicationsJson = localStorage.getItem('medications');
-  let medications = medicationsJson ? JSON.parse(medicationsJson) : [];
-
-  // Filter medications by user
-  medications = medications.filter((med) => med.userId === user.id);
-
-  // Sort by most recently added
-  medications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const medications = data?.data?.medications || [];
 
   return medications;
 };
