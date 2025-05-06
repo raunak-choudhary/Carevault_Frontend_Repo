@@ -7,13 +7,13 @@ import styles from './LogoutPage.module.css';
 const LogoutPage = () => {
   const { signOut } = useAuth();
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     // Perform logout
     const performLogout = async () => {
       try {
         await signOut();
-
+        
         // Wait a brief moment for visual feedback
         setTimeout(() => {
           navigate('/login');
@@ -23,10 +23,10 @@ const LogoutPage = () => {
         navigate('/login');
       }
     };
-
+    
     performLogout();
   }, [signOut, navigate]);
-
+  
   return (
     <div className={styles.logoutPage}>
       <div className={styles.logoutCard}>
@@ -34,9 +34,7 @@ const LogoutPage = () => {
         <div className={styles.spinnerContainer}>
           <LoadingSpinner size="large" color="primary" />
         </div>
-        <p className={styles.message}>
-          Please wait while we securely log you out...
-        </p>
+        <p className={styles.message}>Please wait while we securely log you out...</p>
       </div>
     </div>
   );

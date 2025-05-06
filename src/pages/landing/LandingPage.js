@@ -49,74 +49,67 @@ const LandingPage = () => {
     {
       id: 'feature-1',
       title: 'Document Management',
-      description:
-        'Securely store, organize, and retrieve your medical documents with AI-powered organization.',
+      description: 'Securely store, organize, and retrieve your medical documents with AI-powered organization.',
       icon: 'document',
-      color: '#4CAF50',
+      color: '#4CAF50'
     },
     {
       id: 'feature-2',
       title: 'Smart Health Assistant',
-      description:
-        'Get personalized health insights and answers to your questions through our advanced AI chat interface.',
+      description: 'Get personalized health insights and answers to your questions through our advanced AI chat interface.',
       icon: 'chat',
-      color: '#2196F3',
+      color: '#2196F3'
     },
     {
       id: 'feature-3',
       title: 'Appointment Scheduler',
-      description:
-        'Easily book and manage healthcare appointments with seamless calendar integration.',
+      description: 'Easily book and manage healthcare appointments with seamless calendar integration.',
       icon: 'calendar',
-      color: '#FF9800',
+      color: '#FF9800'
     },
     {
       id: 'feature-4',
       title: 'Medication Management',
-      description:
-        'Never miss a dose with our medication tracking and reminder system.',
+      description: 'Never miss a dose with our medication tracking and reminder system.',
       icon: 'medication',
-      color: '#9C27B0',
+      color: '#9C27B0'
     },
     {
       id: 'feature-5',
       title: 'Health Insights Dashboard',
-      description:
-        'Visualize your health data and receive personalized recommendations.',
+      description: 'Visualize your health data and receive personalized recommendations.',
       icon: 'chart',
-      color: '#F44336',
+      color: '#F44336'
     },
     {
       id: 'feature-6',
       title: 'Caregiver Support',
-      description:
-        'Manage multiple patient profiles with comprehensive caregiver tools.',
+      description: 'Manage multiple patient profiles with comprehensive caregiver tools.',
       icon: 'users',
-      color: '#00BCD4',
-    },
+      color: '#00BCD4'
+    }
   ];
 
   // Problem statement data
   const problemData = {
-    mainProblem:
-      'Managing healthcare is a multifaceted challenge for both patients and caregivers.',
+    mainProblem: "Managing healthcare is a multifaceted challenge for both patients and caregivers.",
     impacts: [
-      'Patients struggle with organizing records, tracking medications, and explaining medical history.',
-      'Caregivers face greater challenges handling multiple patient profiles.',
-      'Disorganized healthcare management can lead to missed medications and delayed treatments.',
+      "Patients struggle with organizing records, tracking medications, and explaining medical history.",
+      "Caregivers face greater challenges handling multiple patient profiles.",
+      "Disorganized healthcare management can lead to missed medications and delayed treatments."
     ],
     subProblems: [
-      'Medical records, prescriptions, and test results are spread across multiple platforms.',
+      "Medical records, prescriptions, and test results are spread across multiple platforms.",
       "Fragmented healthcare data makes it difficult to get a complete picture of one's health.",
-      'Caregivers lack efficient tools to manage multiple patient profiles.',
-      'Manual medication tracking is prone to human error.',
+      "Caregivers lack efficient tools to manage multiple patient profiles.",
+      "Manual medication tracking is prone to human error."
     ],
     importance: [
-      'Improves patient safety by reducing medical errors.',
-      'Enhances quality of life for patients and caregivers.',
-      'Reduces healthcare costs through better coordination.',
-      'Supports vulnerable populations who need assistance managing their healthcare.',
-    ],
+      "Improves patient safety by reducing medical errors.",
+      "Enhances quality of life for patients and caregivers.",
+      "Reduces healthcare costs through better coordination.",
+      "Supports vulnerable populations who need assistance managing their healthcare."
+    ]
   };
 
   // Team data - updated to match the image IDs in the TeamSection component
@@ -129,7 +122,7 @@ const LandingPage = () => {
       netId: 'rc5553',
       email: 'raunak.choudhary@nyu.edu',
       linkedin: 'https://linkedin.com/in/raunakchoudhary',
-      github: 'https://github.com/raunakchoudhary',
+      github: 'https://github.com/raunakchoudhary'
     },
     {
       id: 'team-2',
@@ -139,8 +132,8 @@ const LandingPage = () => {
       netId: 'ag10293',
       email: 'ag10293@nyu.edu',
       linkedin: 'https://linkedin.com/in/anindaghosh',
-      github: 'https://github.com/anindaghosh',
-    },
+      github: 'https://github.com/anindaghosh'
+    }
   ];
 
   return (
@@ -149,103 +142,43 @@ const LandingPage = () => {
         <div className={styles.headerContent}>
           <Link to="/" className={styles.logo}>
             {/* Updated to use the imported logo */}
-            <img
-              src={carevaultLogo}
-              alt="CareVault Logo"
-              className={styles.logoIcon}
-              width="32"
-              height="32"
-            />
+            <img src={carevaultLogo} alt="CareVault Logo" className={styles.logoIcon} width="32" height="32" />
             <span className={styles.logoText}>CareVault</span>
           </Link>
           {/* Desktop Navigation */}
           <nav className={styles.navigation}>
-            <a href="#problem" className={styles.navLink}>
-              Problem
-            </a>
-            <a href="#features" className={styles.navLink}>
-              Features
-            </a>
-            <a href="#team" className={styles.navLink}>
-              Team
-            </a>
-            <a href="#contact" className={styles.navLink}>
-              Contact
-            </a>
+            <a href="#problem" className={styles.navLink}>Problem</a>
+            <a href="#features" className={styles.navLink}>Features</a>
+            <a href="#team" className={styles.navLink}>Team</a>
+            <a href="#contact" className={styles.navLink}>Contact</a>
           </nav>
           {/* Desktop Auth Buttons */}
           <div className={styles.authButtons}>
-            <Link to="/login" className={styles.loginButton}>
-              Log In
-            </Link>
-            <Link to="/register" className={styles.registerButton}>
-              Sign Up
-            </Link>
+            <Link to="/login" className={styles.loginButton}>Log In</Link>
+            <Link to="/register" className={styles.registerButton}>Sign Up</Link>
           </div>
           {/* Mobile Menu Button */}
-          <button
-            className={styles.mobileMenuButton}
-            onClick={toggleMobileMenu}
-            aria-label="Toggle menu"
-          >
+          <button className={styles.mobileMenuButton} onClick={toggleMobileMenu} aria-label="Toggle menu">
             {isMobileMenuOpen ? <FiX /> : <FiMenu />}
           </button>
         </div>
       </header>
 
       {/* Mobile Menu Overlay */}
-      <div
-        className={`${styles.mobileMenu} ${isMobileMenuOpen ? styles.open : ''}`}
-      >
-        <a
-          href="#problem"
-          className={styles.mobileNavLink}
-          onClick={closeMobileMenu}
-        >
-          Problem
-        </a>
-        <a
-          href="#features"
-          className={styles.mobileNavLink}
-          onClick={closeMobileMenu}
-        >
-          Features
-        </a>
-        <a
-          href="#team"
-          className={styles.mobileNavLink}
-          onClick={closeMobileMenu}
-        >
-          Team
-        </a>
-        <a
-          href="#contact"
-          className={styles.mobileNavLink}
-          onClick={closeMobileMenu}
-        >
-          Contact
-        </a>
+      <div className={`${styles.mobileMenu} ${isMobileMenuOpen ? styles.open : ''}`}>
+        <a href="#problem" className={styles.mobileNavLink} onClick={closeMobileMenu}>Problem</a>
+        <a href="#features" className={styles.mobileNavLink} onClick={closeMobileMenu}>Features</a>
+        <a href="#team" className={styles.mobileNavLink} onClick={closeMobileMenu}>Team</a>
+        <a href="#contact" className={styles.mobileNavLink} onClick={closeMobileMenu}>Contact</a>
         <div className={styles.mobileAuthButtons}>
-          <Link
-            to="/login"
-            className={`${styles.loginButton} ${styles.mobileNavLink}`}
-            onClick={closeMobileMenu}
-          >
-            Log In
-          </Link>
-          <Link
-            to="/register"
-            className={`${styles.registerButton} ${styles.mobileNavLink}`}
-            onClick={closeMobileMenu}
-          >
-            Sign Up
-          </Link>
+          <Link to="/login" className={`${styles.loginButton} ${styles.mobileNavLink}`} onClick={closeMobileMenu}>Log In</Link>
+          <Link to="/register" className={`${styles.registerButton} ${styles.mobileNavLink}`} onClick={closeMobileMenu}>Sign Up</Link>
         </div>
       </div>
-
+      
       <main>
         <HeroSection />
-
+        
         <section id="problem" className={styles.section}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
@@ -257,7 +190,7 @@ const LandingPage = () => {
             <ProblemStatement problemData={problemData} />
           </div>
         </section>
-
+        
         <section id="features" className={styles.section}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
@@ -269,7 +202,7 @@ const LandingPage = () => {
             <FeatureShowcase features={features} />
           </div>
         </section>
-
+        
         <section id="team" className={styles.section}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
@@ -281,7 +214,7 @@ const LandingPage = () => {
             <TeamSection team={teamData} />
           </div>
         </section>
-
+        
         <section id="contact" className={styles.section}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
@@ -294,7 +227,7 @@ const LandingPage = () => {
           </div>
         </section>
       </main>
-
+      
       <Footer />
     </div>
   );
