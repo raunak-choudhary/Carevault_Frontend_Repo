@@ -278,30 +278,27 @@ const login = async (credentials) => {
 
 // Register new user
 const register = async (userData) => {
-  // Simulate API call
-  await delay(1000);
 
-  // In a real app, this would send data to a backend
-  // Create a new user object
-  const user = {
-    id: Date.now().toString(),
-    firstName: userData.firstName,
-    lastName: userData.lastName,
+  console.log(userData)
+  
+  const response = await apiClient.post('/auth/register', {
+    first_name: userData.firstName,
+    last_name: userData.lastName,
     email: userData.email,
+    password: userData.password,
     role: userData.role || USER_ROLES.PATIENT,
-    verified: false,
-  };
+  }, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  
+  const data = response.data;
+  console.log(data);
 
-  // Store in localStorage
-  localStorage.setItem('user', JSON.stringify(user));
-  localStorage.setItem('token', `user-token-${user.id}`);
+  const user = data?.data || null;
 
-  // Initialize empty health data for new user
-  if (user.role === USER_ROLES.PATIENT && !localStorage.getItem('healthData')) {
-    localStorage.setItem('healthData', JSON.stringify(initialHealthData));
-  }
-
-  return { user, token: `user-token-${user.id}` };
+  return { user };
 };
 
 // Verify account

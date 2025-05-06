@@ -95,8 +95,11 @@ const RegisterPage = () => {
       // Update auth context
       signIn(user);
 
+      console.log(user)
+
       // Redirect to verification page if not verified
       if (!user.verified) {
+        console.log(user)
         navigate('/verify-account');
       } else {
         navigate('/dashboard');
