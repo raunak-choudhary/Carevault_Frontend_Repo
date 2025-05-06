@@ -38,7 +38,7 @@
   margin: 0 auto;
   padding: 0 2rem;
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 3rem;
   margin-bottom: 3rem;
 }
@@ -110,7 +110,22 @@
   position: relative;
 }
 
-.footerNavLink::after {
+.footerNavButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+  font-size: 0.95rem;
+  display: inline-block;
+  position: relative;
+}
+
+.footerNavLink::after,
+.footerNavButton::after {
   content: '';
   position: absolute;
   width: 0;
@@ -125,7 +140,13 @@
   color: var(--primary);
 }
 
-.footerNavLink:hover::after {
+.footerNavButton:hover {
+  color: var(--primary);
+  background-color: transparent !important;
+}
+
+.footerNavLink:hover::after,
+.footerNavButton:hover::after {
   width: 100%;
 }
 
@@ -175,8 +196,7 @@
   font-size: 0.9rem;
 }
 
-.copyright p,
-.footerNotes p {
+.copyright p, .footerNotes p {
   margin: 0;
 }
 
@@ -188,14 +208,13 @@
 /* Media queries for responsiveness */
 @media (max-width: 992px) {
   .footerContent {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
-
-  .footerConnect {
+  
+  .footerLeft {
     grid-column: 1 / -1;
-    margin-top: 1rem;
   }
-
+  
   .socialLinks {
     justify-content: flex-start;
   }
@@ -206,22 +225,22 @@
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-
+  
   .footerNav {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-
+  
   .footerConnect {
     margin-top: 0;
   }
-
+  
   .footerBottom {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
   }
-
+  
   .scrollTopButton {
     width: 35px;
     height: 35px;
@@ -232,20 +251,20 @@
   .footerContent {
     padding: 0 1rem;
   }
-
+  
   .footerBottom {
     padding: 1.5rem 1rem 0;
   }
-
+  
   .footerNavTitle {
     font-size: 1rem;
     margin-bottom: 1rem;
   }
-
+  
   .logoText {
     font-size: 1.3rem;
   }
-
+  
   .footerDesc {
     font-size: 0.9rem;
   }

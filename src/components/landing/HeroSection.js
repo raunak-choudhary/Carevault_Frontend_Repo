@@ -11,17 +11,17 @@ const HeroSection = () => {
   const medicationAnimationRef = useRef(null); // Ref for the animation container
   const backgroundShapesRef = useRef(null); // Ref for background shapes container
   const [isVisible, setIsVisible] = useState(false);
-
+  
   // Animation for typing effect
   const [displayText, setDisplayText] = useState('');
   const fullText = 'Your personal healthcare management platform.';
   const typingSpeed = 50; // milliseconds per character
-
+  
   // Setup animation when component mounts and add parallax effect
   useEffect(() => {
     // Entrance visibility
     setIsVisible(true);
-
+    
     // Typing effect
     let currentIndex = 0;
     const typingInterval = setInterval(() => {
@@ -44,19 +44,19 @@ const HeroSection = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-
+    
     // Cleanup function
     return () => {
       clearInterval(typingInterval);
       window.removeEventListener('scroll', handleScroll);
     };
   }, []); // Empty dependency array ensures this runs only once on mount
-
+  
   const numLanes = 8; // Define number of vertical lanes
 
   return (
-    <section
-      className={`${styles.heroSection} ${isVisible ? styles.visible : ''}`}
+    <section 
+      className={`${styles.heroSection} ${isVisible ? styles.visible : ''}`} 
       ref={heroRef}
     >
       {/* Background Shapes Container - Apply parallax here */}
@@ -73,7 +73,7 @@ const HeroSection = () => {
           const lane = index % numLanes;
           const lanePosition = `${(lane / (numLanes - 1)) * 90 + 5}%`; // Distribute across 90% width, offset by 5%
           return (
-            <div
+            <div 
               key={`pill-${index}`}
               className={styles.floatingPill}
               style={{
@@ -82,27 +82,22 @@ const HeroSection = () => {
                 '--lane-position': lanePosition,
                 '--size': `${15 + Math.random() * 20}px`, // Slightly smaller pills
                 '--rotate': `${Math.random() * 360}deg`,
-                '--color':
-                  index % 5 === 0
-                    ? 'rgba(76, 175, 80, 0.7)' // Green
-                    : index % 5 === 1
-                      ? 'rgba(33, 150, 243, 0.6)' // Blue
-                      : index % 5 === 2
-                        ? 'rgba(255, 152, 0, 0.6)' // Orange
-                        : index % 5 === 3
-                          ? 'rgba(156, 39, 176, 0.5)' // Purple
-                          : 'rgba(0, 188, 212, 0.65)', // Teal
+                '--color': index % 5 === 0 ? 'rgba(76, 175, 80, 0.7)' : // Green
+                          index % 5 === 1 ? 'rgba(33, 150, 243, 0.6)' : // Blue
+                          index % 5 === 2 ? 'rgba(255, 152, 0, 0.6)' : // Orange
+                          index % 5 === 3 ? 'rgba(156, 39, 176, 0.5)' : // Purple
+                          'rgba(0, 188, 212, 0.65)' // Teal
               }}
             />
           );
         })}
-
+        
         {/* Enhanced multi-colored transparent capsules */}
         {Array.from({ length: 20 }).map((_, index) => {
           const lane = (index + Math.floor(numLanes / 2)) % numLanes; // Offset capsule lanes
           const lanePosition = `${(lane / (numLanes - 1)) * 90 + 5}%`; // Distribute across 90% width, offset by 5%
           return (
-            <div
+            <div 
               key={`capsule-${index}`}
               className={styles.floatingCapsule}
               style={{
@@ -112,30 +107,18 @@ const HeroSection = () => {
                 '--width': `${25 + Math.random() * 20}px`, // Slightly smaller capsules
                 '--height': `${12 + Math.random() * 10}px`,
                 '--rotate': `${Math.random() * 360}deg`,
-                '--color1':
-                  index % 6 === 0
-                    ? 'rgba(76, 175, 80, 0.7)' // Green
-                    : index % 6 === 1
-                      ? 'rgba(33, 150, 243, 0.6)' // Blue
-                      : index % 6 === 2
-                        ? 'rgba(255, 152, 0, 0.6)' // Orange
-                        : index % 6 === 3
-                          ? 'rgba(156, 39, 176, 0.5)' // Purple
-                          : index % 6 === 4
-                            ? 'rgba(0, 188, 212, 0.65)' // Teal
-                            : 'rgba(233, 30, 99, 0.55)', // Pink
-                '--color2':
-                  index % 6 === 0
-                    ? 'rgba(139, 195, 74, 0.7)' // Light Green
-                    : index % 6 === 1
-                      ? 'rgba(3, 169, 244, 0.6)' // Light Blue
-                      : index % 6 === 2
-                        ? 'rgba(255, 193, 7, 0.6)' // Amber
-                        : index % 6 === 3
-                          ? 'rgba(186, 104, 200, 0.5)' // Light Purple
-                          : index % 6 === 4
-                            ? 'rgba(77, 208, 225, 0.65)' // Light Teal
-                            : 'rgba(240, 98, 146, 0.55)', // Light Pink
+                '--color1': index % 6 === 0 ? 'rgba(76, 175, 80, 0.7)' : // Green
+                           index % 6 === 1 ? 'rgba(33, 150, 243, 0.6)' : // Blue
+                           index % 6 === 2 ? 'rgba(255, 152, 0, 0.6)' : // Orange
+                           index % 6 === 3 ? 'rgba(156, 39, 176, 0.5)' : // Purple
+                           index % 6 === 4 ? 'rgba(0, 188, 212, 0.65)' : // Teal
+                           'rgba(233, 30, 99, 0.55)', // Pink
+                '--color2': index % 6 === 0 ? 'rgba(139, 195, 74, 0.7)' : // Light Green
+                           index % 6 === 1 ? 'rgba(3, 169, 244, 0.6)' : // Light Blue
+                           index % 6 === 2 ? 'rgba(255, 193, 7, 0.6)' : // Amber
+                           index % 6 === 3 ? 'rgba(186, 104, 200, 0.5)' : // Light Purple
+                           index % 6 === 4 ? 'rgba(77, 208, 225, 0.65)' : // Light Teal
+                           'rgba(240, 98, 146, 0.55)' // Light Pink
               }}
             />
           );
@@ -177,15 +160,16 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-
+      
       <div className={styles.heroImage}>
-        <img
-          src={appScreenshot}
-          alt="CareVault Dashboard"
+        <img 
+          src={appScreenshot} 
+          alt="CareVault Dashboard" 
           className={styles.mainImage}
         />
         {/* Medication animation container moved outside */}
       </div>
+      
     </section>
   );
 };

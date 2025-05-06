@@ -2,9 +2,7 @@
 .teamSection {
   opacity: 0;
   transform: translateY(30px);
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s ease;
+  transition: opacity 0.8s ease, transform 0.8s ease;
   padding: 2rem 0;
 }
 
@@ -61,11 +59,7 @@
 }
 
 .cardFront {
-  background: linear-gradient(
-    145deg,
-    var(--bg-primary) 0%,
-    var(--bg-secondary) 100%
-  );
+  background: linear-gradient(145deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -83,20 +77,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    circle at top right,
-    rgba(76, 175, 80, 0.1),
-    transparent 70%
-  );
+  background: radial-gradient(circle at top right, rgba(76, 175, 80, 0.1), transparent 70%);
   z-index: -1;
 }
 
 .cardBack {
-  background: linear-gradient(
-    145deg,
-    var(--primary) 0%,
-    var(--primary-dark) 100%
-  );
+  background: linear-gradient(145deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: white;
   padding: 2rem;
   display: flex;
@@ -115,11 +101,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.1),
-    transparent 70%
-  );
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent 70%);
   z-index: 0;
 }
 
@@ -146,9 +128,7 @@
   border: 4px solid var(--primary);
   position: relative;
   z-index: 2;
-  transition:
-    transform 0.5s ease,
-    box-shadow 0.5s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
 .teamCard:hover .memberAvatar {
@@ -163,11 +143,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to bottom right,
-    rgba(76, 175, 80, 0.2),
-    transparent
-  );
+  background: linear-gradient(to bottom right, rgba(76, 175, 80, 0.2), transparent);
   z-index: 1;
 }
 
@@ -187,11 +163,7 @@
 .avatarPlaceholder {
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    var(--primary) 0%,
-    var(--primary-light) 100%
-  );
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
   color: white;
   display: flex;
   flex-direction: column;
@@ -268,16 +240,14 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.infoButton svg {
-  /* Ensure SVG icon is visible */
+.infoButton svg { /* Ensure SVG icon is visible */
   width: 18px;
   height: 18px;
   fill: currentColor; /* Explicitly set fill */
   stroke-width: 2; /* Ensure stroke is visible */
 }
 
-.infoButton:hover,
-.infoButton:focus {
+.infoButton:hover, .infoButton:focus {
   background-color: var(--primary);
   color: white;
   transform: scale(1.15) rotate(15deg);
@@ -369,11 +339,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.2),
-    transparent 70%
-  );
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2), transparent 70%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -382,8 +348,7 @@
   opacity: 1;
 }
 
-.socialLink:hover,
-.socialLink:focus {
+.socialLink:hover, .socialLink:focus {
   background-color: white;
   color: var(--primary);
   transform: translateY(-5px) scale(1.1);
@@ -391,11 +356,7 @@
 }
 
 .projectInfo {
-  background: linear-gradient(
-    145deg,
-    var(--bg-primary) 0%,
-    var(--bg-secondary) 5%
-  );
+  background: linear-gradient(145deg, var(--bg-primary) 0%, var(--bg-secondary) 5%);
   border-radius: 20px;
   padding: 2.5rem;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
@@ -418,11 +379,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    circle at bottom left,
-    rgba(76, 175, 80, 0.08),
-    transparent 70%
-  );
+  background: radial-gradient(circle at bottom left, rgba(76, 175, 80, 0.08), transparent 70%);
   z-index: 0;
 }
 
@@ -528,9 +485,7 @@
   position: relative;
   padding: 1rem;
   border-radius: 10px;
-  transition:
-    transform 0.3s ease,
-    background-color 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .projectInfo:hover .projectDescription p {
@@ -543,7 +498,7 @@
   .teamGrid {
     gap: 3rem;
   }
-
+  
   .teamCard {
     width: 300px;
   }
@@ -555,26 +510,26 @@
     align-items: center;
     gap: 3rem;
   }
-
+  
   .projectInfo {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
-
+  
   .projectDescription {
     border-left: none;
     padding-left: 0;
     border-top: 3px solid var(--primary);
     padding-top: 2.5rem;
   }
-
+  
   .projectDescription::before {
     top: -3px;
     left: 0;
     width: 0;
     height: 3px;
   }
-
+  
   .projectInfo:hover .projectDescription::before {
     width: 100%;
     height: 3px;
@@ -586,16 +541,16 @@
     height: 360px;
     width: 280px;
   }
-
+  
   .memberAvatar {
     width: 130px;
     height: 130px;
   }
-
+  
   .memberBio {
     font-size: 0.95rem;
   }
-
+  
   .memberName {
     font-size: 1.6rem;
   }
@@ -603,11 +558,11 @@
   .backContent .memberName {
     font-size: 1.5rem; /* Further reduce font size on back for smaller screens */
   }
-
+  
   .projectInfo {
     padding: 2rem;
   }
-
+  
   .projectDescription p {
     font-size: 1rem;
   }
@@ -618,14 +573,13 @@
     height: 340px;
     width: 260px;
   }
-
+  
   .memberAvatar {
     width: 110px;
     height: 110px;
   }
-
-  .cardFront,
-  .cardBack {
+  
+  .cardFront, .cardBack {
     padding: 1.5rem;
   }
 
@@ -636,20 +590,20 @@
   .backContent .memberName {
     font-size: 1.3rem; /* Further reduce font size on back for smallest screens */
   }
-
+  
   .memberDetails {
     font-size: 0.85rem;
   }
-
+  
   .projectInfo {
     padding: 1.5rem;
     margin: 0 1rem;
   }
-
+  
   .metadataValue {
     font-size: 1.05rem;
   }
-
+  
   .projectDescription p {
     font-size: 0.95rem;
     line-height: 1.8;
