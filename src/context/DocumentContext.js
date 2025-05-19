@@ -32,8 +32,7 @@ export const DocumentProvider = ({ children }) => {
         setLoading(false);
       }
     };
-
-    fetchDocuments();
+    if (localStorage.getItem('access_token')) fetchDocuments();
   }, []);
 
   // Upload a new document

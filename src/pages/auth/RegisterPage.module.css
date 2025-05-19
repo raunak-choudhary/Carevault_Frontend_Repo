@@ -152,6 +152,19 @@
   margin-right: var(--spacing-sm);
 }
 
+.termsLink {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 500;
+  padding: 0;
+  margin: 0 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: inherit;
+  font-family: inherit;
+}
+
 .registerButton {
   position: relative;
   display: flex;

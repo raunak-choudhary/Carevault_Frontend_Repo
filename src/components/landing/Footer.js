@@ -1,11 +1,36 @@
 // Footer.js
-import React from 'react';
+import React, { useState } from 'react';
 import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 import styles from './Footer.module.css';
 // Import the logo
 import carevaultLogo from '../../assets/images/carevault-logo.png';
+// Import modal components
+import TermsModal from '../../components/common/TermsModal';
+import PrivacyModal from '../../components/common/PrivacyModal';
 
 const Footer = () => {
+  const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
+
+  // Modal handlers
+  const openTermsModal = (e) => {
+    e.preventDefault();
+    setIsTermsModalOpen(true);
+  };
+
+  const closeTermsModal = () => {
+    setIsTermsModalOpen(false);
+  };
+
+  const openPrivacyModal = (e) => {
+    e.preventDefault();
+    setIsPrivacyModalOpen(true);
+  };
+
+  const closePrivacyModal = () => {
+    setIsPrivacyModalOpen(false);
+  };
+
   // Scroll to top function
   const scrollToTop = () => {
     window.scrollTo({
@@ -75,6 +100,30 @@ const Footer = () => {
           </div>
         </div>
 
+        <div className={styles.footerNav}>
+          <div className={styles.footerNavColumn}>
+            <h4 className={styles.footerNavTitle}>Legal</h4>
+            <ul className={styles.footerNavList}>
+              <li>
+                <button
+                  onClick={openTermsModal}
+                  className={styles.footerNavButton}
+                >
+                  Terms of Service
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={openPrivacyModal}
+                  className={styles.footerNavButton}
+                >
+                  Privacy Policy
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div className={styles.footerConnect}>
           <h4 className={styles.footerNavTitle}>Connect</h4>
           <div className={styles.socialLinks}>
@@ -118,6 +167,10 @@ const Footer = () => {
           <p>New York University</p>
         </div>
       </div>
+
+      {/* Modal Components */}
+      <TermsModal isOpen={isTermsModalOpen} onClose={closeTermsModal} />
+      <PrivacyModal isOpen={isPrivacyModalOpen} onClose={closePrivacyModal} />
     </footer>
   );
 };

@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     const initAuth = () => {
       const currentUser = getCurrentUser();
       if (currentUser) {
+        console.log(currentUser);
         setUser(currentUser);
       }
       setLoading(false);

@@ -6,7 +6,7 @@ const ChatMessage = ({ message, isLast }) => {
   const {
     sender,
     content,
-    timestamp,
+    created_at,
     attachment,
     isError,
     referencedDocuments,
@@ -84,7 +84,7 @@ const ChatMessage = ({ message, isLast }) => {
         )}
       </div>
 
-      <div className={styles.messageTime}>{formatTime(timestamp)}</div>
+      <div className={styles.messageTime}>{formatTime(created_at)}</div>
     </div>
   );
 };

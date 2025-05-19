@@ -12,6 +12,8 @@ const ChatPage = () => {
   const messagesEndRef = useRef(null);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
 
+  console.log(messages);
+
   // Scroll to bottom when messages change
   useEffect(() => {
     scrollToBottom();
@@ -52,8 +54,7 @@ const ChatPage = () => {
         <div className={styles.chatHeaderContent}>
           <h1>Chat Assistant</h1>
           <p className={styles.chatSubtitle}>
-            Ask questions about your health records, medications, or
-            appointments
+            {`Ask questions about your health records, medications, or appointments`}
           </p>
         </div>
 
@@ -72,13 +73,15 @@ const ChatPage = () => {
 
       <div className={styles.chatContainer}>
         <div className={styles.messagesContainer}>
-          {messages.map((message, index) => (
-            <ChatMessage
-              key={message.id}
-              message={message}
-              isLast={index === messages.length - 1}
-            />
-          ))}
+          {Array.isArray(messages)
+            ? messages.map((message, index) => (
+                <ChatMessage
+                  key={message.id}
+                  message={message}
+                  isLast={index === messages.length - 1}
+                />
+              ))
+            : null}
 
           {/* Show typing indicator when loading */}
           {loading && (

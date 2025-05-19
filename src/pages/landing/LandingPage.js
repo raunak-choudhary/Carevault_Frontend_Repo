@@ -124,8 +124,8 @@ const LandingPage = () => {
     {
       id: 'team-1',
       name: 'Raunak Choudhary',
-      role: 'Project Lead & Developer',
-      bio: 'NYU Computer Science graduate student specializing in Human-Computer Interaction.',
+      role: 'UI/UX & Frontend',
+      bio: 'NYU Computer Science graduate student specializing in Human-Computer Interaction with focus on UI/UX.',
       netId: 'rc5553',
       email: 'raunak.choudhary@nyu.edu',
       linkedin: 'https://linkedin.com/in/raunakchoudhary',
@@ -134,11 +134,11 @@ const LandingPage = () => {
     {
       id: 'team-2',
       name: 'Aninda Ghosh',
-      role: 'UI/UX Designer & Developer',
-      bio: 'NYU Computer Science graduate student with expertise in user experience design.',
+      role: 'ML & Backend',
+      bio: 'NYU Computer Science graduate student with expertise in backend development and machine learning.',
       netId: 'ag10293',
       email: 'ag10293@nyu.edu',
-      linkedin: 'https://linkedin.com/in/anindaghosh',
+      linkedin: 'https://linkedin.com/in/anindaghosh99',
       github: 'https://github.com/anindaghosh',
     },
   ];

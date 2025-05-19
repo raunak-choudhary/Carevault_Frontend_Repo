@@ -51,7 +51,7 @@ const SettingsPage = () => {
               <label>Name</label>
               <input
                 type="text"
-                defaultValue={`${user?.firstName || ''} ${user?.lastName || ''}`}
+                defaultValue={`${user?.first_name || ''} ${user?.last_name || ''}`}
               />
             </div>
             <div className={styles.formGroup}>

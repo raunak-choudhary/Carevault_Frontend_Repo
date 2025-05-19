@@ -16,7 +16,7 @@ const VerifyAccountPage = () => {
 
   // Redirect if user is already verified
   useEffect(() => {
-    if (user?.verified) {
+    if (user?.email_verified) {
       navigate('/dashboard');
     }
   }, [user, navigate]);

@@ -15,14 +15,14 @@ const ProfilePage = () => {
   const { user, updateUser } = useAuth();
 
   const [formData, setFormData] = useState({
-    firstName: user?.firstName || '',
-    lastName: user?.lastName || '',
+    firstName: user?.first_name || '',
+    lastName: user?.last_name || '',
     email: user?.email || '',
-    phone: user?.phone || '',
-    dateOfBirth: user?.dateOfBirth || '',
+    phone: user?.phone_number || '',
+    dateOfBirth: user?.date_of_birth || '',
     address: user?.address || '',
-    emergencyContact: user?.emergencyContact || '',
-    medicalConditions: user?.medicalConditions || '',
+    emergencyContact: user?.emergency_contact_name || '',
+    medicalConditions: user?.medical_conditions || '',
   });
 
   const [editing, setEditing] = useState(false);
@@ -78,14 +78,14 @@ const ProfilePage = () => {
   const handleCancel = () => {
     // Reset form to original user data
     setFormData({
-      firstName: user?.firstName || '',
-      lastName: user?.lastName || '',
+      firstName: user?.first_name || '',
+      lastName: user?.last_name || '',
       email: user?.email || '',
-      phone: user?.phone || '',
-      dateOfBirth: user?.dateOfBirth || '',
+      phone: user?.phone_number || '',
+      dateOfBirth: user?.date_of_birth || '',
       address: user?.address || '',
-      emergencyContact: user?.emergencyContact || '',
-      medicalConditions: user?.medicalConditions || '',
+      emergencyContact: user?.emergency_contact_name || '',
+      medicalConditions: user?.medical_conditions || '',
     });
 
     // Exit edit mode
@@ -149,14 +149,14 @@ const ProfilePage = () => {
       <div className={styles.profileContent}>
         <div className={styles.profileAvatar}>
           <div className={styles.avatarCircle}>
-            {user?.firstName && user?.lastName
-              ? `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`
+            {user?.first_name && user?.last_name
+              ? `${user.first_name.charAt(0)}${user.last_name.charAt(0)}`
               : 'U'}
           </div>
           <h2>
-            {user?.firstName} {user?.lastName}
+            {user?.first_name} {user?.last_name}
           </h2>
-          <p>{user?.role === 'patient' ? 'Patient' : 'Caregiver'}</p>
+          <p>{user?.user_role === 'patient' ? 'Patient' : 'Caregiver'}</p>
         </div>
 
         <form className={styles.profileForm} onSubmit={handleSubmit}>

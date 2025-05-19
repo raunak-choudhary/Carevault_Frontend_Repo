@@ -70,7 +70,7 @@ const CriticalAlertsWidget = () => {
             allAlerts.push({
               id: `alert-${patient.id}-${i}`,
               patientId: patient.id,
-              patientName: `${patient.firstName} ${patient.lastName}`,
+              patientName: `${patient.first_name} ${patient.last_name}`,
               type,
               priority,
               message,

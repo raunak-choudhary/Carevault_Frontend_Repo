@@ -18,27 +18,50 @@ export const ChatProvider = ({ children }) => {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [suggestedQueries, setSuggestedQueries] = useState([]);
+  const [historyLoading, setHistoryLoading] = useState(true);
 
   // Load chat history and documents on mount or when user changes
   useEffect(() => {
     if (user) {
       // Load chat history
-      const history = getChatHistory();
 
-      // Add welcome message if no history
-      if (history.length === 0) {
-        const welcomeMessage = {
-          id: '1',
-          sender: 'ai',
-          content: `Hello ${user?.firstName || 'there'}! I'm your CareVault assistant. You can ask me questions about your health records, medications, or appointments. How can I help you today?`,
-          timestamp: new Date().toISOString(),
-        };
+      const loadChatHistory = async () => {
+        setHistoryLoading(true);
 
-        setMessages([welcomeMessage]);
-        saveChatHistory([welcomeMessage]);
-      } else {
-        setMessages(history);
-      }
+        try {
+          const history = await getChatHistory();
+
+          // Add welcome message if no history
+          if (!history || history.length === 0) {
+            const welcomeMessage = {
+              id: '1',
+              sender: 'ai',
+              content: `Hello ${user?.first_name || 'there'}! I'm your CareVault assistant. You can ask me questions about your health records, medications, or appointments. How can I help you today?`,
+              timestamp: new Date().toISOString(),
+            };
+
+            setMessages([welcomeMessage]);
+            saveChatHistory([welcomeMessage]);
+          } else {
+            setMessages(history);
+          }
+        } catch (err) {
+          console.error('Error fetching chat history:', err);
+          // Set a default welcome message even on error
+          const welcomeMessage = {
+            id: '1',
+            sender: 'ai',
+            content:
+              "Welcome to CareVault! I had trouble loading your previous messages, but I'm ready to help you now.",
+            timestamp: new Date().toISOString(),
+          };
+          setMessages([welcomeMessage]);
+        } finally {
+          setHistoryLoading(false);
+        }
+      };
+
+      loadChatHistory();
 
       // Load documents
       const fetchDocuments = async () => {
@@ -71,6 +94,8 @@ export const ChatProvider = ({ children }) => {
       } catch (err) {
         console.error('Error processing file attachment:', err);
       }
+
+      content = content.trim() || 'Attached file';
     }
 
     // Create user message
@@ -90,10 +115,12 @@ export const ChatProvider = ({ children }) => {
     // Generate AI response
     setLoading(true);
 
+    const documents_id = processedFile ? [processedFile.id] : [];
+
     try {
       // In a future phase, this will connect to the backend AI service
       // For now, we're using a simulated response
-      const responseData = await generateResponse(content, file, documents);
+      const responseData = await generateResponse(content, file, documents_id);
 
       const aiMessage = {
         id: (Date.now() + 1).toString(),
@@ -138,7 +165,7 @@ export const ChatProvider = ({ children }) => {
     const welcomeMessage = {
       id: Date.now().toString(),
       sender: 'ai',
-      content: `Hello ${user?.firstName || 'there'}! I'm your CareVault assistant. You can ask me questions about your health records, medications, or appointments. How can I help you today?`,
+      content: `Hello ${user?.first_name || 'there'}! I'm your CareVault assistant. You can ask me questions about your health records, medications, or appointments. How can I help you today?`,
       timestamp: new Date().toISOString(),
     };
 

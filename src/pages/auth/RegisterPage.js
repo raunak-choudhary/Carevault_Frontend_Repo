@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FiUser, FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
 import { useAuth } from '../../hooks/useAuth';
 import { register } from '../../services/authService';
+import TermsModal from '../../components/common/TermsModal';
+import PrivacyModal from '../../components/common/PrivacyModal';
 import styles from './RegisterPage.module.css';
 
 const RegisterPage = () => {
@@ -22,6 +24,8 @@ const RegisterPage = () => {
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -95,8 +99,11 @@ const RegisterPage = () => {
       // Update auth context
       signIn(user);
 
+      console.log(user);
+
       // Redirect to verification page if not verified
       if (!user.verified) {
+        console.log(user);
         navigate('/verify-account');
       } else {
         navigate('/dashboard');
@@ -106,6 +113,25 @@ const RegisterPage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Modal handlers
+  const openTermsModal = (e) => {
+    e.preventDefault();
+    setIsTermsModalOpen(true);
+  };
+
+  const closeTermsModal = () => {
+    setIsTermsModalOpen(false);
+  };
+
+  const openPrivacyModal = (e) => {
+    e.preventDefault();
+    setIsPrivacyModalOpen(true);
+  };
+
+  const closePrivacyModal = () => {
+    setIsPrivacyModalOpen(false);
   };
 
   return (
@@ -283,7 +309,22 @@ const RegisterPage = () => {
                 className={styles.checkboxInput}
                 required
               />
-              I agree to the Terms of Service and Privacy Policy
+              I agree to the{' '}
+              <button
+                type="button"
+                onClick={openTermsModal}
+                className={styles.termsLink}
+              >
+                Terms of Service
+              </button>{' '}
+              and{' '}
+              <button
+                type="button"
+                onClick={openPrivacyModal}
+                className={styles.termsLink}
+              >
+                Privacy Policy
+              </button>
             </label>
             {errors.agreeToTerms && (
               <div className={styles.errorText}>{errors.agreeToTerms}</div>
@@ -308,6 +349,10 @@ const RegisterPage = () => {
         <div className={styles.loginLink}>
           Already have an account? <Link to="/login">Sign In</Link>
         </div>
+
+        {/* Modals */}
+        <TermsModal isOpen={isTermsModalOpen} onClose={closeTermsModal} />
+        <PrivacyModal isOpen={isPrivacyModalOpen} onClose={closePrivacyModal} />
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ const AuthGuard = ({ children }) => {
 
     // Check for auth token expiration
     const checkTokenExpiration = () => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('access_token');
       if (!token) {
         signOut();
         navigate('/login');

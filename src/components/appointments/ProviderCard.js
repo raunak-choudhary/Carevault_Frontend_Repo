@@ -104,10 +104,10 @@ const ProviderCard = ({
           </div>
         )}
 
-        {provider.phone && (
+        {provider.contact_phone && (
           <div className={styles.detailItem}>
             <FiPhone className={styles.detailIcon} />
-            <span>{provider.phone}</span>
+            <span>{provider.contact_phone}</span>
           </div>
         )}
 

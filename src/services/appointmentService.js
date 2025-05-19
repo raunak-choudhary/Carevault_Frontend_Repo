@@ -1,3 +1,5 @@
+import { apiClient, handleApiError } from '../utils/apiClient';
+
 // This service would normally make API calls to a backend server
 // For now, we'll use localStorage for persistence and simulate API behavior
 
@@ -10,70 +12,23 @@ const generateId = () => {
 };
 
 // Get all appointments
-// Get all appointments
+
 const getAppointments = async (status = 'all') => {
-  // Simulate API call
-  await delay(800);
+  const response = await apiClient.get('/appointments/');
+  const data = response.data;
 
-  // Get user from local storage
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  if (!user.id) {
-    throw new Error('User not authenticated');
-  }
+  console.log(data);
 
-  // Get appointments from localStorage or return empty array
-  const appointmentsJson = localStorage.getItem('appointments');
-  let appointments = appointmentsJson ? JSON.parse(appointmentsJson) : [];
-
-  // Filter appointments by user
-  appointments = appointments.filter((appt) => appt.userId === user.id);
-
-  // Apply status filter
-  if (status !== 'all') {
-    const now = new Date();
-
-    if (status === 'upcoming') {
-      // Filter for appointments in the future and not cancelled
-      appointments = appointments.filter(
-        (appt) => new Date(appt.startTime) > now && appt.status !== 'cancelled',
-      );
-    } else if (status === 'completed') {
-      // Filter for appointments in the past or with status 'completed'
-      appointments = appointments.filter(
-        (appt) => new Date(appt.startTime) < now || appt.status === 'completed',
-      );
-    } else if (status === 'cancelled') {
-      // Filter for cancelled appointments
-      appointments = appointments.filter((appt) => appt.status === 'cancelled');
-    }
-  }
-
-  // Sort by date (most recent first for past, soonest first for upcoming)
-  appointments.sort((a, b) => {
-    const dateA = new Date(a.startTime);
-    const dateB = new Date(b.startTime);
-
-    if (status === 'completed' || status === 'cancelled') {
-      return dateB - dateA; // Most recent first for completed/cancelled
-    }
-
-    return dateA - dateB; // Soonest first for upcoming
-  });
+  const appointments = data?.data?.appointments || [];
 
   return appointments;
 };
 
 // Get appointment by ID
 const getAppointmentById = async (id) => {
-  // Simulate API call
-  await delay(500);
-
-  // Get appointments from localStorage
-  const appointmentsJson = localStorage.getItem('appointments');
-  const appointments = appointmentsJson ? JSON.parse(appointmentsJson) : [];
-
-  // Find appointment with matching ID
-  const appointment = appointments.find((appt) => appt.id === id);
+  const response = await apiClient.get('/appointments/' + id);
+  const data = response.data;
+  const appointment = data?.data || null;
 
   if (!appointment) {
     throw new Error('Appointment not found');
@@ -84,38 +39,15 @@ const getAppointmentById = async (id) => {
 
 // Create a new appointment
 const createAppointment = async (appointmentData) => {
-  // Simulate API call
-  await delay(1000);
+  console.log(appointmentData);
 
-  // Get user from local storage
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  if (!user.id) {
-    throw new Error('User not authenticated');
-  }
-
-  // Get existing appointments
-  const appointmentsJson = localStorage.getItem('appointments');
-  const appointments = appointmentsJson ? JSON.parse(appointmentsJson) : [];
-
-  // Create new appointment object
-  const newAppointment = {
-    id: generateId(),
-    userId: user.id,
-    createdAt: new Date().toISOString(),
-    status: 'scheduled',
+  const response = await apiClient.post('/appointments/', {
     ...appointmentData,
-    // Combine date and time for start/end times
-    startTime: `${appointmentData.date}T${appointmentData.startTime}`,
-    endTime: `${appointmentData.date}T${appointmentData.endTime}`,
-  };
+  });
+  const data = response.data;
+  const appointment = data?.data || null;
 
-  // Add to appointments array
-  appointments.push(newAppointment);
-
-  // Save to localStorage
-  localStorage.setItem('appointments', JSON.stringify(appointments));
-
-  return newAppointment;
+  return appointment;
 };
 
 // Update an appointment
