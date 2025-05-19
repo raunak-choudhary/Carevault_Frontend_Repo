@@ -5,7 +5,8 @@ CareVault is an AI-powered healthcare management platform designed to centralize
 This repository contains only the frontend codebase developed using React. The corresponding backend implementation can be found here:  
 [CareVault Backend Repository](https://github.com/raunak-choudhary/Carevault_Backend_Repo.git)
 
-## System Architecture (Please check the Architecture Diagram in the Frontend Repository of Carevault)
+## System Architecture 
+(Please check the Architecture Diagram in the Frontend Repository of Carevault)
 
 - **Users** interact with the React frontend.
 - The frontend communicates with a **Python backend** to handle data and AI requests.
