@@ -114,8 +114,8 @@ export const ChatProvider = ({ children }) => {
 
     // Generate AI response
     setLoading(true);
-    
-    const documents_id =  processedFile ? [processedFile.id] : []
+
+    const documents_id = processedFile ? [processedFile.id] : [];
 
     try {
       // In a future phase, this will connect to the backend AI service

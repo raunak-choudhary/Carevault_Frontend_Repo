@@ -1,37 +1,23 @@
-// HeroSection.js
-import React, { useEffect, useRef, useState } from 'react';
+// pages/demo/DemoPage.js
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiCheck } from 'react-icons/fi';
-import styles from './HeroSection.module.css';
-// Import the image from the correct path
-import appScreenshot from '../../assets/images/app-screenshot.png';
+import { FiArrowLeft } from 'react-icons/fi';
+import styles from './DemoPage.module.css';
+// Import the logo
+import carevaultLogo from '../../assets/images/carevault-logo.png';
+// Import the demo video
+// import demoVideo from '../../assets/videos/CareVault_Final_Demo.mp4';
 
-const HeroSection = () => {
-  const heroRef = useRef(null);
-  const medicationAnimationRef = useRef(null); // Ref for the animation container
-  const backgroundShapesRef = useRef(null); // Ref for background shapes container
+const youtubeVideoId = 'ZuuEdnYPFfQ';
+
+const DemoPage = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const backgroundShapesRef = React.useRef(null);
+  const medicationAnimationRef = React.useRef(null);
 
-  // Animation for typing effect
-  const [displayText, setDisplayText] = useState('');
-  const fullText = 'Your personal healthcare management platform.';
-  const typingSpeed = 50; // milliseconds per character
-
-  // Setup animation when component mounts and add parallax effect
   useEffect(() => {
-    // Entrance visibility
+    // Make page visible with animation
     setIsVisible(true);
-
-    // Typing effect
-    let currentIndex = 0;
-    const typingInterval = setInterval(() => {
-      if (currentIndex <= fullText.length) {
-        setDisplayText(fullText.substring(0, currentIndex));
-        currentIndex++;
-      } else {
-        clearInterval(typingInterval);
-      }
-    }, typingSpeed);
 
     // Parallax effect on scroll - ONLY for background shapes
     const handleScroll = () => {
@@ -47,26 +33,47 @@ const HeroSection = () => {
 
     // Cleanup function
     return () => {
-      clearInterval(typingInterval);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []);
 
   const numLanes = 8; // Define number of vertical lanes
 
   return (
-    <section
-      className={`${styles.heroSection} ${isVisible ? styles.visible : ''}`}
-      ref={heroRef}
-    >
+    <div className={`${styles.demoPage} ${isVisible ? styles.visible : ''}`}>
+      {/* Header */}
+      <header className={styles.header}>
+        <div className={styles.headerContent}>
+          <Link to="/" className={styles.logo}>
+            <img
+              src={carevaultLogo}
+              alt="CareVault Logo"
+              className={styles.logoIcon}
+              width="32"
+              height="32"
+            />
+            <span className={styles.logoText}>CareVault</span>
+          </Link>
+
+          <div className={styles.authButtons}>
+            <Link to="/login" className={styles.loginButton}>
+              Log In
+            </Link>
+            <Link to="/register" className={styles.registerButton}>
+              Sign Up
+            </Link>
+          </div>
+        </div>
+      </header>
+
       {/* Background Shapes Container - Apply parallax here */}
-      <div className={styles.heroBackground} ref={backgroundShapesRef}>
+      <div className={styles.demoBackground} ref={backgroundShapesRef}>
         <div className={styles.shape1}></div>
         <div className={styles.shape2}></div>
         <div className={styles.shape3}></div>
       </div>
 
-      {/* Medication Animation Container - Moved outside heroImage, spans entire section */}
+      {/* Medication Animation Container */}
       <div className={styles.medicationAnimation} ref={medicationAnimationRef}>
         {/* Generate pills with different sizes and colors */}
         {Array.from({ length: 15 }).map((_, index) => {
@@ -142,52 +149,44 @@ const HeroSection = () => {
         })}
       </div>
 
-      <div className={styles.heroContent}>
-        <h1 className={styles.heroTitle}>
-          <span className={styles.titleAnimation}>AI-Powered</span>{' '}
-          <span className={styles.highlight}>Healthcare Management</span>
-        </h1>
-        <p className={styles.heroSubtitle}>{displayText}</p>
-        <div className={styles.heroCta}>
-          <Link to="/register" className={styles.primaryButton}>
-            Get Started
-          </Link>
-          <Link to="/demo" className={styles.secondaryButton}>
-            View Demo
+      <main className={styles.demoContent}>
+        <div className={styles.backButtonContainer}>
+          <Link to="/" className={styles.backButton}>
+            <FiArrowLeft /> Back to Home
           </Link>
         </div>
-        <div className={styles.heroBadges}>
-          <div className={styles.badge}>
-            <span className={styles.badgeIcon}>
-              <FiCheck />
-            </span>
-            HIPAA Compliant
-          </div>
-          <div className={styles.badge}>
-            <span className={styles.badgeIcon}>
-              <FiCheck />
-            </span>
-            AI-Powered
-          </div>
-          <div className={styles.badge}>
-            <span className={styles.badgeIcon}>
-              <FiCheck />
-            </span>
-            NYU CS Project
-          </div>
-        </div>
-      </div>
 
-      <div className={styles.heroImage}>
-        <img
-          src={appScreenshot}
-          alt="CareVault Dashboard"
-          className={styles.mainImage}
-        />
-        {/* Medication animation container moved outside */}
-      </div>
-    </section>
+        <div className={styles.videoContainer}>
+          <h1 className={styles.demoTitle}>CareVault Demo</h1>
+          <p className={styles.demoDescription}>
+            Watch our platform demo to see how CareVault transforms healthcare
+            management with AI assistance, document organization, and more.
+          </p>
+
+          <div className={styles.videoWrapper}>
+            <iframe
+              width="100%"
+              height="550"
+              src={`https://www.youtube.com/embed/${youtubeVideoId}`}
+              title="CareVault Product Demo"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+
+          <div className={styles.videoControls}>
+            <p className={styles.videoInfo}>
+              This demonstration showcases the core features of CareVault
+              including document management, AI-assisted healthcare, appointment
+              scheduling, and medication management.
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
   );
 };
 
-export default HeroSection;
+export default DemoPage;

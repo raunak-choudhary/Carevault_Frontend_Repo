@@ -278,21 +278,24 @@ const login = async (credentials) => {
 
 // Register new user
 const register = async (userData) => {
+  console.log(userData);
 
-  console.log(userData)
-  
-  const response = await apiClient.post('/auth/register', {
-    first_name: userData.firstName,
-    last_name: userData.lastName,
-    email: userData.email,
-    password: userData.password,
-    role: userData.role || USER_ROLES.PATIENT,
-  }, {
-    headers: {
-      'Content-Type': 'application/json',
+  const response = await apiClient.post(
+    '/auth/register',
+    {
+      first_name: userData.firstName,
+      last_name: userData.lastName,
+      email: userData.email,
+      password: userData.password,
+      role: userData.role || USER_ROLES.PATIENT,
     },
-  });
-  
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+
   const data = response.data;
   console.log(data);
 

@@ -19,8 +19,9 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden; /* Keep overflow hidden to contain effects */
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
-              box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition:
+    transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   transform: translateY(50px);
   opacity: 0;
   z-index: 1;
@@ -38,7 +39,7 @@
 }
 
 /* Combined hover and focus styles, removed .active */
-.featureCard:hover, 
+.featureCard:hover,
 .featureCard:focus {
   transform: translateY(-12px) scale(1.04) rotate(-1deg); /* Slightly more lift, scale, and a subtle tilt */
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
@@ -47,20 +48,26 @@
 }
 
 .featureCard::before {
-  content: ""; /* Fixed syntax error */
+  content: ''; /* Fixed syntax error */
   position: absolute;
   top: 0;
   left: 0;
   width: 5px;
   height: 100%;
-  background: linear-gradient(to bottom, var(--feature-color), transparent); /* Gradient border */
-  transition: width 0.4s ease, opacity 0.4s ease;
+  background: linear-gradient(
+    to bottom,
+    var(--feature-color),
+    transparent
+  ); /* Gradient border */
+  transition:
+    width 0.4s ease,
+    opacity 0.4s ease;
   opacity: 0.8;
   z-index: 0; /* Ensure it's behind content */
 }
 
 /* Combined hover/focus for ::before, removed .active */
-.featureCard:hover::before, 
+.featureCard:hover::before,
 .featureCard:focus::before {
   width: 10px; /* Make border slightly thicker on hover */
   opacity: 1;
@@ -80,7 +87,7 @@
 }
 
 /* Combined hover/focus for iconWrapper, removed .active */
-.featureCard:hover .iconWrapper, 
+.featureCard:hover .iconWrapper,
 .featureCard:focus .iconWrapper {
   transform: scale(1.15) rotate(5deg); /* More scale and rotation */
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
@@ -88,7 +95,7 @@
 }
 
 /* Combined hover/focus for iconWrapper svg, removed .active */
-.featureCard:hover .iconWrapper svg, 
+.featureCard:hover .iconWrapper svg,
 .featureCard:focus .iconWrapper svg {
   color: white !important;
   transform: scale(1.1); /* Scale icon inside */
@@ -131,7 +138,7 @@
 }
 
 /* Combined hover/focus for demoPreview, removed .active */
-.featureCard:hover .demoPreview, 
+.featureCard:hover .demoPreview,
 .featureCard:focus .demoPreview {
   opacity: 1;
   transform: scale(1.08) translateY(-5px); /* Scale more and lift slightly */
@@ -155,7 +162,7 @@
 }
 
 /* Combined hover/focus for arrowIcon, removed .active */
-.featureCard:hover .arrowIcon, 
+.featureCard:hover .arrowIcon,
 .featureCard:focus .arrowIcon {
   transform: translateX(8px) scale(1.1); /* Move further and scale */
 }
@@ -185,18 +192,32 @@
   transition: width 0.3s ease;
 }
 
-.featureCard:hover .documentItem:nth-child(1) { width: 95%; transition-delay: 0.1s; }
-.featureCard:hover .documentItem:nth-child(2) { width: 85%; transition-delay: 0.2s; }
-.featureCard:hover .documentItem:nth-child(3) { width: 75%; transition-delay: 0.3s; }
+.featureCard:hover .documentItem:nth-child(1) {
+  width: 95%;
+  transition-delay: 0.1s;
+}
+.featureCard:hover .documentItem:nth-child(2) {
+  width: 85%;
+  transition-delay: 0.2s;
+}
+.featureCard:hover .documentItem:nth-child(3) {
+  width: 75%;
+  transition-delay: 0.3s;
+}
 
 .documentItem::after {
-  content: ""; /* Fixed syntax error */
+  content: ''; /* Fixed syntax error */
   position: absolute;
   top: 0;
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
   animation: shine 2s infinite;
 }
 
@@ -232,8 +253,14 @@
   transition: transform 0.3s ease;
 }
 
-.featureCard:hover .chatBubble:nth-child(1) { transform: translateX(5px); transition-delay: 0.1s; }
-.featureCard:hover .chatBubble:nth-child(2) { transform: translateX(-5px); transition-delay: 0.2s; }
+.featureCard:hover .chatBubble:nth-child(1) {
+  transform: translateX(5px);
+  transition-delay: 0.1s;
+}
+.featureCard:hover .chatBubble:nth-child(2) {
+  transform: translateX(-5px);
+  transition-delay: 0.2s;
+}
 
 .chatBubble:nth-child(1) {
   width: 80%;
@@ -257,7 +284,7 @@
 }
 
 .chatInput::after {
-  content: ""; /* Fixed syntax error */
+  content: ''; /* Fixed syntax error */
   position: absolute;
   width: 10px;
   height: 10px;
@@ -289,30 +316,51 @@
   background-color: var(--bg-tertiary);
   border-radius: 6px;
   position: relative;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
 }
 
 /* Added --i custom property inline for staggered delay */
-.featureCard:hover .calendarDay:nth-child(odd) { 
-  transform: scale(0.9); 
-  transition-delay: calc(var(--i, 1) * 0.05s); 
+.featureCard:hover .calendarDay:nth-child(odd) {
+  transform: scale(0.9);
+  transition-delay: calc(var(--i, 1) * 0.05s);
 }
-.featureCard:hover .calendarDay:nth-child(even) { 
-  transform: scale(1.1); 
-  transition-delay: calc(var(--i, 1) * 0.05s); 
+.featureCard:hover .calendarDay:nth-child(even) {
+  transform: scale(1.1);
+  transition-delay: calc(var(--i, 1) * 0.05s);
 }
 
 /* Assign --i to each child for the delay calculation */
-.calendarDay:nth-child(1) { --i: 1; }
-.calendarDay:nth-child(2) { --i: 2; }
-.calendarDay:nth-child(3) { --i: 3; }
-.calendarDay:nth-child(4) { --i: 4; }
-.calendarDay:nth-child(5) { --i: 5; background-color: var(--feature-color); opacity: 0.7; }
-.calendarDay:nth-child(6) { --i: 6; }
-.calendarDay:nth-child(7) { --i: 7; }
-.calendarDay:nth-child(8) { --i: 8; }
-.calendarDay:nth-child(9) { --i: 9; }
-
+.calendarDay:nth-child(1) {
+  --i: 1;
+}
+.calendarDay:nth-child(2) {
+  --i: 2;
+}
+.calendarDay:nth-child(3) {
+  --i: 3;
+}
+.calendarDay:nth-child(4) {
+  --i: 4;
+}
+.calendarDay:nth-child(5) {
+  --i: 5;
+  background-color: var(--feature-color);
+  opacity: 0.7;
+}
+.calendarDay:nth-child(6) {
+  --i: 6;
+}
+.calendarDay:nth-child(7) {
+  --i: 7;
+}
+.calendarDay:nth-child(8) {
+  --i: 8;
+}
+.calendarDay:nth-child(9) {
+  --i: 9;
+}
 
 /* Medication Demo */
 .medicationDemo {
@@ -338,9 +386,18 @@
   transition: transform 0.3s ease;
 }
 
-.featureCard:hover .pill:nth-child(1) { transform: rotate(-15deg) translateX(-5px); transition-delay: 0.1s; }
-.featureCard:hover .pill:nth-child(2) { transform: scale(1.2); transition-delay: 0.2s; }
-.featureCard:hover .pill:nth-child(3) { transform: rotate(15deg) translateX(5px); transition-delay: 0.3s; }
+.featureCard:hover .pill:nth-child(1) {
+  transform: rotate(-15deg) translateX(-5px);
+  transition-delay: 0.1s;
+}
+.featureCard:hover .pill:nth-child(2) {
+  transform: scale(1.2);
+  transition-delay: 0.2s;
+}
+.featureCard:hover .pill:nth-child(3) {
+  transform: rotate(15deg) translateX(5px);
+  transition-delay: 0.3s;
+}
 
 .pill:nth-child(2) {
   background-color: var(--feature-color);
@@ -369,7 +426,9 @@
   flex: 1;
   background-color: var(--bg-tertiary);
   border-radius: 6px 6px 0 0;
-  transition: height 0.5s ease, background-color 0.3s ease;
+  transition:
+    height 0.5s ease,
+    background-color 0.3s ease;
 }
 
 .featureCard:hover .chartBar {
@@ -377,10 +436,24 @@
   opacity: 0.6;
 }
 
-.featureCard:hover .chartBar:nth-child(1) { height: 70%; transition-delay: 0.1s; }
-.featureCard:hover .chartBar:nth-child(2) { height: 90%; transition-delay: 0.2s; background-color: var(--feature-color); opacity: 1;}
-.featureCard:hover .chartBar:nth-child(3) { height: 50%; transition-delay: 0.3s; }
-.featureCard:hover .chartBar:nth-child(4) { height: 80%; transition-delay: 0.4s; }
+.featureCard:hover .chartBar:nth-child(1) {
+  height: 70%;
+  transition-delay: 0.1s;
+}
+.featureCard:hover .chartBar:nth-child(2) {
+  height: 90%;
+  transition-delay: 0.2s;
+  background-color: var(--feature-color);
+  opacity: 1;
+}
+.featureCard:hover .chartBar:nth-child(3) {
+  height: 50%;
+  transition-delay: 0.3s;
+}
+.featureCard:hover .chartBar:nth-child(4) {
+  height: 80%;
+  transition-delay: 0.4s;
+}
 
 .chartBar:nth-child(2) {
   background-color: var(--feature-color);
@@ -405,9 +478,18 @@
   transition: transform 0.3s ease;
 }
 
-.featureCard:hover .userCircle:nth-child(1) { transform: translate(-15px, -5px) scale(1.1); transition-delay: 0.1s; }
-.featureCard:hover .userCircle:nth-child(2) { transform: translateY(-10px) scale(1.2); transition-delay: 0.2s; }
-.featureCard:hover .userCircle:nth-child(3) { transform: translate(15px, -5px) scale(1.1); transition-delay: 0.3s; }
+.featureCard:hover .userCircle:nth-child(1) {
+  transform: translate(-15px, -5px) scale(1.1);
+  transition-delay: 0.1s;
+}
+.featureCard:hover .userCircle:nth-child(2) {
+  transform: translateY(-10px) scale(1.2);
+  transition-delay: 0.2s;
+}
+.featureCard:hover .userCircle:nth-child(3) {
+  transform: translate(15px, -5px) scale(1.1);
+  transition-delay: 0.3s;
+}
 
 .userCircle:nth-child(2) {
   background-color: var(--feature-color);
@@ -466,7 +548,9 @@
   position: relative;
   z-index: 3;
   overflow: hidden;
-  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease;
+  transition:
+    transform 0.5s ease-in-out,
+    box-shadow 0.5s ease;
 }
 
 .pulseDevice {
@@ -639,7 +723,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -657,7 +742,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.5;
   }
   50% {
@@ -681,12 +767,12 @@
   .featureShowcase {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
-  
+
   .integrationDemo {
     flex-direction: column;
     gap: 2rem;
   }
-  
+
   .connectors {
     display: block; /* Changed from none to block */
   }
@@ -696,24 +782,24 @@
   .featureCard {
     padding: 1.5rem;
   }
-  
+
   /* Adjusted hover/focus for smaller screens */
-  .featureCard:hover, 
+  .featureCard:hover,
   .featureCard:focus {
     transform: translateY(-8px) scale(1.03); /* Less dramatic effect */
     /* Removed rotate for smaller screens if it feels too much */
   }
-  
+
   .demoPreview {
     height: 100px;
   }
-  
+
   .iconWrapper {
     width: 60px;
     height: 60px;
     border-radius: 15px;
   }
-  
+
   .deviceFrame {
     transform: none !important;
   }
@@ -723,17 +809,17 @@
   .featureShowcase {
     grid-template-columns: 1fr;
   }
-  
+
   .featureCard {
     max-width: 100%;
   }
 
   /* Further reduced hover/focus effect for mobile */
-  .featureCard:hover, 
+  .featureCard:hover,
   .featureCard:focus {
     transform: translateY(-5px) scale(1.02);
   }
-  
+
   .deviceFrame {
     transform: scale(0.8);
   }

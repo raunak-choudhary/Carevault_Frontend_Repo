@@ -67,6 +67,8 @@ import SettingsPage from './pages/settings/SettingsPage';
 // Import layout components
 import BaseLayout from './components/layout/BaseLayout';
 
+import DemoPage from './pages/demo/DemoPage';
+
 // Import global styles
 import './styles/global.css';
 
@@ -114,6 +116,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       {/* Public routes */}
+      <Route path="/demo" element={<DemoPage />} />
       <Route path="/" element={<LandingPage />} />
       <Route
         path="/login"

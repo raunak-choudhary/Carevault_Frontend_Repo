@@ -86,7 +86,6 @@ const getMedicationById = async (id) => {
 
 // Add a new medication
 const addMedication = async (medicationData) => {
-  
   const response = await apiClient.post('/medications/', {
     ...medicationData,
   });

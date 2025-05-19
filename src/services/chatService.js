@@ -191,7 +191,6 @@ const getFileType = (file) => {
 
 // Process file attachment
 const processFileAttachment = async (file) => {
-
   /**
    * 
    * 
@@ -215,7 +214,7 @@ const processFileAttachment = async (file) => {
 
   const formData = new FormData();
   formData.append('file', file);
-  
+
   const response = await apiClient.post('/chat/upload', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -223,7 +222,6 @@ const processFileAttachment = async (file) => {
   });
 
   console.log('File upload response:', response);
-  
 
   const data = response.data;
   console.log(data);

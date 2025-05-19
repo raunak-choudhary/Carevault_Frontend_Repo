@@ -2,7 +2,9 @@
 .problemStatement {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
   background-color: var(--bg-primary);
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -137,7 +139,9 @@
   padding: 1rem;
   background-color: var(--bg-secondary);
   border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .impactItem:hover {
@@ -153,7 +157,7 @@
   height: 32px;
   border-radius: 50%;
   background-color: rgba(244, 67, 54, 0.1);
-  color: #F44336;
+  color: #f44336;
   flex-shrink: 0;
   font-size: 1.1rem;
 }
@@ -208,7 +212,8 @@
   position: relative;
 }
 
-.connector::before, .connector::after {
+.connector::before,
+.connector::after {
   content: '';
   position: absolute;
   width: 8px;
@@ -267,7 +272,9 @@
   display: flex;
   gap: 1rem;
   align-items: flex-start;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .subproblemCard:hover {
@@ -340,7 +347,8 @@
   position: relative;
 }
 
-.versus::before, .versus::after {
+.versus::before,
+.versus::after {
   content: '';
   position: absolute;
   left: 50%;
@@ -366,7 +374,9 @@
   align-items: center;
   gap: 1rem;
   max-width: 300px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .integratedSystem:hover {
@@ -482,7 +492,9 @@
   padding: 1rem;
   background-color: var(--bg-secondary);
   border-radius: 8px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .importanceItem:hover {
@@ -511,7 +523,9 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .impactMetric:hover {
@@ -556,7 +570,9 @@
   background-color: var(--bg-secondary);
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .architectureDiagramContainer:hover {
@@ -596,7 +612,9 @@
   padding: 1.25rem;
   background-color: var(--bg-secondary);
   border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .architectureFeature:hover {
@@ -638,7 +656,9 @@
   padding: 1.5rem;
   background-color: var(--bg-secondary);
   border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .techStackContainer:hover {
@@ -699,34 +719,34 @@
   .tabContent {
     padding: 2rem;
   }
-  
+
   .importanceWrapper {
     flex-direction: column;
     gap: 2rem;
   }
-  
+
   .importanceVisual {
     max-width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
-  
+
   .problemIllustration {
     flex-direction: column;
     gap: 2rem;
   }
-  
+
   .versus {
     transform: rotate(90deg);
   }
-  
+
   .versus::before {
     left: -30px;
     top: 50%;
     width: 20px;
     height: 1px;
   }
-  
+
   .versus::after {
     right: -30px;
     left: auto;
@@ -734,11 +754,12 @@
     width: 20px;
     height: 1px;
   }
-  
-  .fragmentedSystem, .integratedSystem {
+
+  .fragmentedSystem,
+  .integratedSystem {
     max-width: 100%;
   }
-  
+
   .architectureDetails {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -750,44 +771,45 @@
     padding: 1rem;
     max-width: none;
   }
-  
+
   .tabContent {
     padding: 1.5rem;
   }
-  
+
   .processItem {
     gap: 1rem;
   }
-  
+
   .subproblemGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .illustrationInner {
     flex-direction: column;
     gap: 2rem;
   }
-  
+
   .connector {
     width: 2px;
     height: 40px;
     flex: 0;
   }
-  
-  .connector::before, .connector::after {
+
+  .connector::before,
+  .connector::after {
     left: 50%;
     transform: translateX(-50%);
   }
-  
+
   .connector::before {
     top: 0;
   }
-  
+
   .connector::after {
     top: auto;
     bottom: 0;
   }
-  
+
   .architectureDiagramContainer {
     padding: 0.5rem;
   }
@@ -797,46 +819,46 @@
   .tabLabel {
     display: none;
   }
-  
+
   .tabButton {
     padding: 0.75rem;
   }
-  
+
   .mainProblem {
     font-size: 1.2rem;
     padding-left: 1rem;
   }
-  
+
   .tabTitle {
     font-size: 1.3rem;
   }
-  
+
   .processStep {
     width: 40px;
     height: 40px;
     font-size: 1rem;
   }
-  
+
   .processItem:not(:last-child)::after {
     top: 40px;
     left: 20px;
   }
-  
+
   .architectureIntro {
     font-size: 1.1rem;
     padding-left: 0.75rem;
   }
-  
+
   .architectureFeature {
     padding: 1rem;
   }
-  
+
   .featureIcon {
     width: 35px;
     height: 35px;
     font-size: 1rem;
   }
-  
+
   .techStackContainer {
     padding: 1rem;
   }

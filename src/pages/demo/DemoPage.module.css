@@ -1,0 +1,418 @@
+/* pages/demo/DemoPage.module.css */
+.demoPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-primary);
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.demoPage.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(var(--bg-primary-rgb), 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary);
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.logoIcon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.logoText {
+  background: linear-gradient(135deg, var(--primary) 0%, #8bc34a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+}
+
+.authButtons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.loginButton {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.loginButton:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.registerButton {
+  background-color: var(--primary);
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(76, 175, 80, 0.3);
+}
+
+.registerButton:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.demoContent {
+  flex: 1;
+  padding: 8rem 2rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.backButtonContainer {
+  margin-bottom: 2rem;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  background-color: rgba(76, 175, 80, 0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.backButton:hover {
+  background-color: rgba(76, 175, 80, 0.2);
+  transform: translateX(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.videoContainer {
+  background-color: var(--bg-primary);
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 5;
+}
+
+.demoTitle {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-weight: 800;
+}
+
+.demoDescription {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  max-width: 800px;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  background-color: #000;
+  margin-bottom: 2rem;
+  aspect-ratio: 16 / 9;
+}
+
+.videoPlayer {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.videoControls {
+  margin-top: 1.5rem;
+}
+
+.videoInfo {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+/* Background styles from HeroSection */
+.demoBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Enhanced background shapes */
+.shape1,
+.shape2,
+.shape3 {
+  position: absolute;
+  border-radius: 50%;
+  /* Use radial gradient for softer effect and add blur */
+  background: radial-gradient(
+    circle,
+    rgba(76, 175, 80, 0.15) 0%,
+    rgba(139, 195, 74, 0.05) 70%
+  );
+  filter: blur(15px); /* Increased blur for more atmospheric feel */
+  will-change: transform; /* Optimize animation */
+}
+
+.shape1 {
+  width: 60vw;
+  height: 60vw;
+  bottom: -30vw;
+  left: -20vw;
+  animation: rotate 90s infinite linear;
+}
+
+.shape2 {
+  width: 40vw;
+  height: 40vw;
+  top: -15vw;
+  right: -10vw;
+  animation: rotate 60s infinite linear reverse;
+}
+
+.shape3 {
+  width: 25vw; /* Slightly larger */
+  height: 25vw;
+  bottom: 15vh;
+  right: 18vw;
+  animation: pulseShape 15s infinite ease-in-out alternate; /* Use alternate direction */
+}
+
+/* Enhanced medical animation styles - Repositioned to cover entire hero section */
+.medicationAnimation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2; /* Above background, below content */
+  overflow: visible; /* Allow elements to be visible outside container */
+}
+
+/* Floating pill animation - Modified for vertical linear movement */
+.floatingPill {
+  position: absolute;
+  width: var(--size);
+  height: calc(var(--size) / 2);
+  background-color: var(--color);
+  border-radius: 50px;
+  /* Position in vertical lanes */
+  left: var(--lane-position);
+  bottom: -50px; /* Start below the viewport */
+  transform: rotate(var(--rotate));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  opacity: 0;
+  animation: floatPillVertical var(--duration) linear infinite;
+  animation-delay: var(--delay);
+  will-change: transform, opacity;
+}
+
+/* Floating capsule animation - Modified for vertical linear movement */
+.floatingCapsule {
+  position: absolute;
+  width: var(--width);
+  height: var(--height);
+  /* Position in vertical lanes */
+  left: var(--lane-position);
+  bottom: -50px; /* Start below the viewport */
+  transform: rotate(var(--rotate));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  opacity: 0;
+  animation: floatCapsuleVertical var(--duration) linear infinite;
+  animation-delay: var(--delay);
+  will-change: transform, opacity;
+  border-radius: 50px;
+  background: linear-gradient(to right, var(--color1) 50%, var(--color2) 50%);
+}
+
+/* New vertical animation for pills */
+@keyframes floatPillVertical {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(var(--rotate));
+  }
+  10% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120vh) rotate(calc(var(--rotate) + 40deg));
+  }
+}
+
+/* New vertical animation for capsules */
+@keyframes floatCapsuleVertical {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(var(--rotate));
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120vh) rotate(calc(var(--rotate) + 60deg));
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animation for the third shape */
+@keyframes pulseShape {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+  .demoContent {
+    padding: 7rem 1.5rem 3rem;
+  }
+
+  .demoTitle {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .videoWrapper {
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .demoContent {
+    padding: 6rem 1rem 2rem;
+  }
+
+  .demoTitle {
+    font-size: 2rem;
+  }
+
+  .demoDescription {
+    font-size: 1.1rem;
+  }
+
+  .headerContent {
+    padding: 1rem;
+  }
+
+  .videoContainer {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .demoTitle {
+    font-size: 1.8rem;
+  }
+
+  .demoDescription {
+    font-size: 1rem;
+  }
+
+  .videoInfo {
+    font-size: 0.95rem;
+  }
+
+  .backButton {
+    padding: 0.5rem 1rem;
+  }
+
+  .headerContent {
+    padding: 0.8rem 1rem;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .logoIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}

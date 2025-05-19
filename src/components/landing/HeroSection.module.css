@@ -9,7 +9,9 @@
   overflow: hidden;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
 .heroSection.visible {
@@ -24,7 +26,9 @@
   /* Add subtle entrance animation */
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s; /* Delay after section fade-in */
+  transition:
+    opacity 0.6s ease 0.4s,
+    transform 0.6s ease 0.4s; /* Delay after section fade-in */
 }
 
 .heroSection.visible .heroContent {
@@ -41,7 +45,9 @@
   /* Staggered animation */
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.5s ease 0.6s, transform 0.5s ease 0.6s;
+  transition:
+    opacity 0.5s ease 0.6s,
+    transform 0.5s ease 0.6s;
 }
 
 .heroSection.visible .heroTitle {
@@ -93,7 +99,9 @@
   /* Staggered animation */
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.5s ease 0.8s, transform 0.5s ease 0.8s;
+  transition:
+    opacity 0.5s ease 0.8s,
+    transform 0.5s ease 0.8s;
 }
 
 .heroSection.visible .heroSubtitle {
@@ -108,7 +116,9 @@
   /* Staggered animation */
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.5s ease 1s, transform 0.5s ease 1s;
+  transition:
+    opacity 0.5s ease 1s,
+    transform 0.5s ease 1s;
 }
 
 .heroSection.visible .heroCta {
@@ -117,7 +127,11 @@
 }
 
 .primaryButton {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--primary-light) 100%
+  );
   color: white;
   padding: 1rem 2rem;
   border-radius: 50px;
@@ -182,7 +196,9 @@
   border-radius: 50px;
   transform: scale(0.8);
   opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
   z-index: -1;
 }
 
@@ -205,7 +221,9 @@
   /* Staggered animation */
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.5s ease 1.2s, transform 0.5s ease 1.2s;
+  transition:
+    opacity 0.5s ease 1.2s,
+    transform 0.5s ease 1.2s;
 }
 
 .heroSection.visible .heroBadges {
@@ -259,7 +277,9 @@
   /* Staggered animation */
   opacity: 0;
   transform: translateX(20px) perspective(1000px) rotateY(-5deg);
-  transition: opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s;
+  transition:
+    opacity 0.6s ease 0.5s,
+    transform 0.6s ease 0.5s;
 }
 
 .heroSection.visible .heroImage {
@@ -416,11 +436,17 @@
 }
 
 /* Enhanced background shapes */
-.shape1, .shape2, .shape3 {
+.shape1,
+.shape2,
+.shape3 {
   position: absolute;
   border-radius: 50%;
   /* Use radial gradient for softer effect and add blur */
-  background: radial-gradient(circle, rgba(76, 175, 80, 0.15) 0%, rgba(139, 195, 74, 0.05) 70%);
+  background: radial-gradient(
+    circle,
+    rgba(76, 175, 80, 0.15) 0%,
+    rgba(139, 195, 74, 0.05) 70%
+  );
   filter: blur(15px); /* Increased blur for more atmospheric feel */
   will-change: transform; /* Optimize animation */
 }
@@ -475,11 +501,11 @@
   .heroSection {
     padding: 7rem 1.5rem 4rem;
   }
-  
+
   .heroTitle {
     font-size: 3rem;
   }
-  
+
   .mainImage {
     max-width: 600px;
   }
@@ -491,20 +517,20 @@
     padding: 6rem 1.5rem 3rem;
     text-align: center;
   }
-  
+
   .heroContent {
     max-width: 100%;
     margin-bottom: 3rem;
   }
-  
+
   .heroCta {
     justify-content: center;
   }
-  
+
   .heroBadges {
     justify-content: center;
   }
-  
+
   .heroImage {
     margin-left: 0;
     max-width: 80%;
@@ -515,7 +541,7 @@
   .heroSection.visible .heroImage {
     transform: translateY(0) perspective(1000px) rotateY(0deg);
   }
-  
+
   .heroTitle::after {
     left: 50%;
     transform: translateX(-50%);
@@ -526,27 +552,28 @@
   .heroTitle {
     font-size: 2.5rem;
   }
-  
+
   .heroSubtitle {
     font-size: 1.2rem;
   }
-  
+
   .heroCta {
     flex-direction: column;
   }
-  
-  .primaryButton, .secondaryButton {
+
+  .primaryButton,
+  .secondaryButton {
     width: 100%;
     max-width: 350px; /* Limit button width on smaller screens */
     margin-left: auto;
     margin-right: auto;
     text-align: center;
   }
-  
+
   .heroImage {
     max-width: 100%;
   }
-  
+
   .mainImage {
     transform: none;
   }
@@ -560,11 +587,11 @@
   .heroTitle {
     font-size: 2rem;
   }
-  
+
   .heroSection {
     padding: 5rem 1rem 2rem;
   }
-  
+
   .badge {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
