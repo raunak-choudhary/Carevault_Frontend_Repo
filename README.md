@@ -22,3 +22,5 @@ This repository contains only the frontend codebase developed using React. The c
 - **Aninda Ghosh**  
   Master's in Computer Science, NYU Tandon  
   [ag7762@nyu.edu](mailto:ag7762@nyu.edu)
+  
+-----
